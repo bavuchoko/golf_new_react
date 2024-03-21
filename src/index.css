@@ -1,3 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Headland+One&display=swap');
+
+:root {
+  --main-btn-color : #166aea;
+  --main-inner-color : #ccd6e8;
+  --main-cancel-color : #38932d;
+  --main-excel-color : 222,234,223,1;
+  --thumbnail-line: #2f8da9;
+  --modal-background: rgba(47, 46, 46, 0.7);
+  --drawer-background: rgba(68, 67, 67, 0.6);
+}
+
+fp {
+  font-family: 'Headland One', sans-serif; /* Google Fonts에서 가져온 폰트 이름을 여기에 적용합니다 */
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -10,4 +29,115 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.nav-bar{
+  z-index: 997;
+  line-height: 45px;
+  position: fixed;
+  padding: 10px 30px;
+  top: 0;
+  height: 65px;
+  background-color: #ffffff;
+}
+.dropMenu{
+  background-color: #fcfbfb;
+  height: 100%;
+  width: 100%;
+  z-index: 990;
+  padding: 20px 30px;
+  position: fixed;
+  top:-100%;
+  left: 0%;
+  transition: transform 0.2s ease-in-out;
+}
+.show{
+  transform: translateY(calc(100% + 65px));
+}
+.dropMenu > ul > li {
+  font-size: 20px;
+  margin-bottom: 25px;
+}
+.user-panel{
+  padding: 80px 25px 10px;
+  background-color: white;
+}
+.user-panel-info{
+  width: calc(100% - 90px);
+}
+.user-panel-image{
+  width: 90px;
+  height: 90px;
+  margin-top: 20px;
+  border-radius: 50%;
+}  .user-panel-subject{
+  display: inline-block;
+  margin-bottom: 10px;
+  font-size: 2rem;
+  font-weight: bolder;
+}
+.user-panel-logout{
+  display: inline-block;
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+}
+.gender-icon{
+  margin-top: -5px;
+  width: 25px;
+  display: inline-block;
+  margin-right: 10px;
+}
+.user-personal-info{
+  line-height: 25px;
+}
+.user-panel-info > p.sep{
+  font-size: 0.9rem;
+  margin-top: 5px;
+}
+.user-age-bold{
+  font-size: 1.2rem;
+  letter-spacing: 2px;
+  font-weight: 600;
+}
+.joinbtn{
+  display: block;
+  padding: 5px 20px;
+  color: #464545;
+  margin: 0 auto;
+  font-size: 0.9rem;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 40px;
+}
+.menu-bottom{
+  width: 100%;
+  position: absolute;
+  left: 0;
+  bottom: 65px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  background: white;
+}
+.loginbtn_Y{
+  display: block;
+  background-color: var(--main-btn-color);
+  width: 95%;
+  border-radius: 30px;
+  color: white;
+  height: 50px;
+  line-height: 50px;
+  margin: 0 auto;
+  font-size: 23px;
+  text-align: center;
+}
+ul.dropLi{
+  height: 100%;
+  margin-top: 7px;
+  padding-top: 20px;
+  background-color: white;
+}
+ul.dropLi > a >li{
+  font-weight: bold;
+  padding: 10px 25px;
+  margin : 10px 0;
 }
