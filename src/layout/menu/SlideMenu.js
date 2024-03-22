@@ -1,15 +1,13 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {logout} from "../../redux/slice/authSlice";
+import close from "../../resources/icons/close.png";
+function MainMenu({open, setOpen }) {
 
-function MainMenu({closeMenu,open}) {
-    const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+
     const dispatch = useDispatch();
-    const user = useSelector(state => state.auth.user);
 
     function handleLogout() {
-        closeMenu()
-        // Redux store의 상태를 초기화한다
         localStorage.removeItem("accessToken");
         localStorage.removeItem("loginUser");
         dispatch(logout());
@@ -33,7 +31,11 @@ function MainMenu({closeMenu,open}) {
         return age;
     }
     return (
-        <div className={`dropMenu ${open ? 'show' : ''}`}>
+        <div className={`slideMenu ${open ? 'slide-in' : ''}`}>
+            <img className="w-5 h-5  " alt="menu" src={close} onClick={()=>{
+                setOpen(false);
+                document.body.style.removeProperty('overflow');
+                }}/>
             <ul>
                 <li>홈으로</li>
                 <li>경기장 등록하기</li>
@@ -41,8 +43,14 @@ function MainMenu({closeMenu,open}) {
                 <li>문의하기</li>
             </ul>
 
-            <div className={"menu-bottom"}>
-                <button className={"loginbtn_Y"}>로그인</button>
+            <div className={"menu-bottom-slide flex"}>
+                <div>
+                    <p className={"font-bold text-[17px]"}>로그아웃</p>
+                    <p className={"text-[14px]"}>박종수</p>
+                </div>
+                <div className={"user-family-name"}>
+                    종수
+                </div>
             </div>
         </div>
     );

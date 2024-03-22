@@ -1,0 +1,51 @@
+import React, {useState} from 'react';
+import menu from '../../resources/icons/menu.png'
+import close from '../../resources/icons/close.png'
+import DropMenu from "../menu/DropMenu";
+import {useSelector} from "react-redux";
+import LoadingModal from "../../components/modal/LoadingModal";
+import {useHeaderContext} from "../context/HeaderContext";
+
+
+function BeforLoginHeader() {
+
+    const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
+
+    const [open, setOpen]=useState(false)
+    const { apiLoading } = useHeaderContext();
+
+    const openHandler = () =>{
+        if(open) document.body.style.removeProperty('overflow');
+        else document.body.style.overflow = 'hidden';
+        setOpen(!open)
+    }
+    const closeMenu = () =>{
+        setOpen(false)
+        document.body.style.removeProperty('overflow');
+    }
+
+    return (
+        <>
+        <div className="w-full px-[30px] py-[10px] nav-bar h-[65px] border-b">
+            {apiLoading &&
+                <LoadingModal />
+            }
+            <div className="inline-block w-[100%] flex h-[45px]" >
+                <p>
+                    <span className={"Headland font-bold text-[38px]"}>P</span>arkGolf
+                </p>
+                <button onClick={openHandler} className={"ml-auto"}>
+                    {open ?
+                    <img className="w-8 h-8  " alt="menu" src={close}/>
+                        :
+                    <img className="w-8 h-8 " alt="menu" src={menu}/>
+                    }
+                </button>
+            </div>
+        </div>
+        <DropMenu closeMenu={closeMenu} open={open}/>
+        </>
+    );
+}
+
+export default BeforLoginHeader;

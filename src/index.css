@@ -8,12 +8,12 @@
   --main-inner-color : #ccd6e8;
   --main-cancel-color : #38932d;
   --main-excel-color : 222,234,223,1;
+  --main-gray-line : #dfe5eb;
   --thumbnail-line: #2f8da9;
   --modal-background: rgba(47, 46, 46, 0.7);
   --drawer-background: rgba(68, 67, 67, 0.6);
 }
-
-fp {
+.Headland{
   font-family: 'Headland One', sans-serif; /* Google Fonts에서 가져온 폰트 이름을 여기에 적용합니다 */
 }
 
@@ -30,14 +30,14 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-
+.z-999{
+  z-index: 998;
+}
 .nav-bar{
   z-index: 997;
-  line-height: 45px;
+  line-height: 50px;
   position: fixed;
-  padding: 10px 30px;
   top: 0;
-  height: 65px;
   background-color: #ffffff;
 }
 .dropMenu{
@@ -49,15 +49,68 @@ code {
   position: fixed;
   top:-100%;
   left: 0%;
-  transition: transform 0.2s ease-in-out;
+  transition: transform 0.4s ease-in-out;
 }
-.show{
+.drop-in{
   transform: translateY(calc(100% + 65px));
+  transition: transform 0.5s ease-in-out;
+}
+.slideMenu{
+  background-color: white;
+  height: 100%;
+  width: 80%;
+  z-index: 999;
+  padding: 20px 30px;
+  position: fixed;
+  top:0;
+  right: -100%;
+  transition: transform 0.4s ease-in-out;
+}
+.slide-in{
+  transform: translateX(-125%);
+  transition: transform 0.4s ease-in-out;
 }
 .dropMenu > ul > li {
   font-size: 20px;
   margin-bottom: 25px;
 }
+.slideMenu > ul{
+  height: calc(100% - 185px);
+  margin-top: 5rem;
+}
+.slideMenu > ul > li {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+.menu-bottom{
+  width: 100%;
+  position: absolute;
+  left: 0;
+  bottom: 65px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  background: white;
+}
+.menu-bottom-slide{
+  padding: 24px 0 32px;
+  height: 90px;
+  margin-top: auto;
+  border-top: 1px solid var(--main-gray-line);
+
+}
+.user-family-name{
+  text-align: center;
+  line-height: 48px;
+  font-size: 18px;
+  color: white;
+  background: var(--main-btn-color);
+  margin-left: auto;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}
+
 .user-panel{
   padding: 80px 25px 10px;
   background-color: white;
@@ -109,15 +162,7 @@ code {
   text-align: center;
   margin-top: 40px;
 }
-.menu-bottom{
-  width: 100%;
-  position: absolute;
-  left: 0;
-  bottom: 65px;
-  padding-top: 15px;
-  padding-bottom: 15px;
-  background: white;
-}
+
 .loginbtn_Y{
   display: block;
   background-color: var(--main-btn-color);
