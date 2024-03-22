@@ -1,16 +1,19 @@
 import React from 'react';
 import {Outlet} from "react-router-dom";
+import BeforLoginHeader from "./header/BeforLoginHeader";
+import {useSelector} from "react-redux";
 import MainHeader from "./header/MainHeader";
 
-function Layout(props) {
+function Info(props) {
+
     return (
         <>
-            <MainHeader />
+            <BeforLoginHeader />
             <div className="containers">
-                <Outlet/>
+                sef
             </div>
         </>
     );
 }
 
-export default Layout;
+export default Info;

@@ -1,37 +1,7 @@
 import React from 'react';
-import {useDispatch, useSelector} from "react-redux";
-import {logout} from "../../redux/slice/authSlice";
+import {Link} from "react-router-dom";
 
-function DropMenu({closeMenu,open}) {
-    const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-    const dispatch = useDispatch();
-    const user = useSelector(state => state.auth.user);
-
-    function handleLogout() {
-        closeMenu()
-        // Redux store의 상태를 초기화한다
-        localStorage.removeItem("accessToken");
-        localStorage.removeItem("loginUser");
-        dispatch(logout());
-    }
-
-    function ageCalc(birth) {
-        const today = new Date();
-        let year = '19';
-        if(birth.substring(0,1)==='0'){
-            year ='20';
-        }
-        year = year + birth.substring(0,2);
-        let month = birth.substring(2,4);
-        let day = birth.substring(4,6);
-        const birthDate = new Date(year, month, day); // 2000년 8월 10일
-        let age = today.getFullYear() - birthDate.getFullYear();
-        const m = today.getMonth() - birthDate.getMonth();
-        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-            age--;
-        }
-        return age;
-    }
+function DropMenu({open}) {
     return (
         <div className={`dropMenu ${open ? 'drop-in' : ''}`}>
             <ul>
@@ -42,7 +12,7 @@ function DropMenu({closeMenu,open}) {
             </ul>
 
             <div className={"menu-bottom"}>
-                <button className={"loginbtn_Y"}>로그인</button>
+                <Link to="/login" className={"loginbtn_Y"}>로그인</Link>
             </div>
         </div>
     );

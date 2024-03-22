@@ -30,12 +30,21 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.no-outline{
+  outline: none;
+}
 .z-999{
   z-index: 998;
 }
+.line-h-50{
+  line-height: 50px;
+}
+.line-h-45{
+  line-height: 45px;
+}
 .nav-bar{
   z-index: 997;
-  line-height: 50px;
   position: fixed;
   top: 0;
   background-color: #ffffff;
@@ -87,8 +96,9 @@ code {
   width: 100%;
   position: absolute;
   left: 0;
-  bottom: 65px;
-  padding-top: 15px;
+  bottom: 70px;
+  padding-top: 20px;
+  border-top: 1px solid var(--main-gray-line);
   padding-bottom: 15px;
   background: white;
 }

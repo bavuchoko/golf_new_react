@@ -4,21 +4,24 @@ import {BrowserRouter as Router, Navigate, Route, Routes} from "react-router-dom
 import './App.css';
 import Layout from "./layout/Layout";
 import {HeaderContextProvider} from "./layout/context/HeaderContext";
+import Login from "./packages/user/Login";
+import Info from "./layout/Info";
 
 function App() {
     const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-    const dispatch = useDispatch();
-  return (
+    return (
       <HeaderContextProvider>
       <Router>
         <Routes>
-            <Route path="/" element={<Layout />} >
+            <Route path="/" element={isLoggedIn ? <Layout />: <Navigate to='/main' />} >
+                {/*<Route index element={ <Home />} />*/}
             </Route>
-          <Route />
+            <Route path="/login"  element={ <Login />} />
+            <Route path="/main" element={<Info />} />
         </Routes>
       </Router>
       </HeaderContextProvider>
-  );
+    );
 }
 
 export default App;

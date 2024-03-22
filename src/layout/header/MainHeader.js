@@ -1,17 +1,13 @@
 import React, {useState} from 'react';
 import menu from '../../resources/icons/menu.png'
-import close from '../../resources/icons/close.png'
-import DropMenu from "../menu/DropMenu";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {useQuery} from "react-query";
 import {tokenVaildation} from "../../api/auth/AuthService";
 import {logout} from "../../redux/slice/authSlice";
-import LoadingModal from "../../components/modal/LoadingModal";
-import {useHeaderContext} from "../context/HeaderContext";
 import SlideMenu from "../menu/SlideMenu";
 
 
-function AfterLoginHeader() {
+function MainHeader() {
 
     const dispatch = useDispatch();
     const { isLoading, error, data } = useQuery('auth', tokenVaildation,{
@@ -35,7 +31,7 @@ function AfterLoginHeader() {
 
     return (
         <>
-        <div className="w-full  px-[30px] line-h-40 py-[5px]  nav-bar h-[55px] ">
+        <div className="w-full  px-[30px] line-h-40 py-[5px] line-h-50 nav-bar h-[55px] ">
             <div className="inline-block w-[100%] flex h-[50px]" >
                 <p>
                     <span className={"Headland font-bold text-[20px]"}>P</span>arkGolf
@@ -51,4 +47,4 @@ function AfterLoginHeader() {
     );
 }
 
-export default AfterLoginHeader;
+export default MainHeader;
