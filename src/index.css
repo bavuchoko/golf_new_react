@@ -25,7 +25,6 @@ body {
   opacity: 0;
   position: absolute;
   animation: right-in 1s forwards;
-  overflow-x: hidden;
 }
 .slide-right-delay{
   opacity: 0;
@@ -33,7 +32,6 @@ body {
   animation: right-in 1s 0.5s forwards;
   overflow-x: hidden;
 }
-
 .keyFix + input{
   opacity: 0;
   animation: showup 1s forwards;
@@ -41,6 +39,17 @@ body {
 .border-bottom{
   border-radius: 0;
   border-bottom: 1px solid var(--main-gray-line);
+}
+.gender-radio input[type="radio"]{
+  display: none;
+}
+.gender-radio label{
+  border-radius: 5px;
+  height: 140px;
+  font-size: 18px;
+  line-height: 20px;
+  border: 1px solid var(--main-gray-line);
+  padding: 20px;
 }
  @keyframes left-in {
    from{
