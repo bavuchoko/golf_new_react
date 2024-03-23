@@ -34,15 +34,9 @@ async function userLogout() {
     }
 }
 
-async function userJoin(loginUser) {
-    const response = await noAuh.post('/user/create', loginUser);
-    if (response.status === 200) {
-        localStorage.setItem('accessToken',response.data);
-        return response;
-    } else {
-        const error = new Error('로그인 실패');
-        throw error; // 응답 코드가 400인 경우, 예외를 발생시킵니다.
-    }
+
+async function userJoin(user) {
+    return await noAuh.post('/user/create', user);
 }
 
 

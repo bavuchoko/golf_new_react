@@ -5,6 +5,7 @@ import {useQuery} from "react-query";
 import {tokenVaildation} from "../../api/auth/AuthService";
 import {logout} from "../../redux/slice/authSlice";
 import SlideMenu from "../menu/SlideMenu";
+import {Link} from "react-router-dom";
 
 
 function MainHeader() {
@@ -33,9 +34,9 @@ function MainHeader() {
         <>
         <div className="w-full  px-[30px] line-h-40 py-[5px] line-h-50 nav-bar h-[55px] ">
             <div className="inline-block w-[100%] flex h-[50px]" >
-                <p>
+                <Link to={"/"}>
                     <span className={"Headland font-bold text-[20px]"}>P</span>arkGolf
-                </p>
+                </Link>
                 <button onClick={openHandler} className={"ml-auto"}>
                     <img className="w-7 h-7 " alt="menu" src={menu}/>
                 </button>

@@ -2,7 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 @import url('https://fonts.googleapis.com/css2?family=Headland+One&display=swap');
+body {
+  height: 100vh;
 
+}
 :root {
   --main-btn-color : #166aea;
   --main-inner-color : #ccd6e8;
@@ -13,6 +16,61 @@
   --modal-background: rgba(47, 46, 46, 0.7);
   --drawer-background: rgba(68, 67, 67, 0.6);
 }
+.slide-left{
+  opacity: 0;
+  position: absolute;
+  animation: left-in 1s forwards;
+}
+.slide-right{
+  opacity: 0;
+  position: absolute;
+  animation: right-in 1s forwards;
+  overflow-x: hidden;
+}
+.slide-right-delay{
+  opacity: 0;
+  position: absolute;
+  animation: right-in 1s 0.5s forwards;
+  overflow-x: hidden;
+}
+
+.keyFix + input{
+  opacity: 0;
+  animation: showup 1s forwards;
+}
+.border-bottom{
+  border-radius: 0;
+  border-bottom: 1px solid var(--main-gray-line);
+}
+ @keyframes left-in {
+   from{
+     left: -100%;
+   }
+   to{
+     left: 30px;
+     opacity: 1;
+   }
+ }
+
+
+@keyframes right-in {
+   from{
+     right: -100%;
+   }
+   to{
+     right: 30px;
+     opacity: 1;
+   }
+ }
+
+@keyframes showup {
+  from{
+  }
+  to{
+    opacity: 1;
+  }
+}
+
 .Headland{
   font-family: 'Headland One', sans-serif; /* Google Fonts에서 가져온 폰트 이름을 여기에 적용합니다 */
 }
