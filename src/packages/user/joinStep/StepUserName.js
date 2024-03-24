@@ -19,7 +19,7 @@ function StepName({setStep, data, fnc, target}) {
             setMessage("전화번호 형식과 다릅니다.")
         }else{
             setPass(true)
-            setMessage("통과")
+            setMessage("다음 단계로 넘어가세요")
         }
     }
 
@@ -31,9 +31,12 @@ function StepName({setStep, data, fnc, target}) {
                     <p onClick={()=>setStep("이름")}>뒤로</p>
                     <div className={"ml-auto w-[64px]"}>
                         <span className={"mr-2"}>2/5</span>
-                        {pass &&
-                            <span className={" text-[#354db0]"} onClick={() => setStep("생일")}>다음</span>
-                        }
+                        <span className={" text-[#354db0]"} onClick={() => {
+                            if(pass)setStep("생일")
+                            else{
+                                alert("전화번호를 입력하세요")
+                            }
+                        }}>다음</span>
                     </div>
 
                 </div>

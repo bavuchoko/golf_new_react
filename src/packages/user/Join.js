@@ -7,6 +7,7 @@ import StepBirth from "./joinStep/StepBirth";
 import StepGender from "./joinStep/StepGender";
 import StepPass from "./joinStep/StepPass";
 import StepUserName from "./joinStep/StepUserName";
+import StepSubmit from "./joinStep/StepSubmit";
 
 function Join() {
 
@@ -40,6 +41,7 @@ function Join() {
             {step ==="생일" && <StepBirth  setStep={setStep} data={userData} fnc={setUserData} target={"birth"}/>}
             {step ==="성별" && <StepGender  setStep={setStep} data={userData} fnc={setUserData} target={"gender"}/>}
             {step ==="비밀번호" && <StepPass  setStep={setStep} data={userData} fnc={setUserData} target={"password"}/>}
+            {step ==="제출" && <StepSubmit setStep={setStep}  data={userData} />}
 
         </>
     );

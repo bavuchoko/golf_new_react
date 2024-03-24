@@ -26,9 +26,12 @@ function StepName({setStep, data, fnc, target}) {
                     <Link to={"/login"} onClick={()=>setStep("이름")}>뒤로</Link>
                     <div className={"ml-auto w-[64px]"}>
                         <span className={"mr-2"}>1/5</span>
-                        {pass &&
-                            <span className={" text-[#354db0]"} onClick={() => setStep("전화번호")}>다음</span>
-                        }
+                            <span className={" text-[#354db0]"} onClick={() => {
+                                if(pass)setStep("전화번호")
+                                else{
+                                    alert("이름을 입력하세요")
+                                }
+                            }}>다음</span>
                     </div>
 
                 </div>
