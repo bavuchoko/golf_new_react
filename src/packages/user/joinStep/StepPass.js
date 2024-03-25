@@ -1,12 +1,14 @@
 import React, {useState} from 'react';
 import {Link} from "react-router-dom";
+import {useHeaderContext} from "../../../layout/context/HeaderContext";
+import LoadingModal from "../../../components/modal/LoadingModal";
+import {useLogin, userJoin} from "../../../api/auth/AuthService";
 
 function StepName({setStep, data, fnc, target}) {
-
     const [passConfirm, setPassConfirm]=useState("");
     const [pass, setPass] =useState(false);
     const [message, setMessage]= useState();
-
+    const {apiLoading, setApiLoading  } = useHeaderContext();
     const onchangeInputHandler = (value) =>{
         fnc((prev)=>({
             ...prev,
@@ -32,19 +34,38 @@ function StepName({setStep, data, fnc, target}) {
         }
     }
 
+    const handleUserJoin  = async ()=>{
+        setApiLoading(true)
+        try {
+            const result = await userJoin(data);
+            console.log(result);
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setApiLoading(false);
+        }
+    };
+
     return (
         <div className={"px-[30px]"}>
+            {apiLoading &&
+                <LoadingModal />
+            }
             <div className="w-full  line-h-40 py-[5px] line-h-50 h-[55px] ">
                 <div className="inline-block w-[100%] flex h-[50px]" >
                     <p onClick={()=>setStep("성별")}>뒤로</p>
                     <div className={"ml-auto w-[96px]"}>
                         <span className={"mr-2"}>5/5</span>
                         <span className={" text-[#354db0]"} onClick={() => {
-                            if(pass)setStep("제출")
+                            if(pass){
+                                if(window.confirm("제출하시겠습니까?")){
+                                    handleUserJoin()
+                                }
+                            }
                             else{
                                 alert("비밀번호를 확인하세요.")
                             }
-                        }}>확인하기</span>
+                        }}>제출하기</span>
                     </div>
                 </div>
             </div>

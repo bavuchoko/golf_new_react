@@ -6,10 +6,12 @@ import {HeaderContextProvider} from "./layout/context/HeaderContext";
 import Login from "./packages/user/Login";
 import Info from "./layout/Info";
 import Join from "./packages/user/Join";
+import React from "react";
 
 function App() {
     const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
     return (
+        <>
       <HeaderContextProvider>
       <Router>
         <Routes>
@@ -22,6 +24,7 @@ function App() {
         </Routes>
       </Router>
       </HeaderContextProvider>
+        </>
     );
 }
 
