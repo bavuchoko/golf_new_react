@@ -10,7 +10,7 @@ function Info(props) {
         <>
             <BeforLoginHeader />
             <div className="containers">
-                sef
+                sefawdawdawdawda
             </div>
         </>
     );

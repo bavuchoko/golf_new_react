@@ -1,14 +1,20 @@
 import React, {useState} from 'react';
-import {Link} from "react-router-dom";
 import {useHeaderContext} from "../../../layout/context/HeaderContext";
 import LoadingModal from "../../../components/modal/LoadingModal";
-import {useLogin, userJoin} from "../../../api/auth/AuthService";
+import {userJoin} from "../../../api/auth/AuthService";
+import {useDispatch} from "react-redux";
+import {useNavigate} from "react-router-dom";
+import {login} from "../../../redux/slice/authSlice";
 
-function StepName({setStep, data, fnc, target}) {
+function StepPass({setStep, data, fnc, target}) {
     const [passConfirm, setPassConfirm]=useState("");
     const [pass, setPass] =useState(false);
     const [message, setMessage]= useState();
+    const [alertMessage, setAlertMessage]= useState("");
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const {apiLoading, setApiLoading  } = useHeaderContext();
+
     const onchangeInputHandler = (value) =>{
         fnc((prev)=>({
             ...prev,
@@ -37,10 +43,24 @@ function StepName({setStep, data, fnc, target}) {
     const handleUserJoin  = async ()=>{
         setApiLoading(true)
         try {
-            const result = await userJoin(data);
-            console.log(result);
+            const response = await userJoin(data);
+            if(response.status===200){
+                alert("회원가입에 성공하여\n메인페이지로 돌아갑니다.");
+                setApiLoading(false);
+                localStorage.setItem('accessToken', response.data);
+                dispatch(login(true));
+                navigate("/")
+                return;
+            }
+            if(response.status===202){
+                setApiLoading(false);
+                setAlertMessage(response.data)
+                return;
+            }
         } catch (error) {
-            console.log(error);
+            console.log(error)
+            setApiLoading(false);
+            alert("아이디와 비밀번호를 확인하세요")
         } finally {
             setApiLoading(false);
         }
@@ -70,13 +90,16 @@ function StepName({setStep, data, fnc, target}) {
                 </div>
             </div>
             <div className={"mt-[3rem]"}>
-                <p className={"keyFix slide-left text-[34px] mb-1"}>비밀번호를 설정합니다.</p>
+                <p className={" slide-left text-[34px] mb-1"}>비밀번호를 설정합니다.</p>
+
+
+                <p className={"keyFix text-[red] text-[13px] pt-[70px]"}>{alertMessage}</p>
 
                 <input value={data[target] ?data[target] : ""}
                        onChange={(e)=>onchangeInputHandler(e.target.value)}
                        type={"password"}
                        placeholder={"비밀번호"}
-                       className={"border-b indent-3 w-[90%] h-[55px] mt-[5rem] no-outline"}
+                       className={"border-b indent-3 w-[90%] h-[55px] mt-[1.5rem] no-outline"}
                        autoFocus={true}
                 />
                 <input value={passConfirm}
@@ -101,4 +124,4 @@ function StepName({setStep, data, fnc, target}) {
     );
 }
 
-export default StepName;
+export default StepPass;

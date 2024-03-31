@@ -3,7 +3,7 @@ import {needAuth, noAuh} from "../instance/Instance";
 
 async function useLogin(loginUser) {
     localStorage.removeItem('accessToken');
-    return await noAuh.post('/user/authentication', loginUser);
+    return await noAuh.post('/user/login', loginUser);
 }
 
 async function tokenVaildation() {
@@ -29,14 +29,16 @@ async function tokenVaildation() {
 async function userLogout() {
     localStorage.removeItem('accessToken');
     try{
-        const response =  await needAuth.get('/user/logout');
+        return await needAuth.get('/user/logout');
     }catch (error){
+        return error;
     }
 }
 
 
 async function userJoin(user) {
-    return await noAuh.post('/user/create', user);
+    localStorage.removeItem('accessToken');
+    return await noAuh.post('/user/join', user);
 }
 
 

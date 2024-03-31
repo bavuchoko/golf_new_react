@@ -1,26 +1,14 @@
 import React, {useState} from 'react';
 import menu from '../../resources/icons/menu.png'
-import {useDispatch} from "react-redux";
-import {useQuery} from "react-query";
-import {tokenVaildation} from "../../api/auth/AuthService";
-import {logout} from "../../redux/slice/authSlice";
 import SlideMenu from "../menu/SlideMenu";
 import {Link} from "react-router-dom";
 
 
 function MainHeader() {
-
-    const dispatch = useDispatch();
-    const { isLoading, error, data } = useQuery('auth', tokenVaildation,{
-        onError: (error) => {
-            alert("세션이 종료되어 로그아웃되었습니다.")
-            dispatch(logout());
-        },
-        onSuccess: (data) => {
-            if (!data) {
-            }else{}
-        },
-    });
+    const accessToken = localStorage.getItem("accessToken");
+    let payload = accessToken.substring(accessToken.indexOf('.')+1,accessToken.lastIndexOf('.'));
+    let userToken = decodeURIComponent(escape(window.atob(payload)));
+    const user = JSON.parse(userToken);
 
     const [open, setOpen]=useState(false)
 
@@ -43,8 +31,8 @@ function MainHeader() {
                 </button>
             </div>
         </div>
-        <SlideMenu open={open} setOpen={setOpen}/>
-            {open  && <div className={"fixed top-0 left-0 w-full h-full bg-[rgba(31,48,60,.9)] z-999"}></div>  }
+        <SlideMenu open={open} setOpen={setOpen} user={user}/>
+            {open  && <div className={"fixed top-0 left-0 w-full h-full bg-[rgba(31,48,60,.9)] z-999"} onClick={()=>setOpen(false)}></div>  }
         </>
     );
 }

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {useLogin} from "../../api/auth/AuthService";
 import {useDispatch} from "react-redux";
 import {login} from "../../redux/slice/authSlice";
@@ -9,7 +9,7 @@ function Login() {
     const [id, setId] =useState("010");
     const [pass, setPass] =useState("");
     const isNumber = /^-?\d*\.?\d+$/;
-    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const idInputHandler=(e)=>{
         if (isNumber.test(e.target.value)) {
@@ -29,13 +29,18 @@ function Login() {
         }
     }
 
-    async function handleLogin(user) {
+    async function handleLogin() {
+        const user ={
+            username:id,
+            password:pass
+        }
         try {
             // eslint-disable-next-line react-hooks/rules-of-hooks
             const response = await useLogin(user);
             if(response.status===200){
-                localStorage.setItem('accessToken',response.data.accessToken);
-                dispatch(login(response.user));
+                localStorage.setItem('accessToken', response.data);
+                navigate("/")
+                window.location.reload();
             }
         } catch (error) {
             if(error.message==='Network Error') alert('서버가 응답하지 않습니다. \n관리자에게 문의하세요');
@@ -73,6 +78,10 @@ function Login() {
                         className={"border-b indent-3 w-[90%] h-[55px] mt-[1rem] no-outline"}
                         type={"password"} placeholder={"비밀번호"}/>
                 </div>
+
+                <button onClick={handleLogin} className={"loginbtn_Y"}>로그인</button>
+
+
             </div>
         </>
     );

@@ -1,16 +1,15 @@
 import React from 'react';
-import {useDispatch, useSelector} from "react-redux";
-import {logout} from "../../redux/slice/authSlice";
 import close from "../../resources/icons/close.png";
-function MainMenu({open, setOpen }) {
+import {userLogout} from "../../api/auth/AuthService";
+import {Link, useNavigate} from "react-router-dom";
 
+function MainMenu({open, setOpen, user }) {
+    const navigate = useNavigate();
 
-    const dispatch = useDispatch();
-
-    function handleLogout() {
+    const handleLogout =async ()=> {
         localStorage.removeItem("accessToken");
-        localStorage.removeItem("loginUser");
-        dispatch(logout());
+        localStorage.removeItem("isLoggedIn");
+        const response = await userLogout(user);
     }
 
     function ageCalc(birth) {
@@ -30,6 +29,8 @@ function MainMenu({open, setOpen }) {
         }
         return age;
     }
+
+
     return (
         <div className={`slideMenu ${open ? 'slide-in' : ''}`}>
             <img className="w-5 h-5  " alt="menu" src={close} onClick={()=>{
@@ -45,11 +46,15 @@ function MainMenu({open, setOpen }) {
 
             <div className={"menu-bottom-slide flex"}>
                 <div>
-                    <p className={"font-bold text-[17px]"}>로그아웃</p>
-                    <p className={"text-[14px]"}>박종수</p>
+                    <Link to={"/"} onClick={()=>{
+                        handleLogout()
+                        setOpen(false)
+                        window.location.reload();
+                    }}><button className={"font-bold text-[17px]"} >로그아웃</button></Link>
+                    <p className={"text-[14px]"}>{user.name}</p>
                 </div>
                 <div className={"user-family-name"}>
-                    종수
+                    {user.name}
                 </div>
             </div>
         </div>

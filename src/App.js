@@ -1,4 +1,3 @@
-import {useSelector} from 'react-redux';
 import {BrowserRouter as Router, Navigate, Route, Routes} from "react-router-dom";
 import './App.css';
 import Layout from "./layout/Layout";
@@ -9,23 +8,27 @@ import Join from "./packages/user/Join";
 import React from "react";
 
 function App() {
-    const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+
+    const isLoggedIn = localStorage.getItem("accessToken") != null
+
     return (
         <>
-      <HeaderContextProvider>
-      <Router>
-        <Routes>
-            <Route path="/" element={isLoggedIn ? <Layout />: <Navigate to='/main' />} >
-                {/*<Route index element={ <Home />} />*/}
-            </Route>
-            <Route path="/login"  element={ <Login />} />
-            <Route path="/join"  element={ <Join />} />
-            <Route path="/main" element={<Info />} />
-        </Routes>
-      </Router>
-      </HeaderContextProvider>
+            <HeaderContextProvider>
+                <Router>
+                    <Routes>
+                        <Route path="/" element={isLoggedIn ? <Layout />: <Info />} >
+                            {/*<Route index element={ <Home />} />*/}
+                        </Route>
+                        <Route path="/login"  element={ <Login />} />
+                        <Route path="/join"  element={ <Join />} />
+                        <Route path="/main" element={<Info />} />
+                    </Routes>
+                </Router>
+            </HeaderContextProvider>
         </>
     );
 }
 
 export default App;
+
+
