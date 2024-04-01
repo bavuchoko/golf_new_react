@@ -38,10 +38,11 @@ function MainMenu({open, setOpen, user }) {
                 document.body.style.removeProperty('overflow');
                 }}/>
             <ul>
-                <li>홈으로</li>
-                <li>경기장 등록하기</li>
-                <li>연습매치 등록하기</li>
-                <li>문의하기</li>
+                <li><Link to={"/"} onClick={()=>setOpen(false)}>홈으로</Link></li>
+                <li><Link to={"/field/create"} onClick={()=>setOpen(false)}>경기장 등록하기</Link></li>
+                <li><Link to={"/game/"} onClick={()=>setOpen(false)}>연습매치</Link></li>
+                <li><Link to={"/game/create"} onClick={()=>setOpen(false)}>연습매치 등록하기</Link></li>
+                <li><Link to={"/contact"} onClick={()=>setOpen(false)}>문의하기</Link></li>
             </ul>
 
             <div className={"menu-bottom-slide flex"}>

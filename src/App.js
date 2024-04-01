@@ -4,8 +4,11 @@ import Layout from "./layout/Layout";
 import {HeaderContextProvider} from "./layout/context/HeaderContext";
 import Login from "./packages/user/Login";
 import Info from "./layout/Info";
+import Home from "./layout/Home";
 import Join from "./packages/user/Join";
 import React from "react";
+import List from "./packages/game/list/List";
+import Test from "./layout/Test";
 
 function App() {
 
@@ -17,11 +20,14 @@ function App() {
                 <Router>
                     <Routes>
                         <Route path="/" element={isLoggedIn ? <Layout />: <Info />} >
-                            {/*<Route index element={ <Home />} />*/}
+                            <Route index element={ <Home />} />
+                            <Route path="/game"  element={ <List />} />
+                            <Route path="/game/create"  element={ <Home />} />
                         </Route>
                         <Route path="/login"  element={ <Login />} />
                         <Route path="/join"  element={ <Join />} />
                         <Route path="/main" element={<Info />} />
+                        <Route path="/test" element={<Test />} />
                     </Routes>
                 </Router>
             </HeaderContextProvider>

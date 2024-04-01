@@ -8,8 +8,9 @@ body {
 }
 :root {
   --main-btn-color : #166aea;
+  --main-red : #ea163d;
   --main-inner-color : #ccd6e8;
-  --main-cancel-color : #38932d;
+  --main-cancel-color : #37af29;
   --main-excel-color : 222,234,223,1;
   --main-gray-line : #dfe5eb;
   --thumbnail-line: #2f8da9;
@@ -123,6 +124,9 @@ code {
 .z-999{
   z-index: 998;
 }
+.line-h-30{
+  line-height: 30px;
+}
 .line-h-50{
   line-height: 50px;
 }
@@ -136,7 +140,7 @@ code {
   background-color: #ffffff;
 }
 .containers{
-  margin-top: 65px;
+  margin-top: 55px;
 }
 .dropMenu{
   background-color: #fcfbfb;
@@ -148,6 +152,12 @@ code {
   top:-100%;
   left: 0%;
   transition: transform 0.4s ease-in-out;
+}
+.weekSelector-border{
+  border-bottom:1px solid #a1ace7;
+}
+.today{
+  border-bottom:4px solid #4d5fbe;
 }
 .drop-in{
   transform: translateY(calc(100% + 65px));
@@ -284,4 +294,48 @@ ul.dropLi > a >li{
   font-weight: bold;
   padding: 10px 25px;
   margin : 10px 0;
+}
+.game-each{
+  padding: 15px;
+  /*position: relative;*/
+  background: white;
+  margin-bottom: 2px;
+  height: 100px;
+  border-bottom: 1px solid var(--main-gray-line);
+}
+.game-each-users{
+
+}
+.game-each-user-each{
+
+  border: 1px solid var(--main-gray-line);
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  line-height: 40px;
+  text-align: center;
+}
+.game-each-status{
+  margin-right: 10px;
+  padding: 3px 10px;
+  font-size: 13px;
+  border-radius: 3px;
+  color: white;
+}
+.open{
+  border: 1px solid #19750e;
+  background: var(--main-cancel-color);
+}
+.playing{
+  border: 1px solid #0f4ba2;
+  background: var(--main-btn-color);
+}
+.end{
+  border: 1px solid #af1330;
+  background: var(--main-red);
+}
+.vertical-slicer{
+  border-left: 1px solid var(--main-inner-color);
+  height: 100%;
+  margin: 0px 5px ;
 }
