@@ -6,7 +6,7 @@ function StepName({setStep, data, fnc, target}) {
     const [pass, setPass] =useState(data[target] && phoneRegEx.test(data[target]) ? true : false);
 
 
-    const isNumber = /^-?\d*\.?\d+$/;
+    const isNumber =  /^\d+$/;
     const inputHandler=(value)=>{
         if (isNumber.test(value) || value==='') {
             fnc((prev)=>({

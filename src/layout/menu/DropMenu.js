@@ -12,7 +12,7 @@ function DropMenu({open}) {
             </ul>
 
             <div className={"menu-bottom"}>
-                <Link to="/login" className={"loginbtn_Y"}>로그인</Link>
+                <Link to="/login" className={"loginbtn_Y m-0 m-auto"}>로그인</Link>
             </div>
         </div>
     );

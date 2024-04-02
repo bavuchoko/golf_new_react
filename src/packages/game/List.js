@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import WeekSelector from "../../../components/datePicker/WeekSelector";
+import WeekSelector from "../../components/datePicker/WeekSelector";
 
 function List(props) {
     const [date, setDate]= useState(new Date())

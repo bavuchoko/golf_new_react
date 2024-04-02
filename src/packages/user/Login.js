@@ -83,7 +83,7 @@ function Login() {
                         type={"password"} placeholder={"비밀번호"}/>
                 </div>
 
-                <button onClick={handleLogin} className={"loginbtn_Y"}>로그인</button>
+                <button onClick={handleLogin} className={"mt-10 loginbtn_Y" }>로그인</button>
 
 
             </div>

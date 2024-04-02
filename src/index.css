@@ -56,6 +56,15 @@ body {
   z-index: 998;
   background: rgba(31,48,60,.9);
 }
+.postal-background{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top:0;
+  left: 0;
+  z-index: 998;
+  background: rgba(31,48,60,.6);
+}
 .border-bottom{
   border-radius: 0;
   border-bottom: 1px solid var(--main-gray-line);
@@ -280,10 +289,10 @@ code {
   color: white;
   height: 50px;
   line-height: 50px;
-  margin: 0 auto;
   font-size: 23px;
   text-align: center;
 }
+
 ul.dropLi{
   height: 100%;
   margin-top: 7px;
@@ -338,4 +347,28 @@ ul.dropLi > a >li{
   border-left: 1px solid var(--main-inner-color);
   height: 100%;
   margin: 0px 5px ;
+}
+.radius-no{
+  border-radius: 0px;
+}
+.postal-btn{
+  border-radius: 3px;
+  width: 100%;
+  padding: 10px;
+  margin-top: 2rem;
+  border: 1px solid var(--main-btn-color);
+}
+.border-b-btn{
+  border-bottom: 1px solid var(--main-btn-color);
+}
+.courses{
+  outline: none;
+  border-radius: 3px;
+  text-align: center;
+  width: 50px;
+  margin-bottom: 1rem;
+  padding: 10px;
+  margin-top: 1rem;
+  border: 1px solid var(--main-inner-color);
+  /*border: 1px solid var(--main-btn-color);*/
 }
