@@ -2,15 +2,30 @@ import React from 'react';
 import close from "../../resources/icons/close.png";
 import {userLogout} from "../../api/auth/AuthService";
 import {Link, useNavigate} from "react-router-dom";
+import SlideMenuSub from "./SlideMenuSub";
+import {useState} from "react";
 
-function MainMenu({open, setOpen, user }) {
-    const navigate = useNavigate();
-
+function SlideMenu({open, setOpen, user }) {
+    const [openParent, setOpenParent] = useState(null)
     const handleLogout =async ()=> {
         localStorage.removeItem("accessToken");
         localStorage.removeItem("isLoggedIn");
         const response = await userLogout(user);
     }
+
+    const MENU_LIST = [
+        { id:1, title: '빠른시작', link : '/quick', children: [] },
+        { id:2, title: '홈으로', link : undefined, children: [] },
+        { id:3, title: '경기장', link : undefined, children: [
+            {id:6, title:'경기장 목록', link : '/field' },
+            {id:7, title:'경기장 등록하기', link : '/field/create' },
+            ]},
+        { id:4, title: '연습매치', link : undefined, children: [
+            {id:8, title:'연습매치 목록', link : '/game'},
+            {id:9, title:'연습매치 생성', link : '/game/create'}
+            ] },
+        { id:5, title: '문의하기', link : undefined, children: [{id:7, title:'자주하는 질문', link : '/contact'}] },
+    ];
 
     function ageCalc(birth) {
         const today = new Date();
@@ -38,11 +53,9 @@ function MainMenu({open, setOpen, user }) {
                 document.body.style.removeProperty('overflow');
                 }}/>
             <ul>
-                <li><Link to={"/"} onClick={()=>setOpen(false)}>홈으로</Link></li>
-                <li><Link to={"/field/create"} onClick={()=>setOpen(false)}>경기장 등록하기</Link></li>
-                <li><Link to={"/game/"} onClick={()=>setOpen(false)}>연습매치</Link></li>
-                <li><Link to={"/game/create"} onClick={()=>setOpen(false)}>연습매치 등록하기</Link></li>
-                <li><Link to={"/contact"} onClick={()=>setOpen(false)}>문의하기</Link></li>
+                {MENU_LIST.map(each =>(
+                    <SlideMenuSub each={each} setOpen={setOpen} openParent={openParent} setOpenParent={setOpenParent}/>
+                ))}
             </ul>
 
             <div className={"menu-bottom-slide flex"}>
@@ -62,4 +75,4 @@ function MainMenu({open, setOpen, user }) {
     );
 }
 
-export default MainMenu;
+export default SlideMenu;

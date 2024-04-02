@@ -19,7 +19,7 @@ function BeforLoginHeader() {
 
     return (
         <>
-        <div className="w-full px-[30px] py-[10px] nav-bar line-h-45 h-[65px] border-b">
+        <div className="w-full px-[30px] py-[10px] nav-bar line-h-45 h-[65px] border-b shadow-wix">
             <div className="inline-block w-[100%] flex h-[45px]" >
                 <p>
                     <span className={"Headland font-bold text-[38px]"}>P</span>arkGolf

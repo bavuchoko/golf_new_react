@@ -11,7 +11,7 @@ function DropMenu({open}) {
                 <li>문의하기</li>
             </ul>
 
-            <div className={"menu-bottom"}>
+            <div className={"menu-bottom shadow-wix"}>
                 <Link to="/login" className={"loginbtn_Y m-0 m-auto"}>로그인</Link>
             </div>
         </div>
