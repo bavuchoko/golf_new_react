@@ -130,7 +130,7 @@ function Create(props) {
                     <span className={`align-middle mt-1`}>각 코스는 9홀을 기본으로 합니다. </span>
                 </div>
                 <div className={`create-field shadow-wix`}>
-                    <div className={`create-filed-body`}   style={{ height: drawup ? '125px' : '85px' }}>
+                    <div className={`create-filed-body`}   style={{ height: drawup ? '125px' : '0px', padding :drawup?'10px':''  }}>
                         <div className={`flex`}>
                             <div className={''}>
                                 <img src={Pin} className={`w-[23px] h-[23px] inline-block`}/>
@@ -167,13 +167,14 @@ function Create(props) {
 
 
 
-                    <div className={`create-filed-foot`}>
-                        <div className={``} onClick={saveField}>
+                    <div className={`create-filed-foot`} style={{background:drawup? '#166AEAFF':'', color:drawup? 'white':'#166AEAFF' }}>
+                        {/*<div className={``} onClick={saveField}>*/}
+                        <div className={``}  onClick={()=>setDrawup(!drawup)}>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                 stroke="currentColor" className="inline-block align-middle w-4 h-4 rounded-lg bg-[#166AEAFF] text-[white] items-center">
+                                 stroke="currentColor" className={`inline-block align-middle w-4 h-4 rounded-lg ${drawup ?'bg-[white] text-[#166AEAFF]':'bg-[#166AEAFF] text-[white]' }  items-center`}>
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/>
                             </svg>
-                            <span className={`inline-block ml-1 text-[13px] align-middle text-[#166AEAFF]`}>경기장 등록하기</span>
+                            <span className={`inline-block ml-1 text-[13px] align-middle `}>{drawup ? '저장하기' : '경기장 등록하기'} </span>
                         </div>
                     </div>
                 </div>

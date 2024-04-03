@@ -387,24 +387,18 @@ ul.dropLi > a >li{
   height: calc(100% - 40px);
 }
 .create-filed-body{
-  padding: 10px;
+  /*padding: 10px;*/
   width: 100%;
   transition: 0.35s ease;
   overflow: hidden;
 }
 .create-filed-foot{
-  padding-top: 5px;
+  padding-top: 2px;
   height: 40px;
   width: 100%;
+  border-radius: 0 0 10px 10px;
   text-align: center;
   border-top: 1px solid var(--main-inner-color);
-}
-.img_post {
-  overflow: hidden;
-  font-size: 0;
-  line-height: 0;
-  background: url(//t1.daumcdn.net/postcode/resource/images/dark_320.png) no-repeat;
-  text-indent: -9999px;
 }
 .draw-up-handler{
   width: 100%;
