@@ -169,7 +169,10 @@ function Create(props) {
 
                     <div className={`create-filed-foot`} style={{background:drawup? '#166AEAFF':'', color:drawup? 'white':'#166AEAFF' }}>
                         {/*<div className={``} onClick={saveField}>*/}
-                        <div className={``}  onClick={()=>setDrawup(!drawup)}>
+                        <div className={``}  onClick={()=>{
+                            if(drawup) saveField()
+                            else setDrawup(!drawup)
+                        }}>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                  stroke="currentColor" className={`inline-block align-middle w-4 h-4 rounded-lg ${drawup ?'bg-[white] text-[#166AEAFF]':'bg-[#166AEAFF] text-[white]' }  items-center`}>
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/>

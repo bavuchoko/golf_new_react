@@ -11,13 +11,14 @@ export const Parent = styled.li`
   position: relative;
   
 `;
+
 export const Child = styled.li`
-  height: ${({ isopen }) => (isopen ? 'auto' : '0px')};
+  height: ${({ isopen }) => (isopen ? '30px' : '0px')};
   width: 100%;
-  font-size: 15px;
+  font-size: 17px;
   text-indent: 7px;
-  margin-bottom:${({ isopen }) => (isopen ? '15px' : '0px')};
-  margin-top:${({ isopen }) => (isopen ? '15px' : '0px')};
+  margin-bottom:${({ isopen }) => (isopen ? '20px' : '0px')};
+  margin-top:${({ isopen }) => (isopen ? '20px' : '0px')};
   overflow: hidden;
   transition: 0.35s ease;
   cursor: pointer

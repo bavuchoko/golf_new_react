@@ -15,7 +15,7 @@ function SlideMenu({open, setOpen, user }) {
 
     const MENU_LIST = [
         { id:1, title: '빠른시작', link : '/quick', children: [] },
-        { id:2, title: '홈으로', link : undefined, children: [] },
+        { id:2, title: '홈으로', link : '/', children: [] },
         { id:3, title: '경기장', link : undefined, children: [
             {id:6, title:'경기장 목록', link : '/field/list' },
             {id:7, title:'경기장 등록하기', link : '/field/create' },
