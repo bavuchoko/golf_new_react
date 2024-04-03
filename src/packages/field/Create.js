@@ -95,7 +95,7 @@ function Create(props) {
     }, [latitude, longitude]);
     return (
         <>
-            <SerachAddress value={address} className={"post"} onClick={handle.clickButton} ></SerachAddress>
+            <SerachAddress  className={"post"} onClick={handle.clickButton} >{address}</SerachAddress>
             {openPostcode &&
                 <>
                     <DaumPostcode

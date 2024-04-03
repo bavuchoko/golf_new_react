@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 
-export const SerachAddress = styled.input`
+export const SerachAddress = styled.div`
   margin: 0 auto;
   z-index: 40;
   width: calc(100% - 30px);
@@ -11,6 +11,8 @@ export const SerachAddress = styled.input`
   left: 15px;
   outline: none;
   height: 50px;
+  font-size: 18px;
+  padding: 10px;
   box-shadow: 0 -2px 9px 1px hsla(205,7%,51%,.2);
 `;
 
