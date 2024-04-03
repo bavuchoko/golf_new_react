@@ -1,4 +1,4 @@
-import {BrowserRouter as Router, Navigate, Route, Routes} from "react-router-dom";
+import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import './App.css';
 import Layout from "./layout/Layout";
 import {HeaderContextProvider} from "./layout/context/HeaderContext";
@@ -9,7 +9,7 @@ import Join from "./packages/user/Join";
 import React from "react";
 import List from "./packages/game/List";
 import Test from "./layout/Test";
-import Create from "./packages/field/Create";
+import FieldContainer from "./packages/field/FieldContainer";
 
 function App() {
 
@@ -24,7 +24,7 @@ function App() {
                             <Route index element={ <Home />} />
                             <Route path="/game"  element={ <List />} />
                             <Route path="/game/create"  element={ <Home />} />
-                            <Route path="/field/create"  element={ <Create />} />
+                            <Route path="/field/:action"  element={ <FieldContainer />} />
                         </Route>
                         <Route path="/login"  element={ <Login />} />
                         <Route path="/join"  element={ <Join />} />

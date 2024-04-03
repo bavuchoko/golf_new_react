@@ -17,7 +17,7 @@ function SlideMenu({open, setOpen, user }) {
         { id:1, title: '빠른시작', link : '/quick', children: [] },
         { id:2, title: '홈으로', link : undefined, children: [] },
         { id:3, title: '경기장', link : undefined, children: [
-            {id:6, title:'경기장 목록', link : '/field' },
+            {id:6, title:'경기장 목록', link : '/field/list' },
             {id:7, title:'경기장 등록하기', link : '/field/create' },
             ]},
         { id:4, title: '연습매치', link : undefined, children: [
@@ -54,7 +54,7 @@ function SlideMenu({open, setOpen, user }) {
                 }}/>
             <ul>
                 {MENU_LIST.map(each =>(
-                    <SlideMenuSub each={each} setOpen={setOpen} openParent={openParent} setOpenParent={setOpenParent}/>
+                    <SlideMenuSub key={each.id} each={each} setOpen={setOpen} openParent={openParent} setOpenParent={setOpenParent}/>
                 ))}
             </ul>
 

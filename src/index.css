@@ -153,7 +153,7 @@ code {
   box-shadow: 0 -2px 9px 1px hsla(205,7%,51%,.2);
 }
 .containers{
-  margin-top: 55px;
+  padding-top: 55px;
 }
 .dropMenu{
   background-color: white;
@@ -379,4 +379,43 @@ ul.dropLi > a >li{
   margin-top: 1rem;
   border: 1px solid var(--main-inner-color);
   /*border: 1px solid var(--main-btn-color);*/
+}
+.create-field{
+  border: 1px solid var(--main-inner-color);
+  width: 100%;
+  border-radius: 8px;
+  height: calc(100% - 40px);
+}
+.create-filed-body{
+  padding: 10px;
+  width: 100%;
+  transition: 0.35s ease;
+  overflow: hidden;
+}
+.create-filed-foot{
+  padding-top: 5px;
+  height: 40px;
+  width: 100%;
+  text-align: center;
+  border-top: 1px solid var(--main-inner-color);
+}
+.img_post {
+  overflow: hidden;
+  font-size: 0;
+  line-height: 0;
+  background: url(//t1.daumcdn.net/postcode/resource/images/dark_320.png) no-repeat;
+  text-indent: -9999px;
+}
+.draw-up-handler{
+  width: 100%;
+  padding-top: 0px;
+  height: 10px;
+
+}
+.draw-up-handler-pointer{
+  margin: auto;
+  width: 40%;
+  height: 3px;
+  background: #c1c1c2;
+  border-radius: 40px;
 }

@@ -1,12 +1,8 @@
 import axios from 'axios'
 import {userLogout} from "../auth/AuthService";
 
-
 const BASE_URL = process.env.REACT_APP_BASE_URL;
-// url 호출 시 기본 값 셋팅
 
-
-// axios.defaults.withCredentials = true;
 const noAuthapi = axios.create({
     baseURL: BASE_URL,
     withCredentials: true,
