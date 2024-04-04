@@ -24,6 +24,7 @@ function Create(props) {
     const [openPostcode, setOpenPostcode] = useState(false);
     const [drawup, setDrawup] = useState(false);
     const [address, setAddress] = useState("세종특별자치시 미리내로 104");
+    const [city, setCity] = useState("세종특별자치시");
     const [addressDetail, setAddressDetail] = useState("");
     const [courses, setCourses] = useState(1);
     const [message, setMessage] = useState('');
@@ -47,7 +48,7 @@ function Create(props) {
                     const lelo = response.data.documents[0].road_address
 
                     mapRef.current.relayout();
-
+                    setCity(lelo.region_1depth_name)
                     setLatitude(lelo.x)
                     setLongitude(lelo.y)
                 }
@@ -66,6 +67,7 @@ function Create(props) {
     const saveField =async () => {
         const field = {
             "name":name,
+            "city": city,
             "address": address,
             "latitude": latitude,
             "longitude": longitude,
@@ -120,7 +122,7 @@ function Create(props) {
                 <MapTypeId type={"TRAFFIC"}/>
             </Map>
 
-            <AddFieldSection className={``} drawup={drawup}>
+            <AddFieldSection className={``} drawup={drawup? true:false } height={height}>
                 <div className={'draw-up-handler'} onClick={()=>setDrawup(!drawup)}><div className={`draw-up-handler-pointer`}></div> </div>
                 <div className={'text-[12px] h-[30px]w-[210px] mb-[5px] text-[#9b9696]'}>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
@@ -131,7 +133,7 @@ function Create(props) {
                     <span className={`align-middle mt-1`}>각 코스는 9홀을 기본으로 합니다. </span>
                 </div>
                 <div className={`create-field shadow-wix`}>
-                    <div className={`create-filed-body`}   style={{ height: drawup ? '125px' : '0px', padding :drawup? '10px':''  }}>
+                    <div className={`create-filed-body`}   style={{ height: drawup ? height +'px' : '0px', padding :drawup? '10px':''  }}>
                         <div className={`flex`}>
                             <div className={''}>
                                 <img src={Pin} className={`w-[23px] h-[23px] inline-block`}/>
@@ -174,9 +176,9 @@ function Create(props) {
                             if(drawup) saveField()
                             else setDrawup(!drawup)
                         }}>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
                                  stroke="currentColor" className={`inline-block align-middle w-4 h-4 rounded-lg ${drawup ?'bg-[white] text-[#166AEAFF]':'bg-[#166AEAFF] text-[white]' }  items-center`}>
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/>
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15"/>
                             </svg>
                             <span className={`inline-block ml-1 text-[13px] align-middle `}>{drawup ? '저장하기' : '경기장 등록하기'} </span>
                         </div>

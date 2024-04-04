@@ -22,7 +22,7 @@ export const AddFieldSection = styled.div`
   border-radius: 10px 10px 0 0;
   padding: 10px;
   width: 100%;
-  height: ${({ drawup }) => (drawup ? '225px' : '95px')};
+  height: ${({ drawup, height }) => (drawup ? (height +100) + 'px' : '95px')};
   background: white;
   z-index: 40;
   transition: 0.35s ease;
