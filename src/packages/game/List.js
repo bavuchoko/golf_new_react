@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import WeekSelector from "../../components/datePicker/WeekSelector";
+import Nocontent from "../../components/exception/Nocontent";
 
 function List(props) {
     const [date, setDate]= useState(new Date())
@@ -158,7 +159,7 @@ function List(props) {
             ))
             :
             (
-                <div className={"pt-[40%] w-full text-center text-[16px]"}>조회 결과가 없습니다.</div>
+                <Nocontent />
             )
             }
             </div>

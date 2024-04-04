@@ -46,7 +46,7 @@ function Create(props) {
             addressToCode(data.address).then(     // 카카오API 로 위경도값 가져옴
                 response=>{
                     const lelo = response.data.documents[0].road_address
-
+                    console.log(lelo.region_1depth_name)
                     mapRef.current.relayout();
                     setCity(lelo.region_1depth_name)
                     setLatitude(lelo.x)

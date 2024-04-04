@@ -18,8 +18,8 @@ function SlideMenu({open, setOpen, user }) {
         { id:2, title: '홈으로', link : '/', children: [] },
         { id:3, title: '경기장', link : undefined, children: [
             {id:6, title:'경기장 조회하기', link : '/field/list' },
-            {id:6, title:'경기장 기록관리', link : '/field/private' },
             {id:7, title:'경기장 등록하기', link : '/field/create' },
+            {id:6, title:'경기장 기록관리', link : '/field/private' },
             ]},
         { id:4, title: '연습매치', link : undefined, children: [
             {id:8, title:'연습매치 목록', link : '/game'},

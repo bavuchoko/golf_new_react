@@ -20,7 +20,7 @@ function MainHeader() {
 
     return (
         <>
-        <div className="w-full  px-[30px] py-[5px] line-h-50 nav-bar h-[45px] border-b">
+        <div className="w-full  px-[30px] py-[5px] line-h-50 nav-bar h-[45px]">
 
             <div className="inline-block  line-h-35 w-[100%] flex h-[35px]" >
                 <Link to={"/"}>

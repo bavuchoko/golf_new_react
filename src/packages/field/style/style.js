@@ -47,5 +47,81 @@ export const ActionButton = styled.div`
     text-align: center;
     border-radius: 3px;
     color: ${({ clicked }) => (clicked ? 'white' : '')};
-    
+`;
+export const TypeSelector = styled.div`
+  padding: 10px 30px;
+  display: flex;
+  width: 100%;
+  height: 50px;
+  background: var(--main-inner-color);
+  
+`;
+
+export const EachType = styled.div`
+  padding: 6px 10px;
+  font-size: 12px;
+  height: 30px;
+  margin-right: 10px;
+  border-radius: 30px;
+  background: ${({ option }) => (option ? '#3a3636' : 'white')};
+  color: ${({ option }) => (option ? 'white' : 'black')};
+  box-shadow:  ${({ option }) => (option ? ' 0 3px 7px 2px hsla(205,7%,51%,.7);' : ' ')}; 
+  
+`;
+
+export const CitySelector = styled.div`
+  padding: 10px 30px;
+  // padding: ${({ open }) => (open ? '10px 30px' : '0px')};
+  width: 100%;
+  height: ${({ open }) => (open ? 'auto' : '43px')};
+  overflow: hidden;
+  background: var(--main-inner-color);
+  transition: 0.35s ease;
+`;
+export const EachCity = styled.div`
+  padding: 5px 10px;
+  font-size: 11px;
+  height: 26px;
+  display: inline-block;
+  margin-right: 10px;
+  margin-bottom: 5px;
+  border-radius: 30px;
+  background: ${({ city }) => (city ? '#2a4aad' : 'white')};
+  color: ${({ city }) => (city ? 'white' : 'black')};
+  box-shadow:  ${({ city }) => (city ? ' 0 3px 7px 2px hsla(205,7%,51%,.7);' : ' ')}; 
+`;
+
+export const FieldListContainer = styled.div`
+  width: 100%;
+  height: calc(100vh - 294px);
+  overflow-y: scroll;
+`;
+export const EachField = styled.div`
+  display: flex;
+  width: 100%;
+  padding: 10px 15px;
+  font-size: 13px;
+  height: 80px;
+  border-bottom: 1px solid var(--main-inner-color);
+`;
+export const EachFieldFlag = styled.div`
+  margin-top: 15px;
+  margin-right: 15px;
+  padding: 5px;
+  border: 1px solid black;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  line-height: 80px;
+`;
+export const EachFiledCourses = styled.div`
+  margin-left: auto;
+  margin-top: 15px;
+  margin-right: 15px;
+  padding: 5px;
+  border: 1px solid black;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  text-align: center;
 `;
