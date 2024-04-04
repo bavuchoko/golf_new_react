@@ -136,6 +136,9 @@ code {
 .line-h-30{
   line-height: 30px;
 }
+.line-h-35{
+  line-height: 35px;
+}
 .line-h-50{
   line-height: 50px;
 }
@@ -156,7 +159,7 @@ code {
   box-shadow: 0 -2px 9px 1px hsla(205,7%,51%,.2);
 }
 .containers{
-  padding-top: 55px;
+  padding-top: 45px;
 }
 .dropMenu{
   background-color: white;

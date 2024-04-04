@@ -110,8 +110,8 @@ function List(props) {
         <>
 
             <WeekSelector date={date} setDate={setDate}/>
-            <div className={"pt-[50px]"}></div>
-            <div className={"fixed w-full h-[30px] line-h-30 bg-[#f0f0f0] text-[13px] px-[15px]"}>
+            <div className={"pt-[60px]"}></div>
+            <div className={"fixed w-full h-[30px] pt-[2px] line-h-30 bg-[#f0f0f0] text-[13px] px-[15px]"}>
 
                 <span className={``}>{data?
                     <>총 10건</>:<>--</>

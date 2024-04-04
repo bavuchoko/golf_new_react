@@ -20,6 +20,7 @@ const postCodeStyle = {
 
 function Create(props) {
     const [name, setName] = useState("");
+    const height =125;
     const [openPostcode, setOpenPostcode] = useState(false);
     const [drawup, setDrawup] = useState(false);
     const [address, setAddress] = useState("세종특별자치시 미리내로 104");
@@ -72,7 +73,7 @@ function Create(props) {
             "courses": courses,
         }
 
-        if(field.name.trim()===''|| field.address.trim()==='' || field.courses.trim()==='' || !isNumber.test(courses)){
+        if(field.name.trim()===''|| field.address.trim()==='' || field.courses.toString().trim()==='' || !isNumber.test(courses)){
             alert("입력데이터를 확인하세요")
             return
         }
@@ -130,7 +131,7 @@ function Create(props) {
                     <span className={`align-middle mt-1`}>각 코스는 9홀을 기본으로 합니다. </span>
                 </div>
                 <div className={`create-field shadow-wix`}>
-                    <div className={`create-filed-body`}   style={{ height: drawup ? '125px' : '0px', padding :drawup?'10px':''  }}>
+                    <div className={`create-filed-body`}   style={{ height: drawup ? '125px' : '0px', padding :drawup? '10px':''  }}>
                         <div className={`flex`}>
                             <div className={''}>
                                 <img src={Pin} className={`w-[23px] h-[23px] inline-block`}/>
