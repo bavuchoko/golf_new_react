@@ -1,29 +1,71 @@
-import React, {useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import useGeolocation from "react-hook-geolocation";
 import {EachType, TypeSelector} from "./style/style";
 import Near from "./list/Near";
 import City from "./list/City";
 import All from "./list/All";
+import {getFieldList} from "../../api/field/FieldService";
+import toast, {Toaster} from "react-hot-toast";
 
 function List(props) {
+    const [apiLoading, setApiLoading] = useState(false);
     const geolocation = useGeolocation();
     const latitude = geolocation.latitude
     const longitude = geolocation.longitude
+    const [data, setData] = useState();
+    const [search, setSearch] =useState({
+        searchTxt:"",
+    });
+    const [pageable, setPageable] =useState({
+        sort:"name",
+        desc:true,
+        size:10,
+        totalElements:0,
+        totalPages:0,
+        page:0
+    });
 
+    async function getList() {
+        setApiLoading(true);
+
+        try {
+            const response = await getFieldList(search, pageable);
+            if(response.status===200){
+                response.data.option = option;
+                setData(response.data);
+                setPageable((prevState) => ({
+                    ...prevState,
+                    totalElements: response.data.totalElements,
+                    totalPages: response.data.totalPages,
+                }));
+            }
+        } catch (error) {
+        }finally {
+            setApiLoading(false);
+        }
+    }
+    useEffect(() => {
+        toast.success('Successfully toasted!')
+        getList();
+    }, [pageable.page]);
     const [option , setOption] = useState('near' );
 
+    const test=()=>{
+        toast.success('Successfully toasted!')
+    }
     return (
         <div className={``}>
+            <p onClick={test}>fsefsf</p>
             <TypeSelector className={`type-selector`}>
-                <EachType  option={option==='all'?true:false} onClick={()=>setOption('all')}>전체보기</EachType>
-                <EachType  option={option==='near'?true:false} onClick={()=>setOption('near')}>가까운 곳</EachType>
-                <EachType  option={option==='city'?true:false} onClick={()=>setOption('city')}>지역별</EachType>
+                <EachType  option={option==='all' ? "true":undefined} onClick={()=>setOption('all')}>전체보기</EachType>
+                <EachType  option={option==='near' ? "true":undefined} onClick={()=>setOption('near')}>가까운 곳</EachType>
+                <EachType  option={option==='city' ? "true":undefined} onClick={()=>setOption('city')}>지역별</EachType>
             </TypeSelector>
 
             <>
-                { option  === "all" && <All  />}
-                { option  === "near" && <Near  />}
-                { option  === "city" && <City  />}
+                { option  === "all" && <All data={data} />}
+                { option  === "near" && <Near data={data} />}
+                { option  === "city" && <City data={data} />}
             </>
         </div>
     );
