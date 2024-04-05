@@ -3,21 +3,19 @@ import {FieldListContainer} from "../style/style";
 import EachFiledComponent from "./sub/EachFiledComponent";
 import Nocontent from "../../../components/exception/Nocontent";
 
-function All(props) {
+function All({data}) {
 
-    const [data, setData] =useState();
 
     return (
         <>
             <FieldListContainer >
-                {data && data.map(each=>{
+                {data && data._embedded.fieldsResponseDtoList.map(each=>(
                     <EachFiledComponent data={each}/>
-                })}
+                ))}
                 {!data &&
                     <Nocontent />
                 }
             </FieldListContainer>
-
         </>
     );
 }

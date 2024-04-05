@@ -122,7 +122,7 @@ function Create(props) {
                 <MapTypeId type={"TRAFFIC"}/>
             </Map>
 
-            <AddFieldSection className={``} drawup={drawup? true:false } height={height}>
+            <AddFieldSection className={``} drawup={drawup ? drawup : undefined} height={height}>
                 <div className={'draw-up-handler'} onClick={()=>setDrawup(!drawup)}><div className={`draw-up-handler-pointer`}></div> </div>
                 <div className={'text-[12px] h-[30px]w-[210px] mb-[5px] text-[#9b9696]'}>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"

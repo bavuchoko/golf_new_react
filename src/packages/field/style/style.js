@@ -42,11 +42,11 @@ export const CategorySection = styled.div`
     z-index: 40;
 `;
 export const ActionButton = styled.div`
-    background: ${({ clicked }) => (clicked ? '#166AEAFF' : '')};
+    background: ${props => (props.clicked ? '#166AEAFF' : '')};
     font-size: 12px;
     text-align: center;
     border-radius: 3px;
-    color: ${({ clicked }) => (clicked ? 'white' : '')};
+    color: ${props => (props.clicked ? 'white' : '')};
 `;
 export const TypeSelector = styled.div`
   padding: 10px 30px;

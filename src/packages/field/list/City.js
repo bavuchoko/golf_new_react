@@ -3,9 +3,8 @@ import {CitySelector, EachCity, FieldListContainer} from "../style/style";
 import EachFiledComponent from "./sub/EachFiledComponent";
 import Nocontent from "../../../components/exception/Nocontent";
 
-function City(props) {
+function City({data}) {
 
-    const [data, setData] =useState();
     const [city, setCity] = useState('서울' );
     const [open, setOpen] = useState(true );
 
@@ -27,7 +26,6 @@ function City(props) {
                         </svg>
                     }
                 </div>
-
                 <EachCity  city={city==='강원'?true:false} onClick={()=>setCity('강원')}>강원</EachCity>
                 <EachCity  city={city==='경기'?true:false} onClick={()=>setCity('경기')}>경기</EachCity>
                 <EachCity  city={city==='경남'?true:false} onClick={()=>setCity('경남')}>경상남도</EachCity>
@@ -46,9 +44,9 @@ function City(props) {
                 <EachCity  city={city==='충북'?true:false} onClick={()=>setCity('충북')}>충청북도</EachCity>
             </CitySelector>
             <FieldListContainer >
-                {data && data.map(each=>{
+                {data && data._embedded.fieldsResponseDtoList.map(each=>(
                     <EachFiledComponent data={each}/>
-                })}
+                ))}
                 {!data &&
                     <Nocontent />
                 }

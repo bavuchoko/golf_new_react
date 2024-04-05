@@ -22,7 +22,7 @@ function FieldContainer(props) {
             { menu  === "exp" && <Exp  />}
             <CategorySection className={``} >
 
-                <ActionButton clicked={menu==='create' ? true:false} onClick={()=>setMenu('create')}>
+                <ActionButton clicked={menu==="create"? "true":undefined } onClick={()=>setMenu('create')}>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
                          stroke="currentColor" className="m-auto w-6 h-6 mt-2  mb-1">
                         <path strokeLinecap="round" strokeLinejoin="round"
@@ -32,7 +32,7 @@ function FieldContainer(props) {
                     <p className={`text-[11px]`}>등록</p>
                 </ActionButton>
                 
-                <ActionButton clicked={menu==='list' ? true:false} onClick={()=>setMenu('list')}>
+                <ActionButton clicked={menu==="list"? "true":undefined } onClick={()=>setMenu('list')}>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
                          stroke="currentColor" className="m-auto w-6 h-6 mt-2 mb-1">
                         <path strokeLinecap="round" strokeLinejoin="round"
@@ -42,7 +42,7 @@ function FieldContainer(props) {
                     <p className={`text-[11px]`}>목록</p>
                 </ActionButton>
                
-                <ActionButton clicked={menu==='private' ? true:false} onClick={()=>setMenu('private')}>
+                <ActionButton clicked={menu==="private"? "true":undefined} onClick={()=>setMenu('private')}>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
                          stroke="currentColor"className="m-auto w-4 h-4 mt-3 mb-2">
                         <path strokeLinecap="round" strokeLinejoin="round"
@@ -51,7 +51,7 @@ function FieldContainer(props) {
                     <p className={`text-[11px]`}>기록</p>
                 </ActionButton>
 
-                <ActionButton clicked={menu==='exp' ? true:false} onClick={()=>setMenu('exp')}>
+                <ActionButton clicked={menu==="exp"? "true":undefined} onClick={()=>setMenu('exp')}>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
                          stroke="currentColor" className="m-auto w-4 h-4 mt-3 mb-2">
                         <path strokeLinecap="round" strokeLinejoin="round"

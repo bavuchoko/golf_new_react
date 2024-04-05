@@ -1,7 +1,6 @@
 import React from 'react';
 
-function Exp
-(props) {
+function Exp(props) {
     return (
         <div>실험실</div>
     );
