@@ -10,6 +10,7 @@ import React from "react";
 import List from "./packages/game/List";
 import Test from "./layout/Test";
 import FieldContainer from "./packages/field/FieldContainer";
+import {Toaster} from "react-hot-toast";
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
     return (
         <>
             <HeaderContextProvider>
+                <Toaster />
                 <Router>
                     <Routes>
                         <Route path="/" element={isLoggedIn ? <Layout />: <Info />} >
