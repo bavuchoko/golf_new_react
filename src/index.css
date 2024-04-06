@@ -10,12 +10,22 @@ body {
   --main-btn-color : #166aea;
   --main-red : #ea163d;
   --main-inner-color : #ccd6e8;
+  --main-inner-light-color : #e7e9ee;
   --main-cancel-color : #37af29;
   --main-excel-color : 222,234,223,1;
   --main-gray-line : #dfe5eb;
   --thumbnail-line: #2f8da9;
   --modal-background: rgba(47, 46, 46, 0.7);
   --drawer-background: rgba(68, 67, 67, 0.6);
+}
+.shrink-word{
+  overflow: hidden;
+  white-space: normal;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  word-break: keep-all;
 }
 .slide-left{
   opacity: 0;

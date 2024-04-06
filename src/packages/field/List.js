@@ -1,11 +1,10 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import useGeolocation from "react-hook-geolocation";
 import {EachType, TypeSelector} from "./style/style";
 import Near from "./list/Near";
 import City from "./list/City";
 import All from "./list/All";
 import {getFieldList} from "../../api/field/FieldService";
-import toast, {Toaster} from "react-hot-toast";
 
 function List(props) {
     const [apiLoading, setApiLoading] = useState(false);
@@ -15,6 +14,7 @@ function List(props) {
     const [data, setData] = useState();
     const [search, setSearch] =useState({
         searchTxt:"",
+        city:"전체"
     });
     const [pageable, setPageable] =useState({
         sort:"name",
@@ -45,27 +45,21 @@ function List(props) {
         }
     }
     useEffect(() => {
-        toast.success('Successfully toasted!')
         getList();
     }, [pageable.page]);
     const [option , setOption] = useState('near' );
 
-    const test=()=>{
-        toast.success('Successfully toasted!')
-    }
     return (
         <div className={``}>
-            <p onClick={test}>fsefsf</p>
             <TypeSelector className={`type-selector`}>
                 <EachType  option={option==='all' ? "true":undefined} onClick={()=>setOption('all')}>전체보기</EachType>
                 <EachType  option={option==='near' ? "true":undefined} onClick={()=>setOption('near')}>가까운 곳</EachType>
                 <EachType  option={option==='city' ? "true":undefined} onClick={()=>setOption('city')}>지역별</EachType>
             </TypeSelector>
-
             <>
                 { option  === "all" && <All data={data} />}
                 { option  === "near" && <Near data={data} />}
-                { option  === "city" && <City data={data} />}
+                { option  === "city" && <City data={data} select={search.city} setSelect={setSearch}/>}
             </>
         </div>
     );

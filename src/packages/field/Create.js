@@ -6,6 +6,7 @@ import {useNavigate} from "react-router-dom";
 import Pin from '../../resources/icons/pin.png'
 import {addressToCode} from "../../api/kakao/kakaoService";
 import {AddFieldSection, CategorySection, SerachAddress} from "./style/style";
+import toast from "react-hot-toast";
 
 
 
@@ -76,19 +77,19 @@ function Create(props) {
         }
 
         if(field.name.trim()===''|| field.address.trim()==='' || field.courses.toString().trim()==='' || !isNumber.test(courses)){
-            alert("입력데이터를 확인하세요")
+            toast.error('입력데이터를 확인하세요.')
             return
         }
         try {
             const response = await createField(field);
 
             if (response.status==200) {
-                alert("등록되었습니다.")
+                toast.success('등록되었습니다.')
                 navigate(-1)
             }
         } catch (error) {
             console.error(error);
-            alert("등록에 실패하였습니다.");
+            toast.error('등록 실패하였습니다.')
 
         }
     }

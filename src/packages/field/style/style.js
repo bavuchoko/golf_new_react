@@ -53,7 +53,7 @@ export const TypeSelector = styled.div`
   display: flex;
   width: 100%;
   height: 50px;
-  background: var(--main-inner-color);
+  //background: var(--main-inner-color);
   
 `;
 
@@ -63,7 +63,8 @@ export const EachType = styled.div`
   height: 30px;
   margin-right: 10px;
   border-radius: 30px;
-  background: ${({ option }) => (option ? '#3a3636' : 'white')};
+  background: ${({ option }) => (option ? 'var(--main-btn-color)' : 'white')};
+  border:${({ option }) => (option ? '' : '1px solid var(--main-inner-light-color)')};
   color: ${({ option }) => (option ? 'white' : 'black')};
   box-shadow:  ${({ option }) => (option ? ' 0 3px 7px 2px hsla(205,7%,51%,.7);' : ' ')}; 
   

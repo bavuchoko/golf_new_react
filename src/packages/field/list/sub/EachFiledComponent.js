@@ -6,7 +6,7 @@ function EachFiledComponent({data}) {
         <EachField>
             <EachFieldFlag>
 
-                {1 == 2 ?
+                {1 == 1 ?
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round"
                               d="M3 3v1.5M3 21v-6m0 0 2.77-.693a9 9 0 0 1 6.208.682l.108.054a9 9 0 0 0 6.086.71l3.114-.732a48.524 48.524 0 0 1-.005-10.499l-3.11.732a9 9 0 0 1-6.085-.711l-.108-.054a9 9 0 0 0-6.208-.682L3 4.5M3 15V4.5"/>
@@ -20,13 +20,15 @@ function EachFiledComponent({data}) {
                 }
 
             </EachFieldFlag>
-            <div>
-                <p>경기장 명</p>
-                <p>경기장 주소</p>
-                <p>상세주소</p>
+            <div className={``}>
+                <p className={`text-[13px] shrink-word`}>{data.name? data.name:'경기장 명'}</p>
+                <p className={`font-bold text-[14px] shrink-word`}>{data.address? data.address:'경기장 주소'}</p>
+                <p className={`text-[13px] shrink-word`}>{data.addressDetail? data.addressDetail:'상세주소'}</p>
+                {/*<p>{data.register? data.register.name:'등록자'}</p>*/}
+                {/*<p>{data.create_date? data.create_date:'등록일'}</p>*/}
             </div>
             <EachFiledCourses>
-                1
+                {data.courses?data.courses : '?'}
             </EachFiledCourses>
         </EachField>
     );
