@@ -2,7 +2,7 @@ import React from 'react';
 import {FieldListContainer} from "../style/style";
 import EachFiledComponent from "./sub/EachFiledComponent";
 import Nocontent from "../../../components/exception/Nocontent";
-import TypeSelector from "../../../components/selectbox/TypeSelector";
+import TypeSelectBox from "../../../components/selectbox/TypeSelectBox";
 
 function City({data, select, setSelect}) {
 
@@ -28,8 +28,8 @@ function City({data, select, setSelect}) {
 
     return (
         <>
-            <div className={`px-[15px] bg-[#f1f1f1]`}>
-            <TypeSelector options={city} select={select} setSelect={setSelect}/>
+            <div className={`px-[30px] bg-[#f1f1f1]`}>
+            <TypeSelectBox  height={400} options={city} select={select} setSelect={setSelect}/>
             </div>
             <FieldListContainer >
                 {data && data._embedded.fieldsResponseDtoList.map(each=>(

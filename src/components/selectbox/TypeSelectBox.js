@@ -3,14 +3,12 @@ import styled from "styled-components";
 
 const SelectBox = styled.div`
   position: relative;
-  width: 90px;
-  line-height: 35px;
-  padding: 0px 10px;
+  width: 70px;
+  line-height: 30px;
   align-self: center;
-  height: 35px;
+  height: 30px;
   color: #66696e;
   cursor: pointer;
-  //border: 1px solid black;
   &::after {
     position: absolute;
     top: -1px;
@@ -25,13 +23,13 @@ const Label = styled.label`
 const SelectOptions = styled.ul`
   position: absolute;
   list-style: none;
-  top: 35px;
-  left: -15px;
-  padding: 0px 15px;
-  width: 150px;
+  top: 29px;
+  left: -30px;
+  width: 110px;
+  padding-left: 20px;
   box-shadow: 0 -2px 9px 1px hsla(205,7%,51%,.2);
   overflow: hidden;
-  height: 400px;
+  height: ${props => props.height? props.height+'px' : 'auto'};
   overflow-y: scroll;
   max-height: ${(props) => (props.show ? "none" : "0")};
   background-color: white;
@@ -45,7 +43,7 @@ const Option = styled.li`
   }
 `;
 
-function TypeSelector({options, select, setSelect}) {
+function TypeSelectBox({options, select, setSelect, height}) {
     const optionRef = useRef(null);
     const [showOptions, setShowOptions] = useState(false);
 
@@ -59,8 +57,6 @@ function TypeSelector({options, select, setSelect}) {
     };
 
     useEffect(() => {
-
-        //외부 클릭시 userMenu 닫음
         function handleClickOutside(event) {
             if (optionRef.current && !optionRef.current.contains(event.target)) {
                 setShowOptions(false);
@@ -76,7 +72,7 @@ function TypeSelector({options, select, setSelect}) {
     return (
         <SelectBox onClick={() => setShowOptions((prev) => !prev)} ref={optionRef}>
             <Label>{select}</Label>
-            <SelectOptions show={showOptions ? "true" :undefined }>
+            <SelectOptions height={height} show={showOptions ? "true" :undefined }>
                 {options  && options.map((each) => (
                     <Option
                         key={each.id}
@@ -91,4 +87,4 @@ function TypeSelector({options, select, setSelect}) {
     );
 };
 
-export default TypeSelector;
+export default TypeSelectBox;
