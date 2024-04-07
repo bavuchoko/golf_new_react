@@ -429,3 +429,6 @@ ul.dropLi > a >li{
   background: #c1c1c2;
   border-radius: 40px;
 }
+.text-shadow{
+  text-shadow: 5px 5px 4px rgb(0, 255, 0);
+}

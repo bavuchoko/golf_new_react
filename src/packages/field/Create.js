@@ -35,6 +35,25 @@ function Create(props) {
     const [latitude, setLatitude] =useState(36.524281300000716)
     const [longitude, setLongitude] =useState(127.25976801328223)
 
+    var positions = [
+        {
+            title: '카카오',
+            latlng: new kakao.maps.LatLng(33.450705, 126.570677)
+        },
+        {
+            title: '생태연못',
+            latlng: new kakao.maps.LatLng(33.450936, 126.569477)
+        },
+        {
+            title: '텃밭',
+            latlng: new kakao.maps.LatLng(33.450879, 126.569940)
+        },
+        {
+            title: '근린공원',
+            latlng: new kakao.maps.LatLng(33.451393, 126.570738)
+        }
+    ];
+
     const handle = {
         // 버튼 클릭 이벤트
         clickButton: () => {
@@ -61,21 +80,55 @@ function Create(props) {
         const mapContainer = document.getElementById('map');
         const options={
             center : new kakao.maps.LatLng(latitude,longitude),
-            level:4
+            level:5
         };
 
         const map = new kakao.maps.Map(mapContainer, options);
 
-        let markerPosition = new kakao.maps.LatLng(
-            latitude,
-            longitude
-        );
 
-        // 마커를 생성
-        let marker = new kakao.maps.Marker({
-            position: markerPosition,
-        });
-        marker.setMap(map);
+
+        // let markerPosition = new kakao.maps.LatLng(
+        //     latitude,
+        //     longitude
+        // );
+        //
+        // // 마커를 생성
+        // let marker = new kakao.maps.Marker({
+        //     position: markerPosition,
+        // });
+        // marker.setMap(map);
+        var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+        for (var i = 0; i < positions.length; i ++) {
+
+            // 마커 이미지의 이미지 크기 입니다
+            var imageSize = new kakao.maps.Size(24, 35);
+
+            // 마커 이미지를 생성합니다
+            var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+
+
+
+            // 마커
+            var marker = new kakao.maps.Marker({
+                map: map, // 마커를 표시할 지도
+                position: positions[i].latlng,
+                image : markerImage // 마커 이미지
+            });
+
+            var content ='<div class="customoverlay">' +
+                '  <a href="https://map.kakao.com/link/map/11394059" target="_blank">' +
+                '    <span class="title">구의야구공원</span>' +
+                '  </a>' +
+                '</div>';
+
+            // 커스텀오버레이 (마커에 링크달기)
+            var customOverlay = new kakao.maps.CustomOverlay({
+                map: map,
+                position: positions[i].latlng,
+                content: content,
+                yAnchor: 1
+            });
+        }
     },[longitude, latitude])
 
 
