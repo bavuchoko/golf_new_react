@@ -31,8 +31,8 @@ function Create(props) {
     const [message, setMessage] = useState('');
     const navigate = useNavigate();
     const isNumber =  /^\d+$/;
-    const [latitude, setLatitude] =useState(127.25976801328223)
-    const [longitude, setLongitude] =useState(36.524281300000716)
+    const [latitude, setLatitude] =useState(36.524281300000716)
+    const [longitude, setLongitude] =useState(127.25976801328223)
     const mapRef = useRef(null);
     const handle = {
         // 버튼 클릭 이벤트
@@ -50,8 +50,8 @@ function Create(props) {
                     console.log(lelo.region_1depth_name)
                     mapRef.current.relayout();
                     setCity(lelo.region_1depth_name)
-                    setLatitude(lelo.x)
-                    setLongitude(lelo.y)
+                    setLatitude(lelo.y)
+                    setLongitude(lelo.x)
                 }
             )
         },
@@ -113,11 +113,12 @@ function Create(props) {
             }
 
             <Map
-                center={{ lat:longitude , lng: latitude }}
+                center={{ lat:latitude , lng: longitude }}
                 style={{width: "100%", height: "calc(100vh - (50px + 8rem))"}}
                 ref={mapRef}
+                level={5}
             >
-                <MapMarker position={{ lat: longitude, lng:latitude }}>
+                <MapMarker position={{ lat: latitude, lng:longitude }}>
                     <div style={{color: "#000"}}>{address}</div>
                 </MapMarker>
                 <MapTypeId type={"TRAFFIC"}/>
