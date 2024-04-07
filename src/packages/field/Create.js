@@ -19,6 +19,7 @@ const postCodeStyle = {
     left:'15px',
 };
 
+const {kakao} = window;
 function Create(props) {
     const [name, setName] = useState("");
     const height =125;
@@ -33,7 +34,7 @@ function Create(props) {
     const isNumber =  /^\d+$/;
     const [latitude, setLatitude] =useState(36.524281300000716)
     const [longitude, setLongitude] =useState(127.25976801328223)
-    const mapRef = useRef(null);
+
     const handle = {
         // 버튼 클릭 이벤트
         clickButton: () => {
@@ -48,7 +49,6 @@ function Create(props) {
                 response=>{
                     const lelo = response.data.documents[0].road_address
                     console.log(lelo.region_1depth_name)
-                    mapRef.current.relayout();
                     setCity(lelo.region_1depth_name)
                     setLatitude(lelo.y)
                     setLongitude(lelo.x)
@@ -56,6 +56,28 @@ function Create(props) {
             )
         },
     }
+
+    useEffect(()=>{
+        const mapContainer = document.getElementById('map');
+        const options={
+            center : new kakao.maps.LatLng(latitude,longitude),
+            level:4
+        };
+
+        const map = new kakao.maps.Map(mapContainer, options);
+
+        let markerPosition = new kakao.maps.LatLng(
+            latitude,
+            longitude
+        );
+
+        // 마커를 생성
+        let marker = new kakao.maps.Marker({
+            position: markerPosition,
+        });
+        marker.setMap(map);
+    },[longitude, latitude])
+
 
     const coursesHandler =(value)=>{
         if (isNumber.test(value) || value==='') {
@@ -93,10 +115,7 @@ function Create(props) {
 
         }
     }
-    useEffect(() => {
-        if(mapRef.current)
-            mapRef.current.relayout();
-    }, [latitude, longitude]);
+
     return (
         <>
             <SerachAddress  className={"post"} onClick={handle.clickButton} >{address}</SerachAddress>
@@ -112,17 +131,7 @@ function Create(props) {
                 </>
             }
 
-            <Map
-                center={{ lat:latitude , lng: longitude }}
-                style={{width: "100%", height: "calc(100vh - (50px + 8rem))"}}
-                ref={mapRef}
-                level={5}
-            >
-                <MapMarker position={{ lat: latitude, lng:longitude }}>
-                    <div style={{color: "#000"}}>{address}</div>
-                </MapMarker>
-                <MapTypeId type={"TRAFFIC"}/>
-            </Map>
+            <div id='map' style={{width: "100%", height: "calc(100vh - (50px + 8rem))"}} ></div>
 
             <AddFieldSection className={``} drawup={drawup ? drawup : undefined} height={height}>
                 <div className={'draw-up-handler'} onClick={()=>setDrawup(!drawup)}><div className={`draw-up-handler-pointer`}></div> </div>
