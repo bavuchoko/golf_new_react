@@ -3,9 +3,11 @@ import {FieldListContainer} from "../style/style";
 import EachFiledComponent from "./sub/EachFiledComponent";
 import Nocontent from "../../../components/exception/Nocontent";
 import TypeSelectBox from "../../../components/selectbox/TypeSelectBox";
+import {useState} from "react";
 
 function City({data, select, setSelect}) {
 
+    const [clicked, setClicked] =useState(0)
 
     const city=[
         {id:0, value:'전체', label:'전체'},
@@ -33,7 +35,7 @@ function City({data, select, setSelect}) {
             </div>
             <FieldListContainer >
                 {data && data._embedded.fieldsResponseDtoList.map(each=>(
-                    <EachFiledComponent key={each.id} data={each}/>
+                    <EachFiledComponent key={'city_'+each.id} modify={true} data={each}  clicked={clicked} setClicked={setClicked}/>
                 ))}
                 {!data &&
                     <Nocontent />

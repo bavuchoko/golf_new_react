@@ -117,14 +117,12 @@ export const EachFieldFlag = styled.div`
   height: 30px;
   line-height: 80px;
 `;
-export const EachFiledCourses = styled.div`
+export const EachFiledHistoryMode = styled.div`
   margin-left: auto;
-  margin-top: 15px;
-  margin-right: 15px;
-  padding: 5px;
-  border: 1px solid black;
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
+  margin-top: 25px;
+  height: 15px;
+  border-bottom: 1px solid black;
+  width: 20px;
+  
   text-align: center;
 `;
