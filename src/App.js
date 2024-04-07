@@ -11,6 +11,8 @@ import List from "./packages/game/List";
 import Test from "./layout/Test";
 import FieldContainer from "./packages/field/FieldContainer";
 import {Toaster} from "react-hot-toast";
+import Quick from "./packages/game/Quick";
+import Create from "./packages/game/Create";
 
 function App() {
 
@@ -25,11 +27,13 @@ function App() {
                         <Route path="/" element={isLoggedIn ? <Layout />: <Info />} >
                             <Route index element={ <Home />} />
                             <Route path="/game"  element={ <List />} />
-                            <Route path="/game/create"  element={ <Home />} />
+
                             <Route path="/field/:action"  element={ <FieldContainer />} />
                         </Route>
                         <Route path="/login"  element={ <Login />} />
                         <Route path="/join"  element={ <Join />} />
+                        <Route path="/game/quick"  element={ <Quick />} />
+                        <Route path="/game/create"  element={ <Create />} />
                         <Route path="/main" element={<Info />} />
                         <Route path="/test" element={<Test />} />
                     </Routes>
