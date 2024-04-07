@@ -13,7 +13,7 @@ export const SerachAddress = styled.div`
   height: 50px;
   font-size: 18px;
   padding: 10px;
-  box-shadow: 0 -2px 9px 1px hsla(205,7%,51%,.2);
+  box-shadow: 0 -2px 9px 1px hsla(210, 4%, 21%, 0.4);
 `;
 
 export const AddFieldSection = styled.div`
@@ -29,17 +29,18 @@ export const AddFieldSection = styled.div`
   box-shadow: 0 -9px 9px 1px hsla(206, 5%, 25%, 0.2);
 `;
 export const CategorySection = styled.div`
-    padding: 0px 1vh 3vw;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr); 
-    gap: 15px;
-    position: fixed;
-    bottom: 0px;
-    width: 100%;
-    height: 8vh;
-    background: white;
-    border-top: 1px solid var(--main-inner-color) ;
-    z-index: 40;
+  padding: 0px 1vh 3vw;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+  height: 8vh;
+  background: white;
+  //border-top: 1px solid var(--main-inner-color);
+  box-shadow: 0 -2px 4px 8px hsla(0, 0%, 96%, 0.7);
+  z-index: 40;
 `;
 export const ActionButton = styled.div`
     color: ${props => (props.clicked ? '#166AEAFF' : '')};

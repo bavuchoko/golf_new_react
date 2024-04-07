@@ -118,7 +118,7 @@ function Create(props) {
 
     return (
         <>
-            <SerachAddress  className={"post"} onClick={handle.clickButton} >{address}</SerachAddress>
+            <SerachAddress onClick={handle.clickButton} >{address}</SerachAddress>
             {openPostcode &&
                 <>
                     <DaumPostcode
