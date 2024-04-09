@@ -4,16 +4,28 @@ import {useNavigate} from "react-router-dom";
 import NumberSelector from "../../components/selectbox/NumberSelector";
 import Growth from "../../resources/icons/growth.png"
 import ToggleSwitch from "../../components/toggle/ToggleSwitch";
+import {quickStart} from "../../api/game/GameService";
+import toast from "react-hot-toast";
 
-function Quick(props) {
+function Quick() {
 
     const [number, setNumber] =useState(1)
     const navigate = useNavigate();
 
-    const gostart =()=>{
-        
-    }
 
+    const quickStartHandler = async ()=>{
+        try {
+            const response = await quickStart(number);
+            if (response.status === 200) {
+                toast.success('등록되었습니다.')
+            } else if (response.status === 202) {
+
+            }
+        } catch (error){
+            toast.error("에러가 발생했습니다.")
+        }
+
+    }
 
     return (
         <div className={`right-slider`}>
@@ -48,7 +60,7 @@ function Quick(props) {
                         <NumberSelector limit={{upper:4, under:1}} number={number} setNumber={setNumber}/>
                     </div>
 
-                    <div className={`create-game-btn`} onClick={gostart}>
+                    <div className={`create-game-btn`} onClick={()=>quickStartHandler()}>
                         <p>시작하기</p>
                         <img src={Growth} className={'create-game-btn-arrow'}/>
                     </div>

@@ -16,7 +16,7 @@ function List(props) {
         {id:0, value:null, label:'전체'},
         {id:1, value:'OPEN', label:'참가중'},
         {id:2, value:'PLAYING', label:'경기중'},
-        {id:2, value:'END', label:'종료'}
+        {id:3, value:'END', label:'종료'}
     ]
 
     return (
