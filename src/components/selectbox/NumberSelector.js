@@ -3,6 +3,9 @@ import styled from "styled-components";
 import toast from "react-hot-toast";
 
 
+const upColor ='var(--main-deep-red)';
+const downColor ='var(--main-deep-blue)';
+
 const CountSelectorBox = styled.div`
   position: relative;
   font-size: 1.2rem;
@@ -20,13 +23,13 @@ const CountDisplay=styled.div`
   font-size: 6rem;
   font-weight: bold;
   line-height: 150px;
-  color: #ffffff;
+  color:  ${theme =>(theme ? 'white': 'white' )};
   position: absolute;
   z-index: 20;
 `;
 const BluePannel = styled.div`
-  clip-path: polygon(0 0, 100% 0, 50% 100%, 50% 100%);
-  background: var(--main-btn-color);
+  //clip-path: polygon(0 0, 100% 0, 50% 100%, 50% 100%);
+  background:  ${downColor};
   width: 100%;
   height: 49%;
   position: absolute;
@@ -34,8 +37,8 @@ const BluePannel = styled.div`
   z-index: 10;
 `;
 const RedPannel = styled.div`
-  clip-path: polygon(100% 100%, 50% 0, 0 100%);
-  background:  var(--main-red);
+  //clip-path: polygon(100% 100%, 50% 0, 0 100%);
+  background:  ${upColor};
   width: 100%;
   height: 49%;
   position: absolute;
@@ -45,9 +48,9 @@ const RedPannel = styled.div`
 
 const UpCounter = styled.div`
   border-radius: 5px 5px 0px 0px;
-  border-top: 5px solid var(--main-red);
-  border-left: 5px solid var(--main-red);
-  border-right: 5px solid var(--main-red);
+  border-top: ${upColor};
+  border-left: ${upColor};
+  border-right: ${upColor};
   width: 100%;
   background: none;
   height: 49%;
@@ -57,9 +60,9 @@ const UpCounter = styled.div`
 `;
 const DownCounter = styled.div`
   border-radius: 0px 0px 5px 5px;
-  border-left: 5px solid var(--main-btn-color);
-  border-right: 5px solid var(--main-btn-color);
-  border-bottom: 5px solid var(--main-btn-color);
+  border-left: ${downColor};
+  border-right: ${downColor};
+  border-bottom: ${downColor};
   background: none;
   width: 100%;
   height: 49%;
@@ -67,7 +70,8 @@ const DownCounter = styled.div`
   bottom: 0;
   z-index: 30;
 `;
-function NumberSelector({limit, number, setNumber}) {
+function NumberSelector({theme, limit, number, setNumber}) {
+
 
     const setUpCounter =()=> {
         if(limit?.upper && number>= limit.upper) {

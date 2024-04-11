@@ -4,32 +4,32 @@ import styled from "styled-components";
 const ToggleContainer = styled.div`
   position: relative;
   cursor: pointer;
-
+  width: 50px !important;
   > .toggle-container {
-    width: 70px;
-    height: 35px;
+    width: 60px;
+    height: 30px;
     border-radius: 30px;
     background-color: rgb(217, 217, 217);
   }
 
   > .toggle--checked {
-    background-color: var(--main-btn-color);
+    background-color: var(--main-deep-red);
     transition: 0.2s
   }
 
   > .toggle-circle {
     position: absolute;
-    top: 1px;
-    left: 1px;
-    width: 33px;
-    height: 33px;
+    top: 2px;
+    left: 2px;
+    width: 26px;
+    height: 26px;
     border-radius: 50%;
     background-color: rgb(255, 254, 255);
     transition: 0.2s
   }
 
   > .toggle--checked {
-    left: 36px;
+    left: 32px;
     transition: 0.1s
   }
 `;

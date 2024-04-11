@@ -8,6 +8,8 @@ body {
 }
 :root {
   --main-btn-color : #166aea;
+  --main-deep-blue : #1e1e80;
+  --main-deep-red :#b01313;
   --main-red : #ea163d;
   --main-inner-color : #ccd6e8;
   --main-inner-light-color : #e7e9ee;
@@ -17,6 +19,7 @@ body {
   --thumbnail-line: #2f8da9;
   --modal-background: rgba(47, 46, 46, 0.7);
   --drawer-background: rgba(68, 67, 67, 0.6);
+
 }
 .shrink-word{
   overflow: hidden;
@@ -435,7 +438,12 @@ ul.dropLi > a >li{
 .text-shadow{
   text-shadow: 5px 5px 4px rgb(0, 255, 0);
 }
-
+.bg-main-red{
+  background: var(--main-red);
+}
+.border-2-white{
+  border: 3px solid #ffffffd9;
+}
 .right-slider{
   height: 100%;
   width: 100%;
@@ -484,4 +492,18 @@ ul.dropLi > a >li{
   right: 30px;
   margin-left: auto;
 }
+.quick-table{
 
+  width: 100%;
+}
+.quick-table > tr{
+  border-bottom: 1px solid var(--main-inner-light-color);
+
+}
+.quick-left{
+  padding-left: 30px;
+}
+.quick-right{
+
+  margin-left: auto;
+}
