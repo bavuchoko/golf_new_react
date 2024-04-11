@@ -20,7 +20,7 @@ function List(props) {
         endDate:toKSTISOString(date),
     });
     const [pageable, setPageable] =useState({
-        sort:"createdAt",
+        sort:"playDate",
         desc:true,
         size:10,
         totalElements:0,
