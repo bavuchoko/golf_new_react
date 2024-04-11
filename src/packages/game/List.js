@@ -72,7 +72,7 @@ function List(props) {
                 </div>
             </div>
             <div className={"pt-[30px]  bg-[#fff] "}>
-            {data ? data._embedded.gameResponseDtoList.map(each=>(
+            {data && data._embedded.gameResponseDtoList.map(each=>(
                 <div className={`game-each`} key={each.id}>
                     <div className={"flex"}>
                         <div className={`h-[30px] text-[14px]`}>
@@ -100,11 +100,11 @@ function List(props) {
                         </div>
                     </div>
                 </div>
-            ))
-            :
-            (
+            ))}
+
+            {! data &&
                 <Nocontent />
-            )
+            }
             }
             <div className={`${openStart? 'w-[150px] overflow-hidden ':'w-[50px]' } rounded-full transition-2-ease h-[50px] border-2-white bg-[#ea5716] fixed bottom-[30px] z-50 right-[20px] flex`}>
 

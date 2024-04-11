@@ -24,6 +24,7 @@ function Quick() {
             );
             if (response.status === 200) {
                 toast.success('등록되었습니다.')
+                navigate("/game")
             } else if (response.status === 202) {
 
             }
