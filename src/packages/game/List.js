@@ -106,7 +106,7 @@ function List(props) {
                     {!data._embedded &&
                         <Nocontent/>
                     }
-                    }
+
                     <div
                         className={`${openStart ? 'w-[150px] overflow-hidden ' : 'w-[50px]'} rounded-full transition-2-ease h-[50px] border-2-white bg-[#ea5716] fixed bottom-[30px] z-50 right-[20px] flex`}>
 

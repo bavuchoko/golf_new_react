@@ -11,7 +11,7 @@ function Quick() {
     const [direct, setDirect] =useState(false)
     const navigate = useNavigate();
 
-    const names = ["선수1", "선수2", "선수3"];
+    const names = ["1번", "2번", "3번"];
 
     const quickStartHandler = async ()=>{
 
