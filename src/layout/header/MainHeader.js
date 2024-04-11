@@ -8,7 +8,7 @@ function MainHeader() {
     const accessToken = localStorage.getItem("accessToken");
     let payload = accessToken.substring(accessToken.indexOf('.')+1,accessToken.lastIndexOf('.'));
     let userToken = decodeURIComponent(escape(window.atob(payload)));
-    const user = JSON.parse(userToken);
+    const user = userToken.trim().length>1 ? JSON.parse(userToken) : localStorage.removeItem('accessToken');
 
     const [open, setOpen]=useState(false)
 

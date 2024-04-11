@@ -95,7 +95,7 @@ function List(props) {
                                 <div className={`flex ml-auto game-each-users`}
                                      style={{width: `${each.players.length * 40}px`}}>
                                     {each.players.map(user => (
-                                        <div
+                                        <div key={user.id}
                                             className={`game-each-user-each`}>{user.name.substring(user.name.length - 2, user.name.length)}</div>
                                     ))}
                                 </div>
