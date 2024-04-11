@@ -18,7 +18,7 @@ function Quick() {
         try {
             const response = await quickStart(
                 {
-                    status : on? 'PLAYING': 'OPEN',
+                    status : direct? 'PLAYING': 'OPEN',
                     names : names.slice(0,3)
                 }
             );
