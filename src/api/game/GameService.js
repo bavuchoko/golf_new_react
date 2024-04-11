@@ -28,8 +28,8 @@ async function getGameList(search, pageable) {
 }
 
 
-async function quickStart(playerCount) {
-    return await needAuth.post('/game/quick', playerCount);
+async function quickStart(game) {
+    return await needAuth.post('/game/quick', game);
 }
 
 

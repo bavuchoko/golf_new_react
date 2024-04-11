@@ -8,12 +8,20 @@ import toast from "react-hot-toast";
 function Quick() {
 
     const [number, setNumber] =useState(1)
+    const [direct, setDirect] =useState(false)
     const navigate = useNavigate();
 
+    const names = ["선수1", "선수2", "선수3"];
 
     const quickStartHandler = async ()=>{
+
         try {
-            const response = await quickStart(number);
+            const response = await quickStart(
+                {
+                    status : on? 'PLAYING': 'OPEN',
+                    names : names.slice(0,3)
+                }
+            );
             if (response.status === 200) {
                 toast.success('등록되었습니다.')
             } else if (response.status === 202) {
@@ -22,8 +30,8 @@ function Quick() {
         } catch (error){
             toast.error("에러가 발생했습니다.")
         }
-
     }
+
 
     return (
         <div className={`right-slider`}>
@@ -58,7 +66,7 @@ function Quick() {
                    </div>
 
                     <div className={`quick-right w-[90px]`}>
-                       <ToggleSwitch />
+                       <ToggleSwitch on={direct} setOn={setDirect} />
                    </div>
                </div>
             </div>

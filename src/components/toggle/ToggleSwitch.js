@@ -34,17 +34,17 @@ const ToggleContainer = styled.div`
   }
 `;
 
-function ToggleSwitch(props) {
-    const [isOn, setisOn] = useState(false);
+function ToggleSwitch({on, setOn}) {
+
     const toggleHandler = () => {
-        setisOn(preve=>!preve)
+        setOn(preve=>!preve)
     };
 
 
     return (
         <ToggleContainer onClick={toggleHandler} >
-            <div className={`toggle-container ${isOn ? "toggle--checked" : null}`}/>
-            <div className={`toggle-circle ${isOn ? "toggle--checked" : null}`}/>
+            <div className={`toggle-container ${on ? "toggle--checked" : null}`}/>
+            <div className={`toggle-circle ${on ? "toggle--checked" : null}`}/>
         </ToggleContainer>
     );
 }
