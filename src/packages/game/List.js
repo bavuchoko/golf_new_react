@@ -72,7 +72,7 @@ function List(props) {
                 </div>
             </div>
             <div className={"pt-[30px]  bg-[#fff] "}>
-            {data ? data._embedded.fieldsResponseDtoList.map(each=>(
+            {data ? data._embedded.gameResponseDtoList.map(each=>(
                 <div className={`game-each`} key={each.id}>
                     <div className={"flex"}>
                         <div className={`h-[30px] text-[14px]`}>
