@@ -46,24 +46,26 @@ needAuthapi.interceptors.response.use(
             let accessToken
             try {
                 const resonse = await needAuth.get(BASE_URL + `/user/reissue`,);
-                accessToken = resonse.data.accessToken
+                accessToken = resonse.data
+                console.log(resonse)
             }catch (error){
                 console.log(error)
                 alert("로그인 세션이 만료되어 로그아웃 되었습니다.")
                 const response = await userLogout();
-                window.location.replace("/");
+                // window.location.replace("/");
                 return response;
             }
             localStorage.removeItem("accessToken");
             await localStorage.setItem("accessToken", accessToken);
             originalRequest.headers.authorization = `Bearer ${accessToken}`;
             try {
+                console.log(accessToken)
                 return axios(originalRequest);
             }catch (error){
                 alert("로그인 세션이 만료되어 로그아웃 되었습니다.")
                 console.log(error)
                 const response = await userLogout();
-                window.location.replace("/");
+                // window.location.replace("/");
                 return response;
             }
         }
