@@ -1,16 +1,32 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import WeekSelector from "../../components/datePicker/WeekSelector";
 import Nocontent from "../../components/exception/Nocontent";
 import TypeSelectBox from "../../components/selectbox/TypeSelectBox";
 import {Link} from "react-router-dom";
+import {getGameList} from "../../api/game/GameService";
+import {toKSTISOString} from "../../api/common/CommonMethod";
+import {useHeaderContext} from "../../layout/context/HeaderContext";
 
 
 function List(props) {
-    const [date, setDate]= useState(new Date())
     const [ select, setSelect] = useState('전체');
+    const {apiLoading, setApiLoading  } = useHeaderContext();
     const [data, setData] =useState();
+    const [date, setDate] = useState(new Date());
     const [openStart, setOpenStart] =useState(false);
-
+    const [search, setSearch] =useState({
+        searchTxt:"",
+        startDate:toKSTISOString(date),
+        endDate:toKSTISOString(date),
+    });
+    const [pageable, setPageable] =useState({
+        sort:"createdAt",
+        desc:true,
+        size:10,
+        totalElements:0,
+        totalPages:0,
+        page:0
+    });
 
     const status=[
         {id:0, value:null, label:'전체'},
@@ -18,6 +34,29 @@ function List(props) {
         {id:2, value:'PLAYING', label:'경기중'},
         {id:3, value:'END', label:'종료'}
     ]
+
+    useEffect(()=>{
+        getList()
+    },[pageable.page])
+
+    async function getList() {
+        try {
+            const response = await getGameList(search, pageable);
+            if(response.status===200){
+                console.log(response)
+                setData(response.data);
+                setPageable((prevState) => ({
+                    ...prevState,
+                    totalElements: response.data.totalElements,
+                    totalPages: response.data.totalPages,
+                }));
+            }
+        } catch (error) {
+        }finally {
+            setApiLoading(false);
+        }
+    }
+
 
     return (
         <>

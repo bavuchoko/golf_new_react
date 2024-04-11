@@ -6,7 +6,6 @@ async function createGame(game) {
 }
 
 async function getGameList(search, pageable) {
-    const start = performance.now();
     let pageStr="";
     let sort="sort=";
     let size='&size=';
@@ -24,7 +23,7 @@ async function getGameList(search, pageable) {
     }
     page +=pageable.page;
     pageStr=sort+size+page;
-    return await needAuth.get('/game?' + pageStr, search);
+    return await needAuth.get('/game?' + pageStr+'&startDate='+search.startDate+'&endDate='+search.endDate);
 }
 
 
