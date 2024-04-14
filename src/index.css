@@ -509,3 +509,20 @@ ul.dropLi > a >li{
 
   margin-left: auto;
 }
+.player-name-container{
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(4, 1fr);
+}
+.player-name-container > div.each-player{
+  height: 40px;
+  display: inline-block;
+  border: 1px solid var(--main-inner-color);
+  outline: none;
+}
+.player-name-container > div.each-player > input{
+  outline: none;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
