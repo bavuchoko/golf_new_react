@@ -10,7 +10,7 @@ function Create(props) {
         <div className={`right-slider`}>
             <div className={`w-full  px-[30px] py-[5px] line-h-50 nav-bar h-[45px]`}>
                 <div className={`inline-block  line-h-35 w-[100%] flex h-[35px]`}>
-                    <span className={"Headland font-bold text-[20px]"}>경기 생성하기</span>
+                    <span className={"Headland font-bold text-[20px]"}>새 스코어카드</span>
                     <button
                         onClick={()=>navigate(-1)}
                         className={`ml-auto`}><img  src={Close} className={`className="w-7 h-7 "`}/> </button>
@@ -19,5 +19,4 @@ function Create(props) {
         </div>
     );
 }
-
 export default Create;
