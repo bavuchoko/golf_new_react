@@ -2,14 +2,11 @@ import React, {useState} from 'react';
 import menu from '../../resources/icons/menu.png'
 import SlideMenu from "../menu/SlideMenu";
 import {Link} from "react-router-dom";
+import {useSelector} from "react-redux";
 
 
 function MainHeader() {
-    const accessToken = localStorage.getItem("accessToken");
-    let payload = accessToken.substring(accessToken.indexOf('.')+1,accessToken.lastIndexOf('.'));
-    let userToken = decodeURIComponent(escape(window.atob(payload)));
-    const user = userToken.trim().length>1 ? JSON.parse(userToken) : localStorage.removeItem('accessToken');
-
+    const user = useSelector((state) => state.user);
     const [open, setOpen]=useState(false)
 
     const openHandler = () =>{

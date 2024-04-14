@@ -1,12 +1,9 @@
 import React from 'react';
 import {EachField, EachFieldFlag, EachFiledHistoryMode} from "../../style/style";
+import {useSelector} from "react-redux";
 
 function EachFiledComponent({data, modify, history, clicked, setClicked }) {
-    const accessToken = localStorage.getItem("accessToken");
-    let payload = accessToken.substring(accessToken.indexOf('.')+1,accessToken.lastIndexOf('.'));
-    let userToken = decodeURIComponent(escape(window.atob(payload)));
-    const user = JSON.parse(userToken);
-
+    const user = useSelector((state) => state.auth.user);
     return (
         <EachField onClick={()=>{
             if(clicked==data.id) setClicked(null)

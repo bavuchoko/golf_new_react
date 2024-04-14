@@ -13,9 +13,16 @@ import FieldContainer from "./packages/field/FieldContainer";
 import {Toaster} from "react-hot-toast";
 import Quick from "./packages/game/Quick";
 import Create from "./packages/game/Create";
+import {useDispatch} from "react-redux";
+import {setUsers} from "./redux/slice/userSlice";
 
 function App() {
-
+    const dispatch = useDispatch();
+    const accessToken = localStorage.getItem("accessToken");
+    let payload = accessToken.substring(accessToken.indexOf('.')+1,accessToken.lastIndexOf('.'));
+    let userToken = decodeURIComponent(escape(window.atob(payload)));
+    const user = userToken.trim().length>1 ? JSON.parse(userToken) : localStorage.removeItem('accessToken');
+    dispatch(setUsers(user))
     const isLoggedIn = localStorage.getItem("accessToken") != null
 
     return (

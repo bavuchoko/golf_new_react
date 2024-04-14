@@ -29,7 +29,7 @@ export const AddFieldSection = styled.div`
   box-shadow: 0 -9px 9px 1px hsla(206, 5%, 25%, 0.2);
 `;
 export const CategorySection = styled.div`
-  padding: 0px 6vh 3vw;
+  padding: 0px 5vh 3vw;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 10px;

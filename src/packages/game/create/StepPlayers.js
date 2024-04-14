@@ -2,8 +2,7 @@ import React, {useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import ToggleSwitch from "../../../components/toggle/ToggleSwitch";
 
-function StepPlayers({setStep, data, fnc}) {
-
+function StepPlayers({setStep, data, fnc, user}) {
     const [playerCnt, setPlayerCnt] =useState(3);
     const navigate = useNavigate();
     return (
@@ -22,14 +21,14 @@ function StepPlayers({setStep, data, fnc}) {
 
             <div className={'mt-[3rem] player-name-container w-full' }>
                 <div className={`each-player`}>
-                    <input type={`text`} className={``} readOnly={true} value={'박종수'}/>
+                    <input type={`text`} className={``} readOnly={true} value={user.name}/>
                 </div>
+
                 {Array.from({length: playerCnt}).map((_, index) =>(
                     <div className={`each-player`}>
                         <input type={`text`} className={``} placeholder={ `${index+2} 번`}/>
                     </div>
                 ))}
-
 
             </div>
         </div>
