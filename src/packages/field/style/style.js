@@ -29,10 +29,10 @@ export const AddFieldSection = styled.div`
   box-shadow: 0 -9px 9px 1px hsla(206, 5%, 25%, 0.2);
 `;
 export const CategorySection = styled.div`
-  padding: 0px 1vh 3vw;
+  padding: 0px 3vh 3vw;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 15px;
+  gap: 10px;
   position: fixed;
   bottom: 0px;
   width: 100%;
@@ -72,27 +72,6 @@ export const EachType = styled.div`
   
 `;
 
-export const CitySelector = styled.div`
-  padding: 10px 30px;
-  // padding: ${({ open }) => (open ? '10px 30px' : '0px')};
-  width: 100%;
-  height: ${({ open }) => (open ? 'auto' : '43px')};
-  overflow: hidden;
-  background: var(--main-inner-color);
-  transition: 0.35s ease;
-`;
-export const EachCity = styled.div`
-  padding: 5px 10px;
-  font-size: 11px;
-  height: 26px;
-  display: inline-block;
-  margin-right: 10px;
-  margin-bottom: 5px;
-  border-radius: 30px;
-  background: ${({ city }) => (city ? '#2a4aad' : 'white')};
-  color: ${({ city }) => (city ? 'white' : 'black')};
-  box-shadow:  ${({ city }) => (city ? ' 0 3px 7px 2px hsla(205,7%,51%,.7);' : ' ')}; 
-`;
 
 export const FieldListContainer = styled.div`
   width: 100%;
@@ -103,7 +82,6 @@ export const EachField = styled.div`
   display: flex;
   width: 100%;
   padding: 10px 15px;
-  font-size: 13px;
   height: 80px;
   border-bottom: 1px solid var(--main-inner-color);
 `;
