@@ -74,7 +74,7 @@ function StepPass({setStep, data, fnc, target}) {
             <div className="w-full  line-h-40 py-[5px] line-h-50 h-[55px] ">
                 <div className="inline-block w-[100%] flex h-[50px]" >
                     <p onClick={()=>setStep("성별")}>뒤로</p>
-                    <div className={"ml-auto w-[96px]"}>
+                    <div className={"ml-auto w-[107px]"}>
                         <span className={"mr-2"}>5/5</span>
                         <span className={" text-[#354db0]"} onClick={() => {
                             if(pass){

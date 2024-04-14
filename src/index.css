@@ -4,7 +4,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Headland+One&display=swap');
 body {
   height: 100vh;
-
+  font-size: 18px;
 }
 :root {
   --main-btn-color : #166aea;

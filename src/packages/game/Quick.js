@@ -44,7 +44,7 @@ function Quick() {
                     <Link to={"/login"}
                           onClick={()=>navigate(-1)}
                     >뒤로</Link>
-                    <div className={"ml-auto w-[64px]"}>
+                    <div className={"ml-auto w-[72px]"}>
                         <span className={" text-[#354db0]"}
                               onClick={()=>quickStartHandler()}
                         >시작하기</span>

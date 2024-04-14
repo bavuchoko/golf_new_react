@@ -188,7 +188,7 @@ function Create(props) {
 
             <AddFieldSection className={``} drawup={drawup ? drawup : undefined} height={height}>
                 <div className={'draw-up-handler'} onClick={()=>setDrawup(!drawup)}><div className={`draw-up-handler-pointer`}></div> </div>
-                <div className={'text-[12px] h-[30px]w-[210px] mb-[5px] text-[#9b9696]'}>
+                <div className={'text-[15px] h-[30px]w-[210px] mb-[5px] text-[#9b9696]'}>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
                          stroke="currentColor" className={`w-5 h-5 inline-block mr-1`}>
                         <path strokeLinecap="round" strokeLinejoin="round"
@@ -201,7 +201,7 @@ function Create(props) {
                         <div className={`flex`}>
                             <div className={''}>
                                 <img src={Pin} className={`w-[23px] h-[23px] inline-block`}/>
-                                <span className={`text-[13px] text-[#166AEAFF]`}>경기장</span><span className={`text-[13px]`}>이름을 입력하세요</span>
+                                <span className={`text-[16px] text-[#166AEAFF]`}>경기장</span><span className={`text-[16px]`}>이름을 입력하세요</span>
                                 <input
                                     type="text"
                                     placeholder="경기장 명"
@@ -244,7 +244,7 @@ function Create(props) {
                                  stroke="currentColor" className={`inline-block align-middle w-4 h-4 rounded-lg ${drawup ?'bg-[white] text-[#166AEAFF]':'bg-[#166AEAFF] text-[white]' }  items-center`}>
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15"/>
                             </svg>
-                            <span className={`inline-block ml-1 text-[13px] align-middle `}>{drawup ? '저장하기' : '경기장 등록하기'} </span>
+                            <span className={`inline-block ml-1 text-[16px] align-middle `}>{drawup ? '저장하기' : '경기장 등록하기'} </span>
                         </div>
                     </div>
                 </div>

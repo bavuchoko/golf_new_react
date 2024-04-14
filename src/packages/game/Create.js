@@ -1,21 +1,17 @@
-import React from 'react';
-import Close from "../../resources/icons/close.png";
-import {useNavigate} from "react-router-dom";
+import React, {useState} from 'react';
+import StepUserName from "../user/joinStep/StepUserName";
+import StepPlayers from "./create/StepPlayers";
+import StepField from "./create/StepField";
 
 function Create(props) {
-    
-    const navigate = useNavigate();
-    
+
+    const [step, setStep] = useState("이름");
+    const [game, setGame] = useState();
+
     return (
         <div className={`right-slider`}>
-            <div className={`w-full  px-[30px] py-[5px] line-h-50 nav-bar h-[45px]`}>
-                <div className={`inline-block  line-h-35 w-[100%] flex h-[35px]`}>
-                    <span className={"Headland font-bold text-[20px]"}>새 스코어카드</span>
-                    <button
-                        onClick={()=>navigate(-1)}
-                        className={`ml-auto`}><img  src={Close} className={`className="w-7 h-7 "`}/> </button>
-                </div>
-            </div>
+            {step === "이름" && <StepPlayers setStep={setStep} data={game} fnc={setGame} target={"names"}/>}
+            {step === "경기장" && <StepField setStep={setStep} data={game} fnc={setGame} target={"field"}/>}
         </div>
     );
 }

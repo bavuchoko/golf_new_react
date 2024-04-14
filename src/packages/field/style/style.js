@@ -60,8 +60,8 @@ export const TypeSelector = styled.div`
 `;
 
 export const EachType = styled.div`
-  padding: 6px 10px;
-  font-size: 12px;
+  padding: 3px 10px;
+  font-size: 15px;
   height: 30px;
   margin-right: 10px;
   border-radius: 30px;

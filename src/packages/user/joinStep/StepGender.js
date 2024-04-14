@@ -21,7 +21,7 @@ function StepGender({setStep, data, fnc, target}) {
             <div className="w-full  px-[30px] line-h-40 py-[5px] line-h-50 h-[55px] ">
                 <div className="inline-block w-[100%] flex h-[50px]" >
                     <p onClick={()=>setStep("생일")}>뒤로</p>
-                    <div className={"ml-auto w-[64px]"}>
+                    <div className={"ml-auto w-[71px]"}>
                         <span className={"mr-2"}>4/5</span>
                         <span className={"ml-auto text-[#354db0]"} onClick={()=>setStep("비밀번호")}>다음</span>
                     </div>

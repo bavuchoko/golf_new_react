@@ -22,7 +22,7 @@ function StepName({setStep, data, fnc, target}) {
             <div className="w-full line-h-40 py-[5px] line-h-50 h-[55px] ">
                 <div className="inline-block w-[100%] flex h-[50px]" >
                     <p onClick={()=>setStep("전화번호")}>뒤로</p>
-                    <div className={"ml-auto w-[64px]"}>
+                    <div className={"ml-auto w-[71px]"}>
                         <span className={"mr-2"}>3/5</span>
                         <span className={" text-[#354db0]"} onClick={() => {
                             if(pass)setStep("성별")
