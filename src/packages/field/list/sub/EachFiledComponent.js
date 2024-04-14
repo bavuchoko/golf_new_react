@@ -3,7 +3,7 @@ import {EachField, EachFieldFlag, EachFiledHistoryMode} from "../../style/style"
 import {useSelector} from "react-redux";
 
 function EachFiledComponent({data, modify, history, clicked, setClicked }) {
-    const user = useSelector((state) => state.auth.user);
+    const user = useSelector((state) => state.user.user);
     return (
         <EachField onClick={()=>{
             if(clicked==data.id) setClicked(null)

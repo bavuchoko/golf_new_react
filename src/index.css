@@ -462,7 +462,6 @@ ul.dropLi > a >li{
     transform: translateX(0%);
   }
 }
-
 .slide-left-delay-1s{
   opacity: 0;
   position: absolute;
@@ -509,20 +508,23 @@ ul.dropLi > a >li{
 
   margin-left: auto;
 }
+
 .player-name-container{
-  display: grid;
-  gap: 10px;
-  grid-template-columns: repeat(4, 1fr);
+  padding-top: 30px;
 }
-.player-name-container > div.each-player{
+
+
+.player-name-container > div.each-player {
   height: 40px;
-  display: inline-block;
-  border: 1px solid var(--main-inner-color);
+  display: block;
+  margin-bottom: 20px;
   outline: none;
 }
 .player-name-container > div.each-player > input{
   outline: none;
-  width: 100%;
+  border-bottom: 1px solid var(--main-inner-color);
+  border-radius: 0px;
+  width: 120px;
   height: 100%;
   text-align: center;
 }

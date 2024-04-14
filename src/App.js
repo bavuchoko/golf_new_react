@@ -15,14 +15,20 @@ import Quick from "./packages/game/Quick";
 import Create from "./packages/game/Create";
 import {useDispatch} from "react-redux";
 import {setUsers} from "./redux/slice/userSlice";
+import {logout} from "./redux/slice/authSlice";
 
 function App() {
     const dispatch = useDispatch();
-    const accessToken = localStorage.getItem("accessToken");
-    let payload = accessToken.substring(accessToken.indexOf('.')+1,accessToken.lastIndexOf('.'));
-    let userToken = decodeURIComponent(escape(window.atob(payload)));
-    const user = userToken.trim().length>1 ? JSON.parse(userToken) : localStorage.removeItem('accessToken');
-    dispatch(setUsers(user))
+    const accessToken = localStorage.getItem('accessToken');
+    let payload;
+    if(accessToken && accessToken !== undefined){
+        payload = accessToken.substring(accessToken.indexOf('.')+1,accessToken.lastIndexOf('.'));
+        let userToken = decodeURIComponent(escape(window.atob(payload)));
+        const user = userToken.trim().length>1 ? JSON.parse(userToken) : localStorage.removeItem('accessToken');
+        dispatch(setUsers(user))
+    }else{
+        dispatch(logout())
+    }
     const isLoggedIn = localStorage.getItem("accessToken") != null
 
     return (

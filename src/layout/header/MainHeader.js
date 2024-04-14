@@ -6,7 +6,7 @@ import {useSelector} from "react-redux";
 
 
 function MainHeader() {
-    const user = useSelector((state) => state.user);
+
     const [open, setOpen]=useState(false)
 
     const openHandler = () =>{
@@ -28,7 +28,7 @@ function MainHeader() {
                 </button>
             </div>
         </div>
-        <SlideMenu open={open} setOpen={setOpen} user={user}/>
+        <SlideMenu open={open} setOpen={setOpen}/>
             {open  && <div className={"fixed top-0 left-0 w-full h-full bg-[rgba(31,48,60,.9)] z-999"} onClick={()=>setOpen(false)}></div>  }
         </>
     );

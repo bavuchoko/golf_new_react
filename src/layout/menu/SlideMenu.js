@@ -4,9 +4,11 @@ import {userLogout} from "../../api/auth/AuthService";
 import {Link, useNavigate} from "react-router-dom";
 import SlideMenuSub from "./SlideMenuSub";
 import {useState} from "react";
+import {useSelector} from "react-redux";
 
-function SlideMenu({open, setOpen, user }) {
+function SlideMenu({open, setOpen }) {
     const [openParent, setOpenParent] = useState(null)
+    const user = useSelector((state) => state.user.user);
     const handleLogout =async ()=> {
         localStorage.removeItem("accessToken");
         localStorage.removeItem("isLoggedIn");
