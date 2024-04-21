@@ -49,8 +49,10 @@ function StepName({setStep, data, fnc, target}) {
                 <input value={data[target] ? data[target] : '010'}
                        onChange={(e)=>inputHandler(e.target.value)}
                        type={"number"}
+                       pattern={"[0-9]*"}
+                       inputMode="numeric"
                        placeholder={"전화번호"}
-                       className={"border-bottom indent-3 w-[90%] h-[55px] mt-[7rem]  no-outline"}
+                       className={"border-bottom-black indent-3 w-[90%] h-[55px] mt-[7rem]  no-outline"}
                        autoFocus={true}
                 />
                     <div className={"mt-1 text-[gray]"}>

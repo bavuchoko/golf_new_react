@@ -7,8 +7,6 @@ import StepBirth from "./joinStep/StepBirth";
 import StepGender from "./joinStep/StepGender";
 import StepPass from "./joinStep/StepPass";
 import StepUserName from "./joinStep/StepUserName";
-import {useHeaderContext} from "../../layout/context/HeaderContext";
-import LoadingModal from "../../components/modal/LoadingModal";
 
 function Join() {
     const [userData, setUserData] =useState({})

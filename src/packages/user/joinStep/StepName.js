@@ -37,12 +37,12 @@ function StepName({setStep, data, fnc, target}) {
                 </div>
             </div>
             <div className={"mt-[5rem]"}>
-                <p className={"keyFix slide-left text-[34px] mb-1"}>이름을 입력하세요</p>
+                <p className={"keyFix slide-left text-[34px] mb-1"}>이름을 입력하세요.</p>
                 <input value={data[target] ?data[target] : ""}
                        onChange={(e)=>onchangeInputHandler(e.target.value)}
                        type={"text"}
                        placeholder={"이름"}
-                       className={" border-bottom indent-3 w-[90%] h-[55px] mt-[7rem] no-outline"}
+                       className={" border-bottom-black indent-3 w-[90%] h-[55px] mt-[7rem] no-outline"}
                        autoFocus={true}/>
             </div>
         </div>

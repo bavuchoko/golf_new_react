@@ -40,7 +40,7 @@ function StepName({setStep, data, fnc, target}) {
                            onChange={(e)=>onchangeInputHandler(e.target.value)}
                            type={"number"}
                            placeholder={"ex) 750301 "}
-                           className={`border-b indent-3 w-[90%] h-[55px] mt-[7rem] no-outline `}
+                           className={`border-bottom-black indent-3 w-[90%] h-[55px] mt-[7rem] no-outline `}
                            autoFocus={true}/>
                 </div>
             </div>

@@ -20,6 +20,8 @@ function StepPass({setStep, data, fnc, target}) {
             ...prev,
             [target]:value
         }));
+
+
         if(passConfirm && value !== passConfirm){
             setMessage("비밀번호가 일치하지 않습니다.")
             setPass(false);
@@ -99,14 +101,14 @@ function StepPass({setStep, data, fnc, target}) {
                        onChange={(e)=>onchangeInputHandler(e.target.value)}
                        type={"password"}
                        placeholder={"비밀번호"}
-                       className={"border-b indent-3 w-[90%] h-[55px] mt-[1.5rem] no-outline"}
+                       className={"border-bottom-black indent-3 w-[90%] h-[55px] mt-[1.5rem] no-outline"}
                        autoFocus={true}
                 />
                 <input value={passConfirm}
                        onChange={(e)=>comparePass(e.target.value)}
                        type={"password"}
                        placeholder={"비밀번호 확인"}
-                       className={"border-b indent-3 w-[90%] h-[55px] mt-[1rem] no-outline"}
+                       className={`${data.password?.trim() =='' ? 'border-b': 'border-bottom-black' }  indent-3 w-[90%] h-[55px] mt-[1rem] no-outline`}
                 />
 
                 {message &&

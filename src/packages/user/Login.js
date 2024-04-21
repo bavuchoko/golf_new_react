@@ -72,6 +72,8 @@ function Login() {
                     <input value={id}
                            onChange={(e)=>idInputHandler(e)}
                            type={"number"}
+                           pattern={"[0-9]*"}
+                           inputMode={"numeric"}
                            placeholder={"전화번호"}
                            className={"border-b indent-3 w-[90%] h-[55px] mt-[3rem] no-outline"}
                            autoFocus={true}/>

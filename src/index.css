@@ -84,6 +84,11 @@ body {
   border-radius: 0;
   border-bottom: 1px solid var(--main-gray-line);
 }
+.border-bottom-black{
+  border-radius: 0;
+  border-bottom: 2px solid black;
+}
+
 .gender-radio input[type="radio"]{
   display: none;
 }
@@ -509,22 +514,3 @@ ul.dropLi > a >li{
   margin-left: auto;
 }
 
-.player-name-container{
-  padding-top: 30px;
-}
-
-
-.player-name-container > div.each-player {
-  height: 40px;
-  display: block;
-  margin-bottom: 20px;
-  outline: none;
-}
-.player-name-container > div.each-player > input{
-  outline: none;
-  border-bottom: 1px solid var(--main-inner-color);
-  border-radius: 0px;
-  width: 120px;
-  height: 100%;
-  text-align: center;
-}

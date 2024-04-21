@@ -19,24 +19,23 @@ function StepPlayers({setStep, data, fnc, user}) {
             </div>
 
 
-            <div className={'mt-5 player-name-container w-full' }>
-                <p className={"keyFix slide-left text-[34px] mb-1"}>이름을 입력하세요</p>
+            <p className={"keyFix slide-left-delay-1s text-[34px] mb-1 mt-10"}>이름을 입력하세요</p>
 
+            <div className={`mt-[8rem]`}></div>
+            <div className={`w-full`}>
 
-
-
-                <div className={`mt-[80px] each-player `}>
-                    <input type={`text`} className={`no-radius`} readOnly={true} value={user.name}/>
-                </div>
-
-                {Array.from({length: playerCnt}).map((_, index) =>(
-                    <div className={`each-player`} key={index}>
-                        <input type={`text`} className={``} placeholder={ `${index+2} 번`}/>
-                    </div>
-                ))}
-
-
+                <input type={``} className={"border-bottom-black indent-3 w-full h-[55px] no-outline"}/>
             </div>
+
+                {/*{Array.from({length: playerCnt}).map((_, index) =>(*/}
+                {/*    <div className={`each-player`} key={index}>*/}
+                {/*        <label className={`text-[14px]`}>{index+2}번</label>*/}
+                {/*        <input type={`text`} className={``} placeholder={ ``}/>*/}
+                {/*    </div>*/}
+                {/*))}*/}
+
+
+
         </div>
     );
 }
