@@ -86,7 +86,7 @@ body {
 }
 .border-bottom-black{
   border-radius: 0;
-  border-bottom: 2px solid black;
+  border-bottom: 3px solid black;
 }
 
 .gender-radio input[type="radio"]{
@@ -324,6 +324,19 @@ code {
   height: 50px;
   line-height: 50px;
   font-size: 23px;
+  text-align: center;
+}
+
+.nextBtn{
+  display: block;
+  width: 100%;
+  border: 1px solid black;
+  border-radius: 4px;
+  color: white;
+  background: var(--main-btn-color);
+  height: 45px;
+  line-height: 45px;
+  font-size: 18px;
   text-align: center;
 }
 

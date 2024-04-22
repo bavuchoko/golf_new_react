@@ -4,6 +4,7 @@ import ToggleSwitch from "../../../components/toggle/ToggleSwitch";
 
 function StepPlayers({setStep, data, fnc, user}) {
     const [playerCnt, setPlayerCnt] =useState(3);
+    const [names, setNames] =useState([]);
     const navigate = useNavigate();
     return (
         <div className={"px-[30px]"}>
@@ -19,20 +20,25 @@ function StepPlayers({setStep, data, fnc, user}) {
             </div>
 
 
-            <p className={"keyFix slide-left-delay-1s text-[34px] mb-1 mt-10"}>이름을 입력하세요</p>
-
-            <div className={`mt-[8rem]`}></div>
+            <div className={``}></div>
             <div className={`w-full`}>
-
-                <input type={``} className={"border-bottom-black indent-3 w-full h-[55px] no-outline"}/>
+                <input type={``} className={"border-bottom-black indent-3 w-full h-[55px] no-outline "} placeholder={'이름을 입력하세요'} autoFocus={true}/>
+                <button  className={"mt-5 nextBtn" } >동반자 추가</button>
             </div>
 
-                {/*{Array.from({length: playerCnt}).map((_, index) =>(*/}
-                {/*    <div className={`each-player`} key={index}>*/}
-                {/*        <label className={`text-[14px]`}>{index+2}번</label>*/}
-                {/*        <input type={`text`} className={``} placeholder={ ``}/>*/}
-                {/*    </div>*/}
-                {/*))}*/}
+            <div>
+                <div className={`each-player`} >
+                    <label className={`text-[14px]`}>1 번</label>
+                    <p className={``} placeholder={ ``}>{user.name}</p>
+                </div>
+            {Array.from({length: playerCnt}).map((_, index) =>(
+                <div className={`each-player`} key={index}>
+                    <label className={`text-[14px]`}>{index+2}번</label>
+                    <p className={``} placeholder={ ``}>{names[index]}</p>
+                </div>
+            ))}
+            </div>
+
 
 
 
