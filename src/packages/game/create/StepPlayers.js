@@ -3,15 +3,26 @@ import {useNavigate} from "react-router-dom";
 import ToggleSwitch from "../../../components/toggle/ToggleSwitch";
 
 function StepPlayers({setStep, data, fnc, user}) {
-    const [names, setNames] =useState([]);
     const [tempName, setTempName] =useState('');
     const [idx, setIdx] =useState(0);
     const navigate = useNavigate();
 
     function removePlayer(index){
-        const newNames = [...names];
+        const newNames = [...data.names];
         newNames.splice(index, 1);
-        setNames(newNames);
+        fnc({...data, names: newNames});
+    }
+
+
+    function setPlayerNames() {
+        if(idx < 2) setIdx(()=>idx+1)
+        if (!data.names) {
+            fnc({...data, names: [tempName]});
+        }else if (data.names.length < 3 && tempName.trim() !== '') {
+            const newNames = [...data.names];
+            newNames[idx] = tempName;
+            fnc({...data, names: newNames});
+        }
     }
 
     return (
@@ -22,6 +33,7 @@ function StepPlayers({setStep, data, fnc, user}) {
                     <div className={"ml-auto w-[36px]"}>
                         <span className={" text-[#354db0]"} onClick={() => {
                             setStep('경기장')
+                            console.log(data)
                         }}>다음</span>
                     </div>
                 </div>
@@ -33,12 +45,8 @@ function StepPlayers({setStep, data, fnc, user}) {
                 <input type={``} id={'names'} value={tempName} onChange={
                     (e)=>setTempName(e.target.value)} className={"border-bottom-black indent-3 w-full h-[55px] no-outline "} placeholder={'이름을 입력하세요'} autoFocus={true}/>
                 <button  className={"mt-5 nextBtn" }  onClick={()=>{
-                    if(idx < 2) setIdx(()=>idx+1)
-                    if(names.length<3 && tempName.trim() !==''){
-                        const newNames = [...names];
-                        newNames[idx] =tempName;
-                        setNames([...names, tempName])
-                    }
+
+                    setPlayerNames();
                     setTempName('')
                     document.getElementById('names').focus();
                 }}>동반자 추가</button>
@@ -50,11 +58,11 @@ function StepPlayers({setStep, data, fnc, user}) {
                     {/*<span className={`mr-3 inline-block`}>1번</span>*/}
                     <p className={``} placeholder={ ``}>{user.name}</p>
                 </div>
-            {names.map((_, index) =>(
+            {data?.names?.map((_, index) =>(
                 <div className={`each-player flex h-[30px] mb-[5px]`} key={index}>
 
                     {/*<span className={`mr-3 inline-block`}>{index + 2}번</span>*/}
-                    <p className={`w-[100px]`} placeholder={``}>{names[index]}</p>
+                    <p className={`w-[100px]`} placeholder={``}>{data.names[index]}</p>
 
                     <svg width="800px" height="800px" viewBox="0 0 1024 1024" onClick={()=> {
                         removePlayer(index);

@@ -6,7 +6,7 @@ import {useSelector} from "react-redux";
 function Create(props) {
     const user = useSelector((state) => state.user.user);
     const [step, setStep] = useState("이름");
-    const [game, setGame] = useState();
+    const [game, setGame] = useState({});
 
     return (
         <div className={`right-slider`}>
