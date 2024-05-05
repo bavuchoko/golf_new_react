@@ -51,12 +51,12 @@ export const ActionButton = styled.div`
     //color: ${props => (props.clicked ? 'white' : '')};
 `;
 export const TypeSelector = styled.div`
-  padding: 10px 30px;
-  display: flex;
-  width: 100%;
-  height: 50px;
-  //background: var(--main-inner-color);
-  
+    padding: 10px 30px;
+    display: flex;
+    width: 100%;
+    height: 50px;
+    //background: var(--main-inner-color);  
+    background: #ebeef3;
 `;
 
 export const EachType = styled.div`
@@ -83,10 +83,12 @@ export const EachField = styled.div`
   width: 100%;
   padding: 10px 15px;
   height: 80px;
+  background: ${({ selected }) => (selected ? '#f0fdf0' : 'white')};
   border-bottom: 1px solid var(--main-inner-color);
 `;
 export const EachFieldFlag = styled.div`
   margin-top: 15px;
+  background: white;
   margin-right: 15px;
   padding: 5px;
   border: 1px solid black;
