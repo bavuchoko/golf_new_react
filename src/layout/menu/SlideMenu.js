@@ -71,7 +71,7 @@ function SlideMenu({open, setOpen }) {
                     <p className={"text-[14px]"}>{user.name}</p>
                 </div>
                 <div className={"user-family-name"}>
-                    {user.name}
+                    {user.name.substring(user.name.length - 2)}
                 </div>
             </div>
         </div>
