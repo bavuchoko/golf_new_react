@@ -5,6 +5,7 @@ import {getFieldList} from "../../../api/field/FieldService";
 import {EachType, TypeSelector} from "../../field/style/style";
 
 function StepField({setStep, data, fnc}) {
+    const [clicked, setClicked] =useState({id:0})
     const startGameHandler =()=>{
 
     }
@@ -50,7 +51,7 @@ function StepField({setStep, data, fnc}) {
                     <EachType  option={option==='near' ? "true":undefined} onClick={()=>setOption('near')}>가까운 곳</EachType>
                     <EachType  option={option==='city' ? "true":undefined} onClick={()=>setOption('city')}>지역별</EachType>
                 </TypeSelector>
-                <Near data={field} list={true} />
+                <Near data={field} list={true} clicked={clicked} setClicked={setClicked} />
             </>
         </div>
     );

@@ -3,8 +3,7 @@ import {FieldListContainer} from "../style/style";
 import EachFiledComponent from "./sub/EachFiledComponent";
 import Nocontent from "../../../components/exception/Nocontent";
 
-function Near({data, list}) {
-    const [clicked, setClicked] =useState(0)
+function Near({data, list, clicked, setClicked}) {
 
     return (
         <>

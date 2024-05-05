@@ -5,9 +5,7 @@ import Nocontent from "../../../components/exception/Nocontent";
 import TypeSelectBox from "../../../components/selectbox/TypeSelectBox";
 import {useState} from "react";
 
-function City({data, select, setSelect}) {
-
-    const [clicked, setClicked] =useState(0)
+function City({data, clicked, setClicked, select, setSelect}) {
 
     const city=[
         {id:0, value:'전체', label:'전체'},

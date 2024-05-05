@@ -12,6 +12,7 @@ function List(props) {
     const latitude = geolocation.latitude
     const longitude = geolocation.longitude
     const [data, setData] = useState();
+    const [clicked, setClicked] =useState({id:0})
     const [search, setSearch] =useState({
         searchTxt:"",
         city:"전체"
@@ -57,9 +58,9 @@ function List(props) {
                 <EachType  option={option==='city' ? "true":undefined} onClick={()=>setOption('city')}>지역별</EachType>
             </TypeSelector>
             <>
-                { option  === "all" && <All data={data} />}
-                { option  === "near" && <Near data={data} />}
-                { option  === "city" && <City data={data} select={search.city} setSelect={setSearch}/>}
+                { option  === "all" && <All data={data} clicked={clicked} setClicked={setClicked}/>}
+                { option  === "near" && <Near data={data} clicked={clicked} setClicked={setClicked} />}
+                { option  === "city" && <City data={data} clicked={clicked} setClicked={setClicked} select={search.city} setSelect={setSearch}/>}
             </>
         </div>
     );

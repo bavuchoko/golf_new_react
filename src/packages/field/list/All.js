@@ -3,9 +3,7 @@ import {FieldListContainer} from "../style/style";
 import EachFiledComponent from "./sub/EachFiledComponent";
 import Nocontent from "../../../components/exception/Nocontent";
 
-function All({data}) {
-    const [clicked, setClicked] =useState(0)
-
+function All({data, clicked, setClicked}) {
     return (
         <>
             <FieldListContainer >

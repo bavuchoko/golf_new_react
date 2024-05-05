@@ -5,14 +5,14 @@ import {useSelector} from "react-redux";
 function EachFiledComponent({data, modify, list, history, clicked, setClicked }) {
     const user = useSelector((state) => state.user.user);
     return (
-        <EachField selected={clicked ===data.id ? true : undefined} onClick={()=>{
-            if(clicked==data.id) setClicked(null)
-            else setClicked(data.id)
+        <EachField selected={list && clicked.id ===data.id ? true : undefined} onClick={()=>{
+            if(clicked.id==data.id) setClicked({id:0})
+            else setClicked(data)
         }}>
             <EachFieldFlag>
                 {list ?
 
-                    clicked == data.id ?
+                    clicked.id == data.id ?
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                          viewBox="0 0 512 512">
                         <path fill="#3AB37C"
@@ -27,7 +27,7 @@ function EachFiledComponent({data, modify, list, history, clicked, setClicked })
                               d="M3 3v1.5M3 21v-6m0 0 2.77-.693a9 9 0 0 1 6.208.682l.108.054a9 9 0 0 0 6.086.71l3.114-.732a48.524 48.524 0 0 1-.005-10.499l-3.11.732a9 9 0 0 1-6.085-.711l-.108-.054a9 9 0 0 0-6.208-.682L3 4.5M3 15V4.5"/>
                     </svg>
                     :
-                    clicked == data.id ?
+                    clicked.id == data.id ?
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
                     <path fillRule="evenodd"
                     d="M3 2.25a.75.75 0 0 1 .75.75v.54l1.838-.46a9.75 9.75 0 0 1 6.725.738l.108.054A8.25 8.25 0 0 0 18 4.524l3.11-.732a.75.75 0 0 1 .917.81 47.784 47.784 0 0 0 .005 10.337.75.75 0 0 1-.574.812l-3.114.733a9.75 9.75 0 0 1-6.594-.77l-.108-.054a8.25 8.25 0 0 0-5.69-.625l-2.202.55V21a.75.75 0 0 1-1.5 0V3A.75.75 0 0 1 3 2.25Z"
@@ -51,15 +51,15 @@ function EachFiledComponent({data, modify, list, history, clicked, setClicked })
 
             {modify &&
                 <div className={`relative ml-auto overflow-hidden h-full py-[10px] flex`}
-                     style={{width: clicked === data.id ? '81px' : '0px', transition: '0.35s ease'}}>
-                    <div className={`absolute right-[40px] h-[40px] w-[40px] mr-[1px] ${data.register.id ===user.id ?'bg-[#166aea]':'bg-[#cbcbcb]'} text-[white]`} style={{ width: clicked===data.id ? '40px':'0px', transition: '0.35s ease'}}>
+                     style={{width: clicked.id === data.id ? '81px' : '0px', transition: '0.35s ease'}}>
+                    <div className={`absolute right-[40px] h-[40px] w-[40px] mr-[1px] ${data.register.id ===user.id ?'bg-[#166aea]':'bg-[#cbcbcb]'} text-[white]`} style={{ width: clicked.id===data.id ? '40px':'0px', transition: '0.35s ease'}}>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
                              stroke="currentColor"  className="w-5 h-5 m-auto mt-[8px] font-light">
                             <path strokeLinecap="round" strokeLinejoin="round"
                                   d="M11.42 15.17 17.25 21A2.652 2.652 0 0 0 21 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 1 1-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 0 0 4.486-6.336l-3.276 3.277a3.004 3.004 0 0 1-2.25-2.25l3.276-3.276a4.5 4.5 0 0 0-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437 1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008Z"/>
                         </svg>
                     </div>
-                    <div className={`absolute right-[0px] h-[40px] w-[40px]  ${data.register.id ===user.id ?'bg-[#ff2121]':'bg-[#cbcbcb]'} text-[white]`} style={{ width: clicked===data.id ? '40px':'0px', transition: '0.35s ease'}}>
+                    <div className={`absolute right-[0px] h-[40px] w-[40px]  ${data.register.id ===user.id ?'bg-[#ff2121]':'bg-[#cbcbcb]'} text-[white]`} style={{ width: clicked.id===data.id ? '40px':'0px', transition: '0.35s ease'}}>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
                              stroke="currentColor" className="w-5 h-5 m-auto mt-[8px] font-light">
                             <path strokeLinecap="round" strokeLinejoin="round"
