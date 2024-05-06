@@ -1,8 +1,8 @@
 import {needAuth, noAuh} from "../instance/Instance";
 
-async function createGame(game) {
+async function gameStart(game) {
     console.log(game)
-    return await needAuth.post('/game', game);
+   return await needAuth.post('/game', game);
 }
 
 async function getGameList(search, pageable) {
@@ -32,5 +32,4 @@ async function quickStart(game) {
 }
 
 
-
-export {createGame, getGameList, quickStart};
+export {gameStart, getGameList, quickStart};

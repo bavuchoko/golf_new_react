@@ -11,6 +11,7 @@ function StepPlayers({setStep, data, fnc, user}) {
         const newNames = [...data.names];
         newNames.splice(index, 1);
         fnc({...data, names: newNames});
+
     }
 
 
@@ -33,7 +34,6 @@ function StepPlayers({setStep, data, fnc, user}) {
                     <div className={"ml-auto w-[36px]"}>
                         <span className={" text-[#354db0]"} onClick={() => {
                             setStep('경기장')
-                            console.log(data)
                         }}>다음</span>
                     </div>
                 </div>
