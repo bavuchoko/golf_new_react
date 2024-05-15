@@ -37,26 +37,26 @@ function List(props) {
     ]
 
     useEffect(()=>{
-        getList()
-    },[pageable.page])
-
-    async function getList() {
-        try {
-            const response = await getGameList(search, pageable);
-            if(response.status===200){
-                console.log(response)
-                setData(response.data);
+        setApiLoading(true)
+        const newSearch = {
+            ...search,
+            startDate:toKSTISOString(date),
+            endDate:toKSTISOString(date)}
+        getGameList(newSearch, pageable).then(_ =>{
+            if(_.status===200){
+                console.log(_)
+                setData(_.data);
                 setPageable((prevState) => ({
                     ...prevState,
-                    totalElements: response.data.totalElements,
-                    totalPages: response.data.totalPages,
+                    totalElements: _.data.totalElements,
+                    totalPages: _.data.totalPages,
                 }));
             }
-        } catch (error) {
-        }finally {
-            setApiLoading(false);
-        }
-    }
+            }).then(
+                setApiLoading(false)
+        );
+    },[pageable.page, date])
+
 
     if(data) {
         return (
