@@ -52,7 +52,7 @@ needAuthapi.interceptors.response.use(
                 console.log(error)
                 alert("로그인 세션이 만료되어 로그아웃 되었습니다.")
                 const response = await userLogout();
-                // window.location.replace("/");
+                window.location.replace("/");
                 return response;
             }
             localStorage.removeItem("accessToken");
