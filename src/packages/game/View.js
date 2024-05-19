@@ -2,11 +2,12 @@ import React, {useEffect} from 'react';
 import {useParams} from "react-router-dom";
 
 function View({}) {
-    const id = useParams();
+    const params = useParams();
+
     const BASE_URL = process.env.REACT_APP_BASE_URL;
     useEffect(() => {
         //SSE연결 로직
-        const eventSource = new EventSource( BASE_URL + '/game/' +  id);
+        const eventSource = new EventSource( BASE_URL + '/game/' +  params.id);
         eventSource.addEventListener('connect', (event) => {
             console.log("connect message: ", event.data)
         });

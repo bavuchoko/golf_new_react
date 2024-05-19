@@ -16,6 +16,7 @@ import Create from "./packages/game/Create";
 import {useDispatch} from "react-redux";
 import {setUsers} from "./redux/slice/userSlice";
 import {logout} from "./redux/slice/authSlice";
+import View from "./packages/game/View";
 
 function App() {
     const dispatch = useDispatch();
@@ -40,6 +41,7 @@ function App() {
                         <Route path="/" element={isLoggedIn ? <Layout />: <Info />} >
                             <Route index element={ <Home />} />
                             <Route path="/game"  element={ <List />} />
+                            <Route path="/game/:id"  element={ <View />} />
 
                             <Route path="/field/:action"  element={ <FieldContainer />} />
                         </Route>

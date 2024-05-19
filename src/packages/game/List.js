@@ -6,7 +6,6 @@ import {Link} from "react-router-dom";
 import {getGameList} from "../../api/game/GameService";
 import {toKSTISOString} from "../../api/common/CommonMethod";
 import {useHeaderContext} from "../../layout/context/HeaderContext";
-import {useSelector} from "react-redux";
 
 
 function List(props) {
@@ -73,7 +72,7 @@ function List(props) {
                 </div>
                 <div className={"pt-[30px]  bg-[#fff] "}>
                     {data && data._embedded?.gameResponseDtoList.map(each => (
-                        <div className={`game-each`} key={each.id}>
+                        <Link  to='/game/' state= {{ id : each.id }} className={`game-each`} key={each.id} >
                             <div className={"flex"}>
                                 <div className={`h-[30px] text-[14px]`}>
                                     {each.status === 'OPEN' &&
@@ -101,7 +100,7 @@ function List(props) {
                                     ))}
                                 </div>
                             </div>
-                        </div>
+                        </Link>
                     ))}
 
                     {!data._embedded &&
