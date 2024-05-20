@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import WeekSelector from "../../components/datePicker/WeekSelector";
 import Nocontent from "../../components/exception/Nocontent";
 import TypeSelectBox from "../../components/selectbox/TypeSelectBox";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {getGameList} from "../../api/game/GameService";
 import {toKSTISOString} from "../../api/common/CommonMethod";
 import {useHeaderContext} from "../../layout/context/HeaderContext";
@@ -56,7 +56,7 @@ function List(props) {
         );
     },[pageable.page, date])
 
-
+    const navigate = useNavigate();
     if(data) {
         return (
             <>
@@ -72,7 +72,9 @@ function List(props) {
                 </div>
                 <div className={"pt-[30px]  bg-[#fff] "}>
                     {data && data._embedded?.gameResponseDtoList.map(each => (
-                        <Link  to='/game/' state= {{ id : each.id }} className={`game-each`} key={each.id} >
+                        <div className={`game-each`} key={each.id} onClick={()=>
+                            navigate(`${each.id}`)
+                        }>
                             <div className={"flex"}>
                                 <div className={`h-[30px] text-[14px]`}>
                                     {each.status === 'OPEN' &&
@@ -96,11 +98,11 @@ function List(props) {
                                      style={{width: `${each.players.length * 40}px`}}>
                                     {each.players.map(user => (
                                         <div key={user.id}
-                                            className={`game-each-user-each`}>{user.name.substring(user.name.length - 2, user.name.length)}</div>
+                                             className={`game-each-user-each`}>{user.name.substring(user.name.length - 2, user.name.length)}</div>
                                     ))}
                                 </div>
                             </div>
-                        </Link>
+                        </div>
                     ))}
 
                     {!data._embedded &&
