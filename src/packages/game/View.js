@@ -1,13 +1,18 @@
 import React, {useEffect} from 'react';
 import {useParams} from "react-router-dom";
-
+import { NativeEventSource, EventSourcePolyfill } from 'event-source-polyfill';
 function View({}) {
     const params = useParams();
 
     const BASE_URL = process.env.REACT_APP_BASE_URL;
     useEffect(() => {
         //SSE연결 로직
-        const eventSource = new EventSource( BASE_URL + '/game/' +  params.id);
+        const eventSource = new EventSourcePolyfill( BASE_URL + '/game/' +  params.id,{
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+                'Content-Type': 'application/json',
+            }
+        });
         eventSource.addEventListener('connect', (event) => {
             console.log("connect message: ", event.data)
         });
