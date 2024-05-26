@@ -1,39 +1,21 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {useParams} from "react-router-dom";
-import { NativeEventSource, EventSourcePolyfill } from 'event-source-polyfill';
+import ParticipateGame from "./view/ParticipateGame";
+import NowPlaying from "./view/NowPlaying";
+import useGameData from "./view/useGameData";
+
 function View({}) {
     const params = useParams();
+    console.log(params)
+    const [data] =useGameData(params.id)
 
-    const BASE_URL = process.env.REACT_APP_BASE_URL;
-    useEffect(() => {
-        //SSE연결 로직
-        const eventSource = new EventSourcePolyfill( BASE_URL + '/game/' +  params.id,{
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-                'Content-Type': 'application/json',
-            }
-        });
-        eventSource.addEventListener('connect', (event) => {
-            console.log("connect message: ", event.data)
-        });
-
-        eventSource.addEventListener('broadCast', (event) => {
-            console.log("broadCast message: ", event.data)
-        });
-        eventSource.onerror = () => {
-            //에러 발생시 할 동작
-            eventSource.close(); //연결 끊기
-        };
-
-        return () => {
-            eventSource.close();
-        };
-
-    }, []);
-
+    if (!data) {
+        return <>loading...</>;
+    }
     return (
         <div>
-
+            {data.status ==='OPEN' && <ParticipateGame data={data} /> }
+            {data.status ==='PLAYING' && <NowPlaying data={data}/> }
         </div>
     );
 }

@@ -43,7 +43,6 @@ function List(props) {
             endDate:toKSTISOString(date)}
         getGameList(newSearch, pageable).then(_ =>{
             if(_.status===200){
-                console.log(_)
                 setData(_.data);
                 setPageable((prevState) => ({
                     ...prevState,
@@ -72,9 +71,11 @@ function List(props) {
                 </div>
                 <div className={"pt-[30px]  bg-[#fff] "}>
                     {data && data._embedded?.gameResponseDtoList.map(each => (
-                        <div className={`game-each`} key={each.id} onClick={()=>
-                            navigate(`${each.id}`)
-                        }>
+                        <div className={`game-each`} key={each.id}
+                             onClick={()=>{
+                                if(each.status==='END') navigate(`score/${each.id}`)
+                                else navigate(`${each.id}`)
+                        }}>
                             <div className={"flex"}>
                                 <div className={`h-[30px] text-[14px]`}>
                                     {each.status === 'OPEN' &&
@@ -86,7 +87,7 @@ function List(props) {
 
                                     <span>{each.field ? each.field.name : '정보 없음'}</span>
                                     <span className={'vertical-slicer'}/>
-                                    <span>{each.field ? each.field.address : ''}</span>
+                                    <span className={``}>{each.field ? each.field.address : ''}</span>
                                 </div>
 
                             </div>

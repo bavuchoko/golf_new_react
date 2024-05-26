@@ -17,6 +17,7 @@ import {useDispatch} from "react-redux";
 import {setUsers} from "./redux/slice/userSlice";
 import {logout} from "./redux/slice/authSlice";
 import View from "./packages/game/View";
+import FinalScore from "./packages/game/view/FinalScore";
 
 function App() {
     const dispatch = useDispatch();
@@ -42,6 +43,7 @@ function App() {
                             <Route index element={ <Home />} />
                             <Route path="/game"  element={ <List />} />
                             <Route path="/game/:id"  element={ <View />} />
+                            <Route path="/game/score/:id"  element={ <FinalScore />} />
 
                             <Route path="/field/:action"  element={ <FieldContainer />} />
                         </Route>
