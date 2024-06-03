@@ -13,7 +13,7 @@ function View({}) {
     }
     return (
         <div>
-            {data.status ==='OPEN' && <ParticipateGame data={data} colth={80}/> }
+            {data.status ==='OPEN' && <ParticipateGame data={data} width={80}/> }
             {data.status ==='PLAYING' && <NowPlaying data={data}/> }
         </div>
     );

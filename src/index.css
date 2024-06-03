@@ -526,21 +526,23 @@ ul.dropLi > a >li{
   margin-left: auto;
 }
 
+.expel-player{
+  position: absolute;
+  z-index: 90;
+  margin-left: 60px;
+}
+
+.box-shadow{
+  filter: drop-shadow(3px 3px 3px rgba(168, 167, 167, 0.6));
+}
 .each-player{
-  height: 80px;
-  width: 80px;
+  font-size: 1.4rem;
+  font-weight: bold;
   text-align: center;
-  line-height: 80px;
   border-radius: 50%;
-  margin-right: 10px;
-  border: 2px solid var(--main-gray-line);
+  background: #f6f6f6;
+  color: #45464b;
 }
 .each-player:last-child{
-  margin-right: 0px;
-}
-.add-player-btn{
-  text-align: center;
-  line-height: 70px;
-  padding-left: 2px;
-  font-size: 30px;
-}
+   margin-left: 0px;
+ }
