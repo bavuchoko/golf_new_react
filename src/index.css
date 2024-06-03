@@ -523,9 +523,24 @@ ul.dropLi > a >li{
   padding-left: 30px;
 }
 .quick-right{
-
   margin-left: auto;
 }
-.each-player{
 
+.each-player{
+  height: 80px;
+  width: 80px;
+  text-align: center;
+  line-height: 80px;
+  border-radius: 50%;
+  margin-right: 10px;
+  border: 2px solid var(--main-gray-line);
+}
+.each-player:last-child{
+  margin-right: 0px;
+}
+.add-player-btn{
+  text-align: center;
+  line-height: 70px;
+  padding-left: 2px;
+  font-size: 30px;
 }

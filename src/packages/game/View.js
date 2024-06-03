@@ -6,7 +6,6 @@ import useGameData from "./view/useGameData";
 
 function View({}) {
     const params = useParams();
-    console.log(params)
     const [data] =useGameData(params.id)
 
     if (!data) {
@@ -14,7 +13,7 @@ function View({}) {
     }
     return (
         <div>
-            {data.status ==='OPEN' && <ParticipateGame data={data} /> }
+            {data.status ==='OPEN' && <ParticipateGame data={data} colth={80}/> }
             {data.status ==='PLAYING' && <NowPlaying data={data}/> }
         </div>
     );
