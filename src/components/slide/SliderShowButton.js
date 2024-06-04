@@ -25,7 +25,7 @@ const SliderShowButton = ({expose}) => {
 
             if (down) {
                 // mx를 음수로 제한하여 오른쪽에서 왼쪽으로 슬라이드할 수 있도록 설정
-                const limitedX = Math.min(0, mx);
+                const limitedX = Math.max(0, mx);
                 set({ pos: [limitedX, 0] });
             } else {
                 // 슬라이드가 충분히 되었는지 확인 (예: -200px)
@@ -47,7 +47,7 @@ const SliderShowButton = ({expose}) => {
     // bg-[var(--main-bg-color)]
 
     return (
-        <div className={`w-full border h-[50px] relative  bg-[var(--main-inner-color)] overflow-hidden`}>
+        <div className={`w-full border h-[50px] relative  bg-[var(--main-inner-color)] overflow-hidden line-h-50 text-center`}>밀어서 시작하기
             <animated.div
                 {...bind()}
                 style={{
@@ -56,10 +56,11 @@ const SliderShowButton = ({expose}) => {
                     position: 'absolute',
                     top: 0,
                     zIndex:"20",
+                    borderRadius:"0 23px 23px 0",
                     fontSize:"15px",
-                    right: 0,
+                    left: "calc(-200% + 40px)",
                     height: '100%',
-                    width: 'calc(100%)',
+                    width: '200%',
                     background: 'white',
                     cursor: 'pointer',
                     touchAction: 'pan-y',
@@ -68,7 +69,7 @@ const SliderShowButton = ({expose}) => {
                 onClick={()=>{
                     set({ pos: [0, 0] });
                     setUnlocked(false)}} >
-                밀어서 시작하기
+
             </animated.div>
         </div>
     );
