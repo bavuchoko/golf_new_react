@@ -159,14 +159,24 @@ code {
 .line-h-35{
   line-height: 35px;
 }
-.line-h-50{
-  line-height: 50px;
-}
 .line-h-40{
   line-height: 40px;
 }
 .line-h-45{
   line-height: 45px;
+}
+.line-h-50{
+  line-height: 50px;
+}
+.line-h-60{
+  line-height: 60px;
+}
+
+.line-h-65{
+  line-height: 60px;
+}
+.line-h-70{
+  line-height: 70px;
 }
 .nav-bar{
   z-index: 997;

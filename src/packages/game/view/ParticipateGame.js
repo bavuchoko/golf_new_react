@@ -94,7 +94,11 @@ function ParticipateGame({data, width}) {
                     })
                 }
             </div>
-            <div className={`absolute bottom-4 w-full p-5`}>
+            <div className={`absolute bottom-0 w-full p-5 border`}
+                 style={{
+                     lineHeight: '60px',
+                     boxShadow: '2px 2px 10px #f4f4f4'
+                 }}>
                 <SliderShowButton expose={0}/>
             </div>
         </>

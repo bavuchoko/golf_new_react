@@ -41,6 +41,7 @@ function Login() {
                 setApiLoading(false)
                 localStorage.setItem('accessToken', response.data);
                 navigate("/")
+                window.location.reload();
             }
         } catch (error) {
             setApiLoading(false)

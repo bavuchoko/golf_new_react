@@ -33,7 +33,6 @@ const useGameData = (id) => {
 
             eventSource.addEventListener('connect', (event) => {
                 const eventData = JSON.parse(event.data);
-                console.log(eventData)
                 setData(eventData);
                 dispatch(finish());
             });
