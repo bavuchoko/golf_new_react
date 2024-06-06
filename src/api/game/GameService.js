@@ -31,5 +31,9 @@ async function quickStart(game) {
     return await needAuth.post('/game/quick', game);
 }
 
+async function startGame(id) {
+    return await needAuth.put(`/enroll/${id}`);
+}
 
-export {gameStart, getGameList, quickStart};
+
+export {gameStart, getGameList, quickStart, startGame};

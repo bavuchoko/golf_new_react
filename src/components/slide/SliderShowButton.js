@@ -3,6 +3,7 @@ import {animated, useSpring} from 'react-spring';
 import {useDrag} from 'react-use-gesture';
 import {useHeaderContext} from "../../layout/context/HeaderContext";
 import LoadingModal from "../modal/LoadingModal";
+import {startGame} from "../../api/game/GameService";
 
 /**
  * expose : 슬라이드시 버튼이 보일 영역넓이
@@ -10,8 +11,6 @@ import LoadingModal from "../modal/LoadingModal";
 
 const SliderShowButton = ({expose}) => {
     const {apiLoading, setApiLoading  } = useHeaderContext();
-    const [unlocked, setUnlocked] = useState(false);
-    const containerRef = useRef(null);
     const [{ pos }, set] = useSpring(() => ({
         pos: [0, 0],
         config: { tension: 300, friction: 20 }
@@ -37,13 +36,14 @@ const SliderShowButton = ({expose}) => {
                 if (mx > 220) {
                     if(window.confirm("경기를 시작합니다.")){
                         setApiLoading(true)
-
+                        startGame().then(_ =>{
+                            setApiLoading(false);
+                        })
                     }else{
                         set({ pos: [-expose, 0] });
                     }
-                    // setUnlocked(true);
+
                 }else if (mx < 250) {
-                    setUnlocked(false);
                     set({ pos: [0, 0] }); // 슬라이더 위치를 0으로 초기화
                 }
                 else{
@@ -87,10 +87,8 @@ const SliderShowButton = ({expose}) => {
                     touchAction: 'pan-y',
                     transform: pos.to((x) => `translateX(${x}px)`), // 슬라이더 위치 업데이트
                 }}
-
                 onClick={() => {
                     set({pos: [0, 0]});
-                    setUnlocked(false)
                 }}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" >
                     <path
@@ -98,9 +96,13 @@ const SliderShowButton = ({expose}) => {
                         d="M24 12l-8.991 6.228v-2.722c2.54-1.757 5.053-3.506 5.053-3.506s-2.513-1.718-5.053-3.474v-2.722l8.991 6.196zm-6.96 0l-9.04-6.118v3.118h-8v6h8v3.118l9.04-6.118z"/>
                 </svg>
             </animated.div>
+
+
             {apiLoading &&
                 <LoadingModal />
             }
+
+
         </div>
     );
 };

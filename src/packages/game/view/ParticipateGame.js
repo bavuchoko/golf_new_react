@@ -55,6 +55,7 @@ function ParticipateGame({data, width}) {
         }
     }
 
+
     const additionalTagsCount = Math.max(0, maxPlayers - data.players.length);
     return (
         <>
@@ -94,6 +95,8 @@ function ParticipateGame({data, width}) {
                     })
                 }
             </div>
+
+            {user && parseInt(user.id) === data.host.id && data.status==="OPEN" &&
             <div className={`absolute bottom-0 w-full p-5 border`}
                  style={{
                      lineHeight: '60px',
@@ -101,6 +104,8 @@ function ParticipateGame({data, width}) {
                  }}>
                 <SliderShowButton expose={0}/>
             </div>
+            }
+
         </>
     );
 }
