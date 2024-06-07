@@ -31,9 +31,21 @@ async function quickStart(game) {
     return await needAuth.post('/game/quick', game);
 }
 
-async function startGame(id) {
-    return await needAuth.put(`/enroll/${id}`);
+async function enrollGame(gameId) {
+    return await needAuth.put(`/game/enroll/${gameId}`);
+}
+
+async function startGame(gameId) {
+    return await needAuth.put(`/game/play/${gameId}`,{params: {startHole: 1}});
 }
 
 
-export {gameStart, getGameList, quickStart, startGame};
+async function endGame(gameId) {
+    return await needAuth.put(`/game/end/${gameId}`);
+}
+
+
+async function expelPlayer(gameId, targetId) {
+    return await needAuth.put(`/game/expel/${gameId}`,{params: {target: {id: targetId}}});
+}
+export {gameStart, getGameList, quickStart, enrollGame, startGame, endGame, expelPlayer};
