@@ -23,6 +23,7 @@ const useGameData = (id) => {
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json',
                 },
+                withCredentials: true,
             });
         };
 
