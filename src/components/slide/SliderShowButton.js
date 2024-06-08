@@ -62,12 +62,12 @@ const SliderShowButton = ({expose}) => {
                  height: "60px",
                  overflow:"hidden",
                  borderRadius:"15px",
-                 background: "#d3d3d3",
+                 background: "white",
                  lineHeight: '60px',
-                 boxShadow: 'inset 5px 5px 11px #2f2f2f, inset -2px -5px 8px #ffffff'
+                 boxShadow: 'inset 5px 5px 11px #afafaf, inset -2px -5px 8px #ffffff'
              }}
         >
-            <p className={` animate-pulse font-bold text-[white]`}>밀어서 시작하기</p>
+            <p className={` animate-pulse font-bold text-[black]`}>밀어서 시작하기</p>
             <animated.div
                 {...bind()}
                 style={{
@@ -82,7 +82,8 @@ const SliderShowButton = ({expose}) => {
                     left: "0px",
                     height: '100%',
                     width: '70px',
-                    background: 'white',
+                    // background: 'var(--thumbnail-line)',
+                    background: 'black',
                     cursor: 'pointer',
                     touchAction: 'pan-y',
                     transform: pos.to((x) => `translateX(${x}px)`), // 슬라이더 위치 업데이트
@@ -90,9 +91,9 @@ const SliderShowButton = ({expose}) => {
                 onClick={() => {
                     set({pos: [0, 0]});
                 }}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" >
+                <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24"  className={'ml-1'}>
                     <path
-                        fill="gray"
+                        fill="white"
                         d="M24 12l-8.991 6.228v-2.722c2.54-1.757 5.053-3.506 5.053-3.506s-2.513-1.718-5.053-3.474v-2.722l8.991 6.196zm-6.96 0l-9.04-6.118v3.118h-8v6h8v3.118l9.04-6.118z"/>
                 </svg>
             </animated.div>

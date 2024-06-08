@@ -61,6 +61,7 @@ function ParticipateGame({data, width}) {
             {user && parseInt(user.id) === data.host.id && data.status==="OPEN" &&
             <div className={`absolute bottom-0 w-full p-5 border`}
                  style={{
+                     // background: 'linear-gradient(#e66465, #9198e5)',
                      lineHeight: '60px',
                      boxShadow: '2px 2px 10px #f4f4f4'
                  }}>

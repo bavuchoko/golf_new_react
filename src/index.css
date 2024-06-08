@@ -551,7 +551,9 @@ ul.dropLi > a >li{
   text-align: center;
   border-radius: 50%;
   background: #f6f6f6;
+  /*background: var(--main-btn-color);*/
   color: #45464b;
+
 }
 .each-player:last-child{
    margin-left: 0px;
