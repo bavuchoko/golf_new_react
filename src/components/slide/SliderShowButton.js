@@ -9,7 +9,7 @@ import {startGame} from "../../api/game/GameService";
  * expose : 슬라이드시 버튼이 보일 영역넓이
  * */
 
-const SliderShowButton = ({expose}) => {
+const SliderShowButton = ({data, expose}) => {
     const {apiLoading, setApiLoading  } = useHeaderContext();
     const [{ pos }, set] = useSpring(() => ({
         pos: [0, 0],
@@ -36,7 +36,7 @@ const SliderShowButton = ({expose}) => {
                 if (mx > 220) {
                     if(window.confirm("경기를 시작합니다.")){
                         setApiLoading(true)
-                        startGame().then(_ =>{
+                        startGame(data.id).then(_ =>{
                             setApiLoading(false);
                         })
                     }else{

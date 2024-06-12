@@ -1,6 +1,6 @@
 import {needAuth, noAuh} from "../instance/Instance";
 
-async function gameStart(game) {
+async function gameCreate(game) {
     console.log(game)
    return await needAuth.post('/game', game);
 }
@@ -36,7 +36,7 @@ async function enrollGame(gameId) {
 }
 
 async function startGame(gameId) {
-    return await needAuth.put(`/game/play/${gameId}`,{params: {startHole: 1}});
+    return await needAuth.put(`/game/play/${gameId}?startHole=1`);
 }
 
 
@@ -48,4 +48,4 @@ async function endGame(gameId) {
 async function expelPlayer(gameId, targetId) {
     return await needAuth.put(`/game/expel/${gameId}`,{params: {target: {id: targetId}}});
 }
-export {gameStart, getGameList, quickStart, enrollGame, startGame, endGame, expelPlayer};
+export {gameCreate, getGameList, quickStart, enrollGame, startGame, endGame, expelPlayer};

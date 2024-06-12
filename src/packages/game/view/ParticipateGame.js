@@ -4,6 +4,8 @@ import CloseRY from '../../../resources/icons/close-ry.png'
 import Empty from '../../../resources/icons/emptyuser.png'
 import SliderShowButton from "../../../components/slide/SliderShowButton";
 import {enrollGame, expelPlayer} from "../../../api/game/GameService";
+
+
 function ParticipateGame({data, width}) {
 
     const user = useSelector((state) => state.user.user);
@@ -65,7 +67,7 @@ function ParticipateGame({data, width}) {
                      lineHeight: '60px',
                      boxShadow: '2px 2px 10px #f4f4f4'
                  }}>
-                <SliderShowButton expose={0}/>
+                <SliderShowButton data={data} expose={0}/>
             </div>
             }
 

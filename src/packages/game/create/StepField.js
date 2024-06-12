@@ -3,11 +3,11 @@ import {useNavigate} from "react-router-dom";
 import Near from "../../field/list/Near";
 import {getFieldList} from "../../../api/field/FieldService";
 import {EachType, TypeSelector} from "../../field/style/style";
-import {gameStart} from "../../../api/game/GameService";
+import {gameCreate} from "../../../api/game/GameService";
 import {useHeaderContext} from "../../../layout/context/HeaderContext";
 
-function StepField({setStep, data, fnc}) {
-    const {apiLoading, setApiLoading  } = useHeaderContext();
+function StepField({setStep, data}) {
+    const {setApiLoading  } = useHeaderContext();
     const [clicked, setClicked] =useState({id:0})
     const navigate = useNavigate();
 
@@ -19,7 +19,7 @@ function StepField({setStep, data, fnc}) {
             newData = { ...data, field: {id:clicked.id} };
         }
 
-        gameStart(newData).then(_=> {
+        gameCreate(newData).then(_=> {
             setApiLoading(false);
             console.log(_)
             navigate('/game/' + _.data.id)

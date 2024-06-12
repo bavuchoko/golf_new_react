@@ -10,7 +10,7 @@ function NowPlaying({data}) {
     }
 
     return (
-        <div></div>
+        <div>nowplaying</div>
     );
 }
 
