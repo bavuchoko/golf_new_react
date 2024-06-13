@@ -117,8 +117,6 @@ body {
      opacity: 1;
    }
  }
-
-
 @keyframes right-in {
    from{
      right: -100%;
