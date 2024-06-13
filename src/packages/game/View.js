@@ -3,18 +3,19 @@ import {useParams} from "react-router-dom";
 import ParticipateGame from "./view/ParticipateGame";
 import NowPlaying from "./view/NowPlaying";
 import useGameData from "./view/useGameData";
+import LoadingModal from "../../components/modal/LoadingModal";
 
 function View({}) {
     const params = useParams();
     const [data] =useGameData(params.id)
 
     if (!data) {
-        return <>loading...</>;
+        return <LoadingModal />;
     }
     return (
         <div>
-            {data.status ==='OPEN' && <ParticipateGame data={data} width={80}/> }
-            {data.status ==='PLAYING' && <NowPlaying data={data}/> }
+            {data && data.status ==='OPEN' && <ParticipateGame data={data} width={80}/> }
+            {data && data.status ==='PLAYING' && <NowPlaying data={data}/> }
         </div>
     );
 }

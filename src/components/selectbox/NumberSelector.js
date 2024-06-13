@@ -15,14 +15,14 @@ const ConterBox=styled.div`
     margin: 0 auto;
     position: relative;
     width: 150px;
-    height: 150px;
+    height: 140px;
 `;
 const CountDisplay=styled.div`
   width: 150px;
-  height: 150px;
+  height: 140px;
   font-size: 6rem;
   font-weight: bold;
-  line-height: 150px;
+  line-height: 140px;
   color:  ${theme =>(theme ? 'white': 'white' )};
   position: absolute;
   z-index: 20;
@@ -70,7 +70,7 @@ const DownCounter = styled.div`
   bottom: 0;
   z-index: 30;
 `;
-function NumberSelector({theme, limit, number, setNumber}) {
+function NumberSelector({limit, number, setNumber}) {
 
 
     const setUpCounter =()=> {

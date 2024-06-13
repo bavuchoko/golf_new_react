@@ -2,11 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 @import url('https://fonts.googleapis.com/css2?family=Headland+One&display=swap');
-body {
-  height: 100vh;
-  font-size: 18px;
-}
 :root {
+  --vh: 100%;
   --normal-font-size : 18px;
   --small-font-size : 15px;
   --main-btn-color : #166aea;
@@ -23,6 +20,13 @@ body {
   --drawer-background: rgba(68, 67, 67, 0.6);
 
 }
+body {
+  height: var(--vh);
+  font-size: 18px;
+}
+.small-font-size{
+  font-size: var(--small-font-size);
+}
 .shrink-word{
   overflow: hidden;
   white-space: normal;
@@ -31,6 +35,10 @@ body {
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   word-break: keep-all;
+}
+.splicer{
+  width: 1px;
+  border-left: 1px solid black;
 }
 .slide-left{
   opacity: 0;
