@@ -21,7 +21,7 @@ function ViewScoreList({data, isHost, showCurrentRound, setShowCurrentRound}) {
         return acc;
     }, {});
     const minRound = Math.min(...Object.keys(groupedSheets));
-    console.log(groupedSheets)
+
     return (
         <ScoreList isHost={isHost}>
             <div className={`flex h-[50px] line-h-50 justify-center w-full border`}>
@@ -34,8 +34,8 @@ function ViewScoreList({data, isHost, showCurrentRound, setShowCurrentRound}) {
 
                     <div className={`grid grid-cols-5 mb-2`}>
                             <div>홀</div>
-                            {groupedSheets[minRound].map(round =>(
-                            <div>
+                            {groupedSheets[minRound].map((round, index) =>(
+                            <div key={`th_`+index}>
                                 {round.player.name}
                             </div>
                             ))}

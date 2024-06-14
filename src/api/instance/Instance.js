@@ -45,7 +45,7 @@ needAuthapi.interceptors.response.use(
             const originalRequest = config;
             let accessToken
             try {
-                const resonse = await needAuth.get(BASE_URL + `/user/reissue`,);
+                const resonse = await noAuth.get(BASE_URL + `/user/reissue`,);
                 accessToken = resonse.data
                 console.log(resonse)
             }catch (error){
@@ -73,5 +73,5 @@ needAuthapi.interceptors.response.use(
     }
 );
 
-export const noAuh = noAuthapi
+export const noAuth = noAuthapi
 export const needAuth = needAuthapi;

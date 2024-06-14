@@ -13,11 +13,13 @@ import FieldContainer from "./packages/field/FieldContainer";
 import {Toaster} from "react-hot-toast";
 import Quick from "./packages/game/Quick";
 import Create from "./packages/game/Create";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {setUsers} from "./redux/slice/userSlice";
 import {logout} from "./redux/slice/authSlice";
 import View from "./packages/game/View";
 import FinalScore from "./packages/game/view/FinalScore";
+import LoadingModal from "./components/modal/LoadingModal";
+import ErrorModal from "./components/modal/ErrorModal";
 
 function App() {
     const dispatch = useDispatch();
@@ -33,8 +35,12 @@ function App() {
     }
     const isLoggedIn = localStorage.getItem("accessToken") != null
 
+    const status = useSelector(status=>status.api)
+
     return (
         <>
+            {status.isLoading && <LoadingModal />}
+            {status.error && <ErrorModal />}
             <HeaderContextProvider>
                 <Toaster />
                 <Router>

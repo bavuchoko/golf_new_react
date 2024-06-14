@@ -1,11 +1,8 @@
-import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { EventSourcePolyfill } from 'event-source-polyfill';
-import axios from 'axios';
+import {useEffect, useState} from 'react';
+import {useDispatch} from 'react-redux';
+import {EventSourcePolyfill} from 'event-source-polyfill';
 
-import { finish, load } from "../../../redux/slice/apiSlice";
-import {userLogout} from "../../../api/auth/AuthService";
-import {needAuth} from "../../../api/instance/Instance";
+import {finish, onError} from "../../../redux/slice/apiSlice";
 
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
@@ -18,6 +15,9 @@ const useGameData = (id) => {
         let eventSource;
 
         const createEventSource = (token) => {
+
+            //Todo 토큰을 받아서 검증하고 에러있으면 갱신, 갱신도 에러나면 Authorization 자체가 없는 요청으로
+
             return new EventSourcePolyfill(`${BASE_URL}/game/${id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -35,37 +35,18 @@ const useGameData = (id) => {
             eventSource.addEventListener('connect', (event) => {
                 const eventData = JSON.parse(event.data);
                 setData(eventData);
-                dispatch(finish());
             });
 
             eventSource.addEventListener('broadCast', (event) => {
                 console.log("broadCast");
                 const eventData = JSON.parse(event.data);
                 setData(eventData);
-                dispatch(finish());
             });
 
             eventSource.onerror = async (error) => {
 
-                if (error.status === 401) {
                     eventSource.close();
-                    try {
-                        const response = await needAuth.get(`${BASE_URL}/user/reissue`, {
-                            withCredentials: true,
-                        });
-                        const newToken = response.data;
-                        console.log(newToken)
-                        localStorage.setItem("accessToken", newToken);
-                        connectEventSource();
-                    } catch (error) {
-                        console.log(error);
-                        await userLogout();
-                        window.location.replace("/");
-                    }
-                } else {
-                    eventSource.close();
-                    dispatch(finish());
-                }
+                    dispatch(onError());
 
                 if (eventSource.readyState === EventSource.CLOSED || eventSource.readyState === EventSource.CLOSING) {
                     console.log("EventSource closed");

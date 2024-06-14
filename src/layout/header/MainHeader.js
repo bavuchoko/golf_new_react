@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import menu from '../../resources/icons/menu.png'
 import SlideMenu from "../menu/SlideMenu";
 import {Link} from "react-router-dom";
-import {useSelector} from "react-redux";
 
 
 function MainHeader() {

@@ -1,4 +1,4 @@
-import {needAuth, noAuh} from "../instance/Instance";
+import {needAuth, noAuth} from "../instance/Instance";
 
 async function createField(field) {
     console.log(field)

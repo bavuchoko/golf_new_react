@@ -1,9 +1,9 @@
-import {needAuth, noAuh} from "../instance/Instance";
+import {needAuth, noAuth} from "../instance/Instance";
 
 
 async function useLogin(loginUser) {
     localStorage.removeItem('accessToken');
-    return await noAuh.post('/user/login', loginUser);
+    return await noAuth.post('/user/login', loginUser);
 }
 
 async function tokenVaildation() {
@@ -38,7 +38,7 @@ async function userLogout() {
 
 async function userJoin(user) {
     localStorage.removeItem('accessToken');
-    return await noAuh.post('/user/join', user);
+    return await noAuth.post('/user/join', user);
 }
 
 
