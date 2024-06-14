@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import NumberSelector from "../../../components/selectbox/NumberSelector";
 import {useSelector} from "react-redux";
 import ViewScoreList from "./components/ViewScoreList";
-
+import {Counter, LefterBtn, PlayerDiv, RighterBtn} from "./style/StyleView";
 
 
 function NowPlaying({data}) {
@@ -10,6 +10,36 @@ function NowPlaying({data}) {
     const user = useSelector((state) => state.user.user);
     const isHost = user.id===data.host.id
     const [showCurrentRound, setShowCurrentRound] = useState(true);
+    const initialClickedPlayer = () => {
+        if (!data.sheets || data.sheets.length === 0) {
+            return {};
+        }
+
+        // 가장 큰 round 값 찾기
+        const maxRound = Math.max(...data.sheets.map(sheet => sheet.round));
+        const maxRoundSheets = data.sheets.filter(sheet => sheet.round === maxRound);
+
+        // round-1의 요소 찾기
+        const roundMinusOne = maxRound - 1;
+        const roundMinusOneSheets = data.sheets.filter(sheet => sheet.round === roundMinusOne);
+
+        // 조건에 맞는 요소 찾기
+        let selectedSheet;
+        if (roundMinusOneSheets.length > 0) {
+            // 최저 hit 찾기
+            const minHit = Math.min(...roundMinusOneSheets.map(sheet => sheet.hit));
+            // 최저 hit를 가진 요소들 찾기
+            const minHitSheets = roundMinusOneSheets.filter(sheet => sheet.hit === minHit);
+            // id가 가장 작은 요소 선택
+            selectedSheet = minHitSheets.reduce((prev, current) => (prev.player.id < current.player.id ? prev : current));
+        } else {
+            selectedSheet = maxRoundSheets.reduce((prev, current) => (prev.player.id < current.player.id ? prev : current));
+        }
+
+        return selectedSheet;
+    };
+
+    const [clickedPlayer, setClickedPlayer] = useState(initialClickedPlayer);
 
     const playerHits = {};
     data.sheets.forEach(record => {
@@ -20,8 +50,10 @@ function NowPlaying({data}) {
             playerHits[playerId].totalHits += hit;
         } else {
             playerHits[playerId] = {
+                id:playerId,
                 name: playerName,
-                totalHits: hit
+                totalHits: hit,
+                sheet :record
             };
         }
     });
@@ -38,10 +70,9 @@ function NowPlaying({data}) {
 
 
 
-
-    const playerClickHandler =()=>{
+    const playerClickHandler =(sheet)=>{
         if(isHost){
-
+            setClickedPlayer(sheet)
         }
     }
 
