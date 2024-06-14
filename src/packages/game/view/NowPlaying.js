@@ -1,6 +1,4 @@
-import React, {useEffect, useState} from 'react';
-import {useParams} from "react-router-dom";
-import styled, {keyframes } from "styled-components";
+import React, {useState} from 'react';
 import NumberSelector from "../../../components/selectbox/NumberSelector";
 import {useSelector} from "react-redux";
 import ViewScoreList from "./components/ViewScoreList";
@@ -30,35 +28,13 @@ function NowPlaying({data}) {
     const playerHitsArray = Object.values(playerHits);
 
 
-    const Counter = styled.div`
-        display: flex;
-        border: 1px solid #d5d5d5;
-        margin-bottom: 5px;
-        width: 100%;
-        height: 140px;
-    `;
+    const scoreChangeHandler =(value)=>{
+        setClickedPlayer(prevState => ({
+            ...prevState,
+            hit: value
+        }))
+    }
 
-    const PlayerDiv = styled.div`
-        text-align: center;
-        border: 1px solid #d5d5d5;
-        height: 70px;
-    `;
-    const LefterBtn = styled.button`
-        padding: 0 10px;
-        background: #37af29;
-        text-align: center;
-        border: 1px solid #d5d5d5;
-        height: 140px;
-        width: calc(50% - 75px);
-    `;
-    const RighterBtn = styled.button`
-        padding: 0 10px;
-        background: #37af29;
-        text-align: center;
-        border: 1px solid #d5d5d5;
-        height: 140px;
-        width: calc(50% - 75px);
-    `;
 
 
 
@@ -69,7 +45,6 @@ function NowPlaying({data}) {
         }
     }
 
-    console.log(showCurrentRound)
     return (
         <>
 
@@ -78,17 +53,17 @@ function NowPlaying({data}) {
 
             {isHost &&
             <Counter>
-                <LefterBtn>좌버튼</LefterBtn>
-                <NumberSelector limit={10} number={3} setNumber={() => console.log()}/>
-                <RighterBtn>우버튼</RighterBtn>
+                <LefterBtn>입력</LefterBtn>
+                <NumberSelector limit={10} number={clickedPlayer.hit} setNumber={scoreChangeHandler}/>
+                <RighterBtn>다음</RighterBtn>
             </Counter>
             }
 
             <div className={`grid grid-cols-4 gap-1`}>
                 {playerHitsArray.map(player => (
-                    <PlayerDiv key={player.name} onClick={playerClickHandler}>
-                        <p className={`font-bold h-[40px] line-h-40`}> {player.totalHits}</p>
-                        <p className={`small-font-size  h-[30px]`}> {player.name}</p>
+                    <PlayerDiv key={player.name} clicked={player.id===clickedPlayer.player.id} onClick={()=>playerClickHandler(player.sheet)}>
+                        <p className={`font-bold ${player.id===clickedPlayer.player.id? 'text-[18px] h-[30px] line-h-30 ': 'text-[14px] h-[40px] line-h-40 '} `}> {player.totalHits}</p>
+                        <p className={` ${player.id===clickedPlayer.player.id? 'text-[18px] h-[40px]': 'text-[14px] h-[30px]'}`}> {player.name}</p>
                     </PlayerDiv>
                 ))}
             </div>
