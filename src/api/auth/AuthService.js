@@ -6,22 +6,19 @@ async function useLogin(loginUser) {
     return await noAuth.post('/user/login', loginUser);
 }
 
-async function tokenVaildation() {
-    const token = localStorage.getItem('accessToken');
-    if(token) {
-        const headers = {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json', // Adjust the content type if needed
-        };
-        try{
-            const response =  await needAuth.post('/user/tokenVaildation', null, { headers });
-        }catch (error){
-        console.log(error)
-        localStorage.removeItem('accessToken');
-        localStorage.removeItem('loginUser');
-        return error;
-        }
+async function tokenValidate() {
+    return await needAuth.get('/user/validation');
+
+
+}
+
+async function refreshToken() {
+    localStorage.removeItem('accessToken')
+    const response = await needAuth.get('/user/reissue');
+    if(response.status===200){
+        localStorage.setItem('accessToken', response.data)
     }
+    return response.data;
 }
 
 
@@ -42,4 +39,4 @@ async function userJoin(user) {
 }
 
 
-export {useLogin,tokenVaildation, userJoin, userLogout };
+export {useLogin, tokenValidate, refreshToken, userJoin, userLogout };
