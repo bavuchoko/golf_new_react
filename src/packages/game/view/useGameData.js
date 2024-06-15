@@ -3,6 +3,9 @@ import {useDispatch} from 'react-redux';
 import {EventSourcePolyfill} from 'event-source-polyfill';
 
 import {finish, onError} from "../../../redux/slice/apiSlice";
+import {needAuth} from "../../../api/instance/Instance";
+import {refreshToken, tokenValidate} from "../../../api/auth/AuthService";
+import axios from "axios";
 
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
@@ -16,23 +19,62 @@ const useGameData = (id) => {
 
         const createEventSource = (token) => {
 
-            //Todo 토큰을 받아서 검증하고 에러있으면 갱신, 갱신도 에러나면 Authorization 자체가 없는 요청으로
+            let option
+            if(token) {
+                option= {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                    },
+                    withCredentials: true,
+                }
+            }else{
+                option= {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    withCredentials: true,
+                }
+            }
 
-            return new EventSourcePolyfill(`${BASE_URL}/game/${id}`, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    'Content-Type': 'application/json',
-                },
-                withCredentials: true,
-            });
+            return new EventSourcePolyfill(`${BASE_URL}/game/${id}`, option);
         };
 
         const connectEventSource = async () => {
-            let token = localStorage.getItem("accessToken");
 
-            eventSource = createEventSource(token);
+            const rawToken = localStorage.getItem('accessToken')
+            let newToken;
 
+            try {
+                const response = await axios.get(`${BASE_URL}/user/validation`, {
+                    headers:{
+                        Authorization: `Bearer ${rawToken}`,
+                        'Content-Type': 'application/json',
+                    },
+                    withCredentials:true
+                });
+                if(response.status === 200)
+                newToken = rawToken
+            }catch (error){
+                if(error.response.status === 401){
+                    const res = await axios.get(`${BASE_URL}/user/reissue`, {
+                        headers:{
+                            Authorization: `Bearer ${rawToken}`,
+                            'Content-Type': 'application/json',
+                        },
+                        withCredentials:true
+                    });
+                    newToken = res.data
+                    localStorage.setItem('accessToken', newToken)
+                }
+                if(error.response.status === 403){
+                    newToken=null;
+                }
+            }
+
+            eventSource = createEventSource(newToken);
             eventSource.addEventListener('connect', (event) => {
+                console.log('connected')
                 const eventData = JSON.parse(event.data);
                 setData(eventData);
             });
@@ -45,12 +87,14 @@ const useGameData = (id) => {
 
             eventSource.onerror = async (error) => {
 
-                    eventSource.close();
+                eventSource.close();
+                if (eventSource.readyState === EventSource.CLOSED) {
+                    console.log('SSE connection was closed. Reconnecting...');
+                    // 재연결 시도
+                    setTimeout(createEventSource, 3000); // 3초 후에 재연결 시도
+                } else {
+                    console.log('SSE connection error: ReadyState =', eventSource.readyState);
                     dispatch(onError());
-
-                if (eventSource.readyState === EventSource.CLOSED || eventSource.readyState === EventSource.CLOSING) {
-                    console.log("EventSource closed");
-                    return;
                 }
 
                 if (eventSource.readyState === EventSource.CONNECTING) {
