@@ -13,7 +13,6 @@ const apiSlice = createSlice({
             state.isLoading = true;
         },
         finish: (state, action) => {
-            console.log("finish")
         state.isLoading = false;
         },
         onError: (state, action) => {
