@@ -2,9 +2,7 @@ import {useEffect, useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {EventSourcePolyfill} from 'event-source-polyfill';
 
-import {finish, onError} from "../../../redux/slice/apiSlice";
-import {needAuth} from "../../../api/instance/Instance";
-import {refreshToken, tokenValidate} from "../../../api/auth/AuthService";
+import {finish, load, onError} from "../../../redux/slice/apiSlice";
 import axios from "axios";
 
 
@@ -41,7 +39,7 @@ const useGameData = (id) => {
         };
 
         const connectEventSource = async () => {
-
+            dispatch(load())
             const rawToken = localStorage.getItem('accessToken')
             let newToken;
 
@@ -56,23 +54,30 @@ const useGameData = (id) => {
                 if(response.status === 200)
                 newToken = rawToken
             }catch (error){
-                if(error.response.status === 401){
-                    const res = await axios.get(`${BASE_URL}/user/reissue`, {
-                        headers:{
-                            Authorization: `Bearer ${rawToken}`,
-                            'Content-Type': 'application/json',
-                        },
-                        withCredentials:true
-                    });
-                    newToken = res.data
-                    localStorage.setItem('accessToken', newToken)
+                if(error.message='Network Error'){
+
+                }else{
+                    if(error.response.status === 401){
+                        const res = await axios.get(`${BASE_URL}/user/reissue`, {
+                            headers:{
+                                Authorization: `Bearer ${rawToken}`,
+                                'Content-Type': 'application/json',
+                            },
+                            withCredentials:true
+                        });
+                        newToken = res.data
+                        localStorage.setItem('accessToken', newToken)
+                    }
+                    if(error.response.status === 403){
+                        newToken=null;
+                    }
                 }
-                if(error.response.status === 403){
-                    newToken=null;
-                }
+            }finally {
+                dispatch(finish())
             }
 
             eventSource = createEventSource(newToken);
+
             eventSource.addEventListener('connect', (event) => {
                 console.log('connected')
                 const eventData = JSON.parse(event.data);
@@ -85,8 +90,8 @@ const useGameData = (id) => {
                 setData(eventData);
             });
 
-            eventSource.onerror = async (error) => {
-
+            eventSource.onerror = (error) => {
+                console.log(error)
                 eventSource.close();
                 if (eventSource.readyState === EventSource.CLOSED) {
                     console.log('SSE connection was closed. Reconnecting...');
@@ -104,6 +109,7 @@ const useGameData = (id) => {
 
 
             };
+            dispatch(finish())
         };
 
         connectEventSource();
