@@ -59,10 +59,6 @@ const useGameData = (id) => {
                 }else{
                     if(error.response.status === 401){
                         const res = await axios.get(`${BASE_URL}/user/reissue`, {
-                            headers:{
-                                Authorization: `Bearer ${rawToken}`,
-                                'Content-Type': 'application/json',
-                            },
                             withCredentials:true
                         });
                         newToken = res.data
@@ -117,7 +113,6 @@ const useGameData = (id) => {
         return () => {
             if (eventSource) {
                 eventSource.close();
-                dispatch(finish());
             }
         };
     }, [BASE_URL, id, dispatch]);
