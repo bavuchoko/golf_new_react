@@ -110,9 +110,19 @@ const useGameData = (id) => {
 
         connectEventSource();
 
-        return () => {
+        return async () => {
             if (eventSource) {
                 eventSource.close();
+
+                // await axios.get(`${BASE_URL}/${id}/close`, {
+                //     headers:{
+                //         Authorization: `Bearer ${rawToken}`,
+                //         'Content-Type': 'application/json',
+                //     },
+                //     withCredentials:true
+                // });
+
+
             }
         };
     }, [BASE_URL, id, dispatch]);

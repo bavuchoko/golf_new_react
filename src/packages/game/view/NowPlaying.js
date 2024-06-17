@@ -3,6 +3,7 @@ import NumberSelector from "../../../components/selectbox/NumberSelector";
 import {useSelector} from "react-redux";
 import ViewScoreList from "./components/ViewScoreList";
 import {Counter, LefterBtn, PlayerDiv, RighterBtn} from "./style/StyleView";
+import {putScore} from "../../../api/score/ScoreService";
 
 
 function NowPlaying({data}) {
@@ -76,6 +77,14 @@ function NowPlaying({data}) {
         }
     }
 
+    const putScoreHandler =()=>{
+        if(isHost){
+            putScore(data.id, clickedPlayer).then(_=>{
+                console.log(_)
+            })
+        }
+    }
+
     return (
         <>
 
@@ -84,7 +93,7 @@ function NowPlaying({data}) {
 
             {isHost &&
             <Counter>
-                <LefterBtn>입력</LefterBtn>
+                <LefterBtn onClick={putScoreHandler}>입력</LefterBtn>
                 <NumberSelector limit={10} number={clickedPlayer.hit} setNumber={scoreChangeHandler}/>
                 <RighterBtn>다음</RighterBtn>
             </Counter>
