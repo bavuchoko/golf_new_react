@@ -92,7 +92,7 @@ const useGameData = (id) => {
                 if (eventSource.readyState === EventSource.CLOSED) {
                     console.log('SSE connection was closed. Reconnecting...');
                     // 재연결 시도
-                    setTimeout(createEventSource, 3000); // 3초 후에 재연결 시도
+                    setTimeout(createEventSource, 1000); // 3초 후에 재연결 시도
                 } else {
                     console.log('SSE connection error: ReadyState =', eventSource.readyState);
                     dispatch(onError());
@@ -110,22 +110,19 @@ const useGameData = (id) => {
 
         connectEventSource();
 
-        return async () => {
+        //새고로침, 브라우저 탭 닫기
+        window.addEventListener('beforeunload', (event) => {
+            axios.get(`${BASE_URL}/game/${id}/disconnect`);
+        });
+        return () => {
+            //메뉴이동
             if (eventSource) {
+                axios.get(`${BASE_URL}/game/${id}disconnect`);
                 eventSource.close();
-
-                // await axios.get(`${BASE_URL}/${id}/close`, {
-                //     headers:{
-                //         Authorization: `Bearer ${rawToken}`,
-                //         'Content-Type': 'application/json',
-                //     },
-                //     withCredentials:true
-                // });
-
-
             }
         };
-    }, [BASE_URL, id, dispatch]);
+
+}, [BASE_URL, id, dispatch]);
 
     return [data, setData];
 };
