@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {CurrentRound, ScoreList, ScoreListContainer, TotalScore} from "../style/StyleView";
 
-function ViewScoreList({data, isHost, showCurrentRound, setShowCurrentRound}) {
+function ViewScoreList({data, isHost, showCurrentRound, setShowCurrentRound, memos}) {
 
     let vh = 0;
     useEffect(() => {
@@ -44,10 +44,10 @@ function ViewScoreList({data, isHost, showCurrentRound, setShowCurrentRound}) {
                         <div key={round} className={`grid grid-cols-5 ${index % 2 === 0 ? 'bg-odd' :'bg-even'}`}>
                             <div className={`py-1 relative`}>
 
-                                {/*현재 홀에 메모 존재하는지 여부*/}
-                                <div className={`absolute top-1 left-4 w-4 h-4 rounded-full bg-red-700`}>
-
-                                </div>
+                                {/* 현재 홀에 메모 존재하는지 여부 */}
+                                {memos && memos.some(memo => memo.round === round) && (
+                                    <div className={`absolute top-1 left-4 w-4 h-4 rounded-full bg-red-700`} />
+                                )}
 
                                 <span className={`rounded-full border bg-[white] inline-block h-[35px] w-[35px] line-h-35`}>{round}</span>
                             </div>

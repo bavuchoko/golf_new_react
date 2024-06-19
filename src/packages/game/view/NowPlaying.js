@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import NumberSelector from "../../../components/selectbox/NumberSelector";
 import {useSelector} from "react-redux";
 import ViewScoreList from "./components/ViewScoreList";
@@ -13,6 +13,7 @@ import {
 } from "./style/StyleView";
 import {putScore} from "../../../api/score/ScoreService";
 import MemoOnGame from "./components/MemoOnGame";
+import {getMemos} from "../../../api/memo/MemoService";
 
 
 function NowPlaying({data}) {
@@ -20,6 +21,7 @@ function NowPlaying({data}) {
     const user = useSelector((state) => state.user.user);
     const isHost = user.id===data.host.id
     const [up, setUp] =useState(false);
+    const [memos, setMemos] =useState();
     const [showCurrentRound, setShowCurrentRound] = useState(true);
     const initialClickedPlayer = () => {
         if (!data.sheets || data.sheets.length === 0) {
@@ -79,8 +81,6 @@ function NowPlaying({data}) {
     }
 
 
-
-
     const playerClickHandler =(sheet)=>{
         if(isHost){
             setClickedPlayer(sheet)
@@ -95,13 +95,22 @@ function NowPlaying({data}) {
         }
     }
 
+    useEffect(() => {
+        getMemos(data.id).then(r => {
+           if(r)
+            setMemos(r.data)
+        })
+
+    }, []);
+
+
     return (
         <>
 
             {/*점수목록*/}
-            <ViewScoreList data={data} isHost={isHost} showCurrentRound={showCurrentRound} setShowCurrentRound={setShowCurrentRound} />
+            <ViewScoreList data={data} isHost={isHost} showCurrentRound={showCurrentRound} setShowCurrentRound={setShowCurrentRound}  memos={memos}/>
 
-            <MemoOnGame up={up} setUp={setUp} isHost={isHost}/>
+            <MemoOnGame up={up} setUp={setUp} isHost={isHost} memos={memos} round={data.round}/>
 
             {isHost &&
                 <Counter>

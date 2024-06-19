@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useParams} from "react-router-dom";
 import ParticipateGame from "./view/ParticipateGame";
 import NowPlaying from "./view/NowPlaying";
@@ -8,6 +8,7 @@ function View({}) {
 
     const params = useParams();
     const [data] =useGameData(params.id)
+
 
     return (
         <div>
