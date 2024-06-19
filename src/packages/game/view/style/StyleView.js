@@ -33,6 +33,17 @@ export const MemoController = styled.div.withConfig({
     transition: 0.35s ease;
     box-shadow: 0 -4px 4px 1px hsl(206deg 3.6% 63.09% / 20%)
 `;
+export const MemoTextArea = styled.textarea.withConfig({
+    shouldForwardProp: (prop) => shouldForwardProp(prop) && prop !== 'isOpen'
+})`
+    border: 1px solid var(--main-inner-color);
+    margin: auto;
+    margin-top: 5px;
+    text-indent: 5px;
+    width: calc(100% - 10px);
+    display:  ${props => props.up ? 'block' : 'none'};
+    height: ${(props) => (props.up ? props.isHost ? 'calc(var(--vh, 1vh) * 100 - 520px)' : 'calc(var(--vh, 1vh) * 100 - 370px)' : '38px')};
+`;
 
 export const MemoControllerPointer = styled.div.withConfig({
     shouldForwardProp: (prop) => shouldForwardProp(prop) && prop !== 'isOpen'
@@ -52,7 +63,9 @@ export const MemoControllerPointer = styled.div.withConfig({
 export const MemoContent = styled.div.withConfig({
     shouldForwardProp: (prop) => shouldForwardProp(prop) && prop !== 'isOpen'
 })`
-    display:  ${props => props.up ? 'block' : 'none'};;
+    display:  ${props => props.up ? 'block' : 'none'};
+    height: ${props => props.up ? '400px' : '0px'}; 
+    padding: ${props => props.up ? '10px' : ''};
 `;
 
 export const PlayerDiv = styled.div.withConfig({

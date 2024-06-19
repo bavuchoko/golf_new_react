@@ -69,6 +69,10 @@ body {
   opacity: 0;
   animation: showup 1s forwards;
 }
+.keyFix + textarea{
+  opacity: 0;
+  animation: showup 1s forwards;
+}
 .api-loading-container> img{
   border-radius: 5px;
   z-index: 999;

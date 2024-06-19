@@ -12,6 +12,7 @@ import {
     RighterBtn
 } from "./style/StyleView";
 import {putScore} from "../../../api/score/ScoreService";
+import MemoOnGame from "./components/MemoOnGame";
 
 
 function NowPlaying({data}) {
@@ -100,24 +101,7 @@ function NowPlaying({data}) {
             {/*점수목록*/}
             <ViewScoreList data={data} isHost={isHost} showCurrentRound={showCurrentRound} setShowCurrentRound={setShowCurrentRound} />
 
-
-            <MemoContainer>
-                <MemoController up={up} isHost={isHost}>
-                    <MemoControllerPointer  onClick={() => setUp(!up)}>
-                        <div className={`draw-up-handler-pointer`}>
-                            <p className={`pt-[6px]`}>
-                            {up ? '닫기' : '현재 홀 기록내용 보기'}
-                            </p>
-                        </div>
-                    </MemoControllerPointer>
-
-                    <MemoContent className={``}
-                         style={{height: up ? '400px' : '0px', padding: up ? '10px' : ''}}>
-                        <textarea className={"w-full radius-no indent-2 no-outline text-[14px] text-[black]"}/>
-                    </MemoContent>
-
-                </MemoController>
-            </MemoContainer>
+            <MemoOnGame up={up} setUp={setUp} isHost={isHost}/>
 
             {isHost &&
                 <Counter>
