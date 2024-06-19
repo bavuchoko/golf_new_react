@@ -103,7 +103,6 @@ const useGameData = (id) => {
                     return;
                 }
 
-
             };
             dispatch(finish())
         };
@@ -117,7 +116,7 @@ const useGameData = (id) => {
         return () => {
             //메뉴이동
             if (eventSource) {
-                axios.get(`${BASE_URL}/game/${id}disconnect`);
+                axios.get(`${BASE_URL}/game/${id}/disconnect`);
                 eventSource.close();
             }
         };

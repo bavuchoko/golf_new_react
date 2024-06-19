@@ -2,7 +2,15 @@ import React, {useState} from 'react';
 import NumberSelector from "../../../components/selectbox/NumberSelector";
 import {useSelector} from "react-redux";
 import ViewScoreList from "./components/ViewScoreList";
-import {Counter, LefterBtn, PlayerDiv, RighterBtn} from "./style/StyleView";
+import {
+    Counter,
+    LefterBtn,
+    MemoContainer, MemoContent,
+    MemoController,
+    MemoControllerPointer,
+    PlayerDiv,
+    RighterBtn
+} from "./style/StyleView";
 import {putScore} from "../../../api/score/ScoreService";
 
 
@@ -10,6 +18,7 @@ function NowPlaying({data}) {
 
     const user = useSelector((state) => state.user.user);
     const isHost = user.id===data.host.id
+    const [up, setUp] =useState(false);
     const [showCurrentRound, setShowCurrentRound] = useState(true);
     const initialClickedPlayer = () => {
         if (!data.sheets || data.sheets.length === 0) {
@@ -91,19 +100,38 @@ function NowPlaying({data}) {
             {/*점수목록*/}
             <ViewScoreList data={data} isHost={isHost} showCurrentRound={showCurrentRound} setShowCurrentRound={setShowCurrentRound} />
 
+
+            <MemoContainer>
+                <MemoController up={up} isHost={isHost}>
+                    <MemoControllerPointer  onClick={() => setUp(!up)}>
+                        <div className={`draw-up-handler-pointer`}>
+                            <p className={`pt-[6px]`}>
+                            {up ? '닫기' : '현재 홀 기록내용 보기'}
+                            </p>
+                        </div>
+                    </MemoControllerPointer>
+
+                    <MemoContent className={``}
+                         style={{height: up ? '400px' : '0px', padding: up ? '10px' : ''}}>
+                        <textarea className={"w-full radius-no indent-2 no-outline text-[14px] text-[black]"}/>
+                    </MemoContent>
+
+                </MemoController>
+            </MemoContainer>
+
             {isHost &&
-            <Counter>
-                <LefterBtn onClick={putScoreHandler}>입력</LefterBtn>
-                <NumberSelector limit={10} number={clickedPlayer.hit} setNumber={scoreChangeHandler}/>
+                <Counter>
+                    <LefterBtn onClick={putScoreHandler}>입력</LefterBtn>
+                    <NumberSelector limit={10} number={clickedPlayer.hit} setNumber={scoreChangeHandler}/>
                 <RighterBtn>다음</RighterBtn>
             </Counter>
             }
 
             <div className={`grid grid-cols-4 gap-1`}>
                 {playerHitsArray.map(player => (
-                    <PlayerDiv key={player.name} clicked={player.id===clickedPlayer.player.id} onClick={()=>playerClickHandler(player.sheet)}>
-                        <p className={`font-bold ${player.id===clickedPlayer.player.id? 'text-[18px] h-[30px] line-h-30 ': 'text-[14px] h-[40px] line-h-40 '} `}> {player.totalHits}</p>
-                        <p className={` ${player.id===clickedPlayer.player.id? 'text-[18px] h-[40px]': 'text-[14px] h-[30px]'}`}> {player.name}</p>
+                    <PlayerDiv key={player.name} clicked={isHost && player.id===clickedPlayer.player.id} onClick={()=>playerClickHandler(player.sheet)}>
+                        <p className={`font-bold ${isHost && player.id===clickedPlayer.player.id? 'text-[18px] h-[30px] line-h-30 ': 'text-[14px] h-[40px] line-h-40 '} `}> {player.totalHits}</p>
+                        <p className={` ${isHost && player.id===clickedPlayer.player.id? 'text-[18px] h-[40px]': 'text-[14px] h-[30px]'}`}> {player.name}</p>
                     </PlayerDiv>
                 ))}
             </div>

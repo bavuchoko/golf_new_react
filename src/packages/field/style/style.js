@@ -16,7 +16,7 @@ export const SerachAddress = styled.div`
   box-shadow: 0 -2px 9px 1px hsla(210, 4%, 21%, 0.4);
 `;
 
-export const AddFieldSection = styled.div`
+export const GrowupSecion = styled.div`
   position: fixed;
   bottom: 8vh;
   border-radius: 10px 10px 0 0;

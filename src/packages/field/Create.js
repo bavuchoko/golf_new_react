@@ -5,7 +5,7 @@ import {createField} from "../../api/field/FieldService";
 import {useNavigate} from "react-router-dom";
 import Pin from '../../resources/icons/pin.png'
 import {addressToCode} from "../../api/kakao/kakaoService";
-import {AddFieldSection, CategorySection, SerachAddress} from "./style/style";
+import {CategorySection, GrowupSecion, SerachAddress} from "./style/style";
 import toast from "react-hot-toast";
 
 
@@ -186,7 +186,7 @@ function Create(props) {
 
             <div id='map' style={{width: "100%", height: "calc(100vh - (50px + 8rem))"}} ></div>
 
-            <AddFieldSection className={``} drawup={drawup ? drawup : undefined} height={height}>
+            <GrowupSecion className={``} drawup={drawup ? drawup : undefined} height={height}>
                 <div className={'draw-up-handler'} onClick={()=>setDrawup(!drawup)}><div className={`draw-up-handler-pointer`}></div> </div>
                 <div className={'text-[15px] h-[30px]w-[210px] mb-[5px] text-[#9b9696]'}>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
@@ -248,7 +248,7 @@ function Create(props) {
                         </div>
                     </div>
                 </div>
-            </AddFieldSection>
+            </GrowupSecion>
 
         </>
     );
