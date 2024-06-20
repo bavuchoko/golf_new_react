@@ -10,64 +10,6 @@ export const Counter = styled.div`
     `;
 
 
-export const MemoContainer = styled.div`
-    position: relative;
-    width: 100%;
-    margin-bottom: 2px;
-    height: 40px;
-`;
-export const MemoController = styled.div.withConfig({
-    shouldForwardProp: (prop) => shouldForwardProp(prop) && prop !== 'isOpen'
-})`
-    position: absolute;
-    bottom: 0;
-    border-radius: 7px 7px 0 0;
-    width: 100%;
-    height: ${(props) => (props.up ? props.isHost ? 'calc(var(--vh, 1vh) * 100 - 360px)' : 'calc(var(--vh, 1vh) * 100 - 210px)' : '38px')};
-    border-top: 1px solid var(--main-gray-line);
-    background:  ${(props) => (props.up? 'white':'var(--main-btn-color);')}; 
-    z-index: 40;
-    color: ${(props)=>(props.up? 'balck' : 'white')};
-    text-align: center;
-    font-size: 17px;
-    transition: 0.35s ease;
-    box-shadow: 0 -4px 4px 1px hsl(206deg 3.6% 63.09% / 20%)
-`;
-export const MemoTextArea = styled.textarea.withConfig({
-    shouldForwardProp: (prop) => shouldForwardProp(prop) && prop !== 'isOpen'
-})`
-    border: 1px solid var(--main-inner-color);
-    margin: auto;
-    margin-top: 5px;
-    text-indent: 5px;
-    width: calc(100% - 10px);
-    display:  ${props => props.up ? 'block' : 'none'};
-    height: ${(props) => (props.up ? props.isHost ? 'calc(var(--vh, 1vh) * 100 - 520px)' : 'calc(var(--vh, 1vh) * 100 - 370px)' : '38px')};
-`;
-
-export const MemoControllerPointer = styled.div.withConfig({
-    shouldForwardProp: (prop) => shouldForwardProp(prop) && prop !== 'isOpen'
-})`
-    border-radius: 7px 7px 0 0;
-    width: 100%;
-    height: 38px;
-    padding-top: 5px;
-    background: var(--main-btn-color); 
-    z-index: 40;
-    color: white;
-    text-align: center;
-    font-size: 17px;
-    transition: 0.35s ease;
-`;
-
-export const MemoContent = styled.div.withConfig({
-    shouldForwardProp: (prop) => shouldForwardProp(prop) && prop !== 'isOpen'
-})`
-    display:  ${props => props.up ? 'block' : 'none'};
-    height: ${props => props.up ? '400px' : '0px'}; 
-    padding: ${props => props.up ? '10px' : ''};
-`;
-
 export const PlayerDiv = styled.div.withConfig({
     shouldForwardProp: (prop) => shouldForwardProp(prop) && prop !== 'isOpen'
 })`
@@ -178,3 +120,78 @@ export const slideRightOut = keyframes`
             left: 100%;
         }
     `;
+
+
+export const MemoContainer = styled.div`
+    position: relative;
+    width: 100%;
+    margin-bottom: 2px;
+    height: 40px;
+`;
+export const MemoController = styled.div.withConfig({
+    shouldForwardProp: (prop) => shouldForwardProp(prop) && prop !== 'isOpen'
+})`
+    position: absolute;
+    bottom: 0;
+    border-radius: 7px 7px 0 0;
+    width: 100%;
+    height: ${(props) => (props.up ? props.isHost ? 'calc(var(--vh, 1vh) * 100 - 360px)' : 'calc(var(--vh, 1vh) * 100 - 210px)' : '38px')};
+    border-top: 1px solid var(--main-gray-line);
+    background:  ${(props) => (props.up? 'white':'var(--main-btn-color);')}; 
+    z-index: 40;
+    color: ${(props)=>(props.up? 'balck' : 'white')};
+    text-align: center;
+    font-size: 17px;
+    transition: 0.35s ease;
+    box-shadow: 0 -4px 4px 1px hsl(206deg 3.6% 63.09% / 20%)
+`;
+
+export const MemoControllerPointer = styled.div.withConfig({
+    shouldForwardProp: (prop) => shouldForwardProp(prop) && prop !== 'isOpen'
+})`
+    border-radius: 7px 7px 0 0;
+    width: 100%;
+    height: 38px;
+    padding-top: 5px;
+    background: var(--main-btn-color); 
+    z-index: 40;
+    color: white;
+    text-align: center;
+    font-size: 17px;
+    transition: 0.35s ease;
+`;
+export const MemoContent = styled.div.withConfig({
+    shouldForwardProp: (prop) => shouldForwardProp(prop) && prop !== 'isOpen'
+})`
+    display:  ${props => props.up ? 'block' : 'none'};
+    padding: ${props => props.up ? '10px' : ''};
+    overflow-y: auto;
+    height: ${props =>  (props.up ? props.isHost ? 'calc(var(--vh, 1vh) * 100 - 400px)' : 'calc(var(--vh, 1vh) * 100 - 250px)' : '38px')};
+`;
+export const MemoTextArea = styled.textarea.withConfig({
+    shouldForwardProp: (prop) => shouldForwardProp(prop) && prop !== 'isOpen'
+})`
+    border: 1px solid var(--main-inner-color);
+    margin: auto;
+    margin-bottom: 5px;
+    text-indent: 5px;
+    width: calc(100%);
+    display:  ${props => props.up ? 'block' : 'none'};
+    height: ${(props) => (props.up ? props.isHost ? 'calc(var(--vh, 1vh) * 100 - 510px)' : 'calc(var(--vh, 1vh) * 100 - 370px)' : '38px')};
+`;
+
+
+
+
+
+
+export const MemoPushButton = styled.button.withConfig({
+    shouldForwardProp: (prop) => shouldForwardProp(prop) && prop !== 'isOpen'
+})`
+    width: 90px;
+    height: 45px;
+    border-radius: 2px;
+    float: right;
+    color: white;
+    background: var(--main-btn-color);
+`;

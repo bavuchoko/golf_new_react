@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {memo, useEffect, useState} from 'react';
 import NumberSelector from "../../../components/selectbox/NumberSelector";
 import {useSelector} from "react-redux";
 import ViewScoreList from "./components/ViewScoreList";
@@ -23,6 +23,7 @@ function NowPlaying({data}) {
     const [up, setUp] =useState(false);
     const [memos, setMemos] =useState();
     const [showCurrentRound, setShowCurrentRound] = useState(true);
+    const [selectRound, setSelectRound] = useState(1);
     const initialClickedPlayer = () => {
         if (!data.sheets || data.sheets.length === 0) {
             return {};
@@ -96,13 +97,19 @@ function NowPlaying({data}) {
     }
 
     useEffect(() => {
-        getMemos(data.id).then(r => {
+
+        getMemos(data.field?.id).then(r => {
            if(r)
             setMemos(r.data)
         })
 
     }, []);
 
+    function findMemo(){
+        if(memos && memos.length >0)
+        return memos.find(memo=>memo.round ===selectRound)
+        else return undefined;
+    }
 
     return (
         <>
@@ -110,7 +117,9 @@ function NowPlaying({data}) {
             {/*점수목록*/}
             <ViewScoreList data={data} isHost={isHost} showCurrentRound={showCurrentRound} setShowCurrentRound={setShowCurrentRound}  memos={memos}/>
 
-            <MemoOnGame up={up} setUp={setUp} isHost={isHost} memos={memos} round={data.round}/>
+
+            {/*메모관리*/}
+            <MemoOnGame up={up} setUp={setUp} isHost={isHost} memo={findMemo()} field={data.field ?? undefined} round={selectRound}/>
 
             {isHost &&
                 <Counter>
