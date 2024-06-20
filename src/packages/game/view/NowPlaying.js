@@ -98,7 +98,7 @@ function NowPlaying({data}) {
     const nextRoundHandler =()=>{
         if(isHost){
             nextRound(data.id, clickedPlayer).then(_=>{
-                console.log(_)
+
             })
         }
     }
@@ -133,7 +133,7 @@ function NowPlaying({data}) {
                     <LefterBtn onClick={putScoreHandler}>입력</LefterBtn>
                     <NumberSelector limit={10} number={clickedPlayer.hit} setNumber={scoreChangeHandler}/>
                     <RighterBtn onClick={nextRoundHandler}>다음</RighterBtn>
-            </Counter>
+                </Counter>
             }
 
             <div className={`grid grid-cols-4 gap-1`}>

@@ -62,7 +62,7 @@ function StepPlayers({setStep, data, fnc, user}) {
                 <div className={`each-player flex h-[30px] mb-[5px]`} key={index}>
 
                     {/*<span className={`mr-3 inline-block`}>{index + 2}번</span>*/}
-                    <p className={`w-[100px]`} placeholder={``}>{data.names[index]}</p>
+                    <p className={`text-left w-[100px]`} placeholder={``}>{data.names[index]}</p>
 
                     <svg width="800px" height="800px" viewBox="0 0 1024 1024" onClick={()=> {
                         removePlayer(index);

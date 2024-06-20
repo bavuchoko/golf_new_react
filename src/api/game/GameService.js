@@ -36,7 +36,7 @@ async function enrollGame(gameId) {
 }
 
 async function startGame(gameId) {
-    return await needAuth.put(`/game/play/${gameId}?startHole=1`);
+    return await needAuth.put(`/game/play/${gameId}?hole=1`);
 }
 
 
