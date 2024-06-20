@@ -11,7 +11,7 @@ import {
     PlayerDiv,
     RighterBtn
 } from "./style/StyleView";
-import {putScore} from "../../../api/score/ScoreService";
+import {nextRound, putScore} from "../../../api/score/ScoreService";
 import MemoOnGame from "./components/MemoOnGame";
 import {getMemos} from "../../../api/memo/MemoService";
 
@@ -95,6 +95,13 @@ function NowPlaying({data}) {
             })
         }
     }
+    const nextRoundHandler =()=>{
+        if(isHost){
+            nextRound(data.id, clickedPlayer).then(_=>{
+                console.log(_)
+            })
+        }
+    }
 
     useEffect(() => {
 
@@ -119,13 +126,13 @@ function NowPlaying({data}) {
 
 
             {/*메모관리*/}
-            <MemoOnGame up={up} setUp={setUp} isHost={isHost} memo={findMemo()} field={data.field ?? undefined} round={selectRound}/>
+            <MemoOnGame up={up} setUp={setUp} isHost={isHost} memo={findMemo()} field={data.field ?? undefined} round={selectRound} setMemos={setMemos}/>
 
             {isHost &&
                 <Counter>
                     <LefterBtn onClick={putScoreHandler}>입력</LefterBtn>
                     <NumberSelector limit={10} number={clickedPlayer.hit} setNumber={scoreChangeHandler}/>
-                <RighterBtn>다음</RighterBtn>
+                    <RighterBtn onClick={nextRoundHandler}>다음</RighterBtn>
             </Counter>
             }
 

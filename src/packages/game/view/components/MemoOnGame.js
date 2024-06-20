@@ -9,18 +9,26 @@ import {
 } from "../style/StyleView";
 import {createMemo, pushMemo} from "../../../../api/memo/MemoService";
 
-function MemoOnGame({up, setUp, isHost, memo, field, round}) {
+function MemoOnGame({up, setUp, isHost, memo, field, round, setMemos}) {
 
     const [clicked, setClicked] = useState(false);
     const [memoContent, setMemoContent] = useState(memo?.content);
     const textAreaRef = useRef(null);
 
     const updateMemo =()=>{
+        console.log("awdawd")
         const newMemo = {
-            ...memo,
+            account:{id:memo.account.id},
+            field:{id:memo.field.id},
+            round:memo.round,
             content: memoContent
         };
-        pushMemo(newMemo)
+        pushMemo(newMemo).then(r=>{
+            if(r.status===200){
+                setClicked(false)
+                setMemos(r.data)
+            }
+        })
 
     }
     const saveMemo =()=>{
@@ -29,7 +37,11 @@ function MemoOnGame({up, setUp, isHost, memo, field, round}) {
             round: round,
             content: memoContent
         };
-        createMemo(newMemo)
+        createMemo(newMemo).then(r=>{
+            if(r.status===200){
+                setClicked(false)
+            }
+        })
     }
 
     useEffect(() => {
@@ -43,22 +55,14 @@ function MemoOnGame({up, setUp, isHost, memo, field, round}) {
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
+
     }, [textAreaRef]);
     useEffect(() => {
         setMemoContent(memo?.content);
     }, [memo]);
-    useEffect(() => {
-        if (clicked && textAreaRef.current) {
-            const length = textAreaRef.current.value.length;
-            textAreaRef.current.focus();
-            textAreaRef.current.setSelectionRange(length, length);
-        }
-    }, [clicked]);
     if(!field){
         return <></>;
     }
-
-    console.log(memoContent)
     return (
         <MemoContainer>
             <MemoController up={up} isHost={isHost}>
@@ -70,15 +74,15 @@ function MemoOnGame({up, setUp, isHost, memo, field, round}) {
                 <MemoContent up={up} isHost={isHost} className={``} style={{}} >
                     {memo ?
                         (clicked ?
-                                <div className={''}>
+                                <div className={''}  ref={textAreaRef}>
                                     <MemoTextArea
-                                        ref={textAreaRef}
                                         up={up} isHost={isHost}
                                         className="w-full radius-no indent-2 no-outline text-[14px] text-[black]"
                                         value={memoContent}
+                                        autoFocus={true}
                                         onChange={(e) => setMemoContent(e.target.value)}
                                     />
-                                    <MemoPushButton onClick={updateMemo}>저장</MemoPushButton>
+                                    <MemoPushButton  onClick={updateMemo}>수정</MemoPushButton>
                                 </div>
                                 :
                                 <pre key={memo.round}

@@ -12,6 +12,7 @@ async function createMemo(memo) {
 }
 
 async function pushMemo(memo) {
+    console.log(memo)
     return await needAuth.put(`/memo`, memo);
 }
 
