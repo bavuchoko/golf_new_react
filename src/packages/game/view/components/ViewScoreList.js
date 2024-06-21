@@ -35,13 +35,13 @@ function ViewScoreList({data, isHost, showCurrentRound, setShowCurrentRound, mem
                     <div className={`grid grid-cols-5 mb-2`}>
                             <div>홀</div>
                             {groupedSheets[minRound].map((round, index) =>(
-                            <div key={`th_`+index}>
+                            <div key={`hole_`+index}>
                                 {round.player.name}
                             </div>
                             ))}
                         </div>
                     {Object.keys(groupedSheets).map((round,index) => (
-                        <div key={round} className={`grid grid-cols-5 ${index % 2 === 0 ? 'bg-odd' :'bg-even'}`}>
+                        <div key={`hole2_`+round} className={`grid grid-cols-5 ${index % 2 === 0 ? 'bg-odd' :'bg-even'}`}>
                             <div className={`py-1 relative`}>
 
                                 {/* 현재 홀에 메모 존재하는지 여부 */}
@@ -55,7 +55,7 @@ function ViewScoreList({data, isHost, showCurrentRound, setShowCurrentRound, mem
                                 const playerOrder = groupedSheets[minRound].map(sheet => sheet.player.id);
                                 return playerOrder.indexOf(a.player.id) - playerOrder.indexOf(b.player.id);
                             }).map(sheet => (
-                                <div key={sheet.id} className={`py-1`}>
+                                <div key={`sheet_`+ sheet.player.id} className={`py-1`}>
                                     <span className={`inline-block h-[35px] w-[35px] line-h-35`}>{sheet.hit}</span>
                                 </div>
                             ))}

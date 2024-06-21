@@ -1,10 +1,9 @@
-import {useEffect, useState} from 'react';
-import {useDispatch} from 'react-redux';
-import {EventSourcePolyfill} from 'event-source-polyfill';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { EventSourcePolyfill } from 'event-source-polyfill';
 
-import {finish, load, onError} from "../../../redux/slice/apiSlice";
+import { finish, load, onError } from "../../../redux/slice/apiSlice";
 import axios from "axios";
-
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
@@ -16,66 +15,23 @@ const useGameData = (id) => {
         let eventSource;
 
         const createEventSource = (token) => {
+            const options = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    ...(token && { Authorization: `Bearer ${token}` })
+                },
+                withCredentials: true,
+                heartbeatTimeout: 60000 // 타임아웃 시간을 60초로 설정
+            };
 
-            let option
-            if(token) {
-                option= {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                        'Content-Type': 'application/json',
-                    },
-                    withCredentials: true,
-                }
-            }else{
-                option= {
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    withCredentials: true,
-                }
-            }
-
-            return new EventSourcePolyfill(`${BASE_URL}/game/${id}`, option);
+            return new EventSourcePolyfill(`${BASE_URL}/game/${id}`, options);
         };
 
-        const connectEventSource = async () => {
-            dispatch(load())
-            const rawToken = localStorage.getItem('accessToken')
-            let newToken;
-
-            try {
-                const response = await axios.get(`${BASE_URL}/user/validation`, {
-                    headers:{
-                        Authorization: `Bearer ${rawToken}`,
-                        'Content-Type': 'application/json',
-                    },
-                    withCredentials:true
-                });
-                if(response.status === 200)
-                newToken = rawToken
-            }catch (error){
-                if(error.message='Network Error'){
-
-                }else{
-                    if(error.response.status === 401){
-                        const res = await axios.get(`${BASE_URL}/user/reissue`, {
-                            withCredentials:true
-                        });
-                        newToken = res.data
-                        localStorage.setItem('accessToken', newToken)
-                    }
-                    if(error.response.status === 403){
-                        newToken=null;
-                    }
-                }
-            }finally {
-                dispatch(finish())
-            }
-
-            eventSource = createEventSource(newToken);
+        const initializeEventSource = (token) => {
+            eventSource = createEventSource(token);
 
             eventSource.addEventListener('connect', (event) => {
-                console.log('connected')
+                console.log('connected');
                 const eventData = JSON.parse(event.data);
                 setData(eventData);
             });
@@ -87,41 +43,73 @@ const useGameData = (id) => {
             });
 
             eventSource.onerror = (error) => {
-                console.log(error)
+                console.log(error);
                 eventSource.close();
                 if (eventSource.readyState === EventSource.CLOSED) {
                     console.log('SSE connection was closed. Reconnecting...');
-                    // 재연결 시도
-                    setTimeout(createEventSource, 1000); // 3초 후에 재연결 시도
+                    setTimeout(() => {
+                        initializeEventSource(token);
+                        console.log('Reconnecting...');
+                    }, 3000); // 3초 후 재연결 시도
                 } else {
                     console.log('SSE connection error: ReadyState =', eventSource.readyState);
                     dispatch(onError());
                 }
-
-                if (eventSource.readyState === EventSource.CONNECTING) {
-                    console.log("EventSource reconnecting");
-                    return;
-                }
-
             };
-            dispatch(finish())
+        };
+
+        const connectEventSource = async () => {
+            dispatch(load());
+            const rawToken = localStorage.getItem('accessToken');
+            let newToken;
+
+            try {
+                const response = await axios.get(`${BASE_URL}/user/validation`, {
+                    headers: {
+                        Authorization: `Bearer ${rawToken}`,
+                        'Content-Type': 'application/json',
+                    },
+                    withCredentials: true
+                });
+                if (response.status === 200) {
+                    newToken = rawToken;
+                }
+            } catch (error) {
+                if (error.message === 'Network Error') {
+                    // Handle network error
+                } else {
+                    if (error.response.status === 401) {
+                        const res = await axios.get(`${BASE_URL}/user/reissue`, {
+                            withCredentials: true
+                        });
+                        newToken = res.data;
+                        localStorage.setItem('accessToken', newToken);
+                    }
+                    if (error.response.status === 403) {
+                        newToken = null;
+                    }
+                }
+            } finally {
+                dispatch(finish());
+            }
+
+            initializeEventSource(newToken);
         };
 
         connectEventSource();
 
-        //새고로침, 브라우저 탭 닫기
-        window.addEventListener('beforeunload', (event) => {
-            axios.get(`${BASE_URL}/game/${id}/disconnect`);
+        window.addEventListener('beforeunload', () => {
+            axios.get(`${BASE_URL}/sse/disconnect/game/${id}`);
         });
+
         return () => {
-            //메뉴이동
             if (eventSource) {
-                axios.get(`${BASE_URL}/game/${id}/disconnect`);
+                axios.get(`${BASE_URL}/sse/disconnect/game/${id}`);
                 eventSource.close();
             }
         };
 
-}, [BASE_URL, id, dispatch]);
+    }, [BASE_URL, id, dispatch]);
 
     return [data, setData];
 };
