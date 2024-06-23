@@ -1,19 +1,12 @@
-import React, {memo, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import NumberSelector from "../../../components/selectbox/NumberSelector";
 import {useSelector} from "react-redux";
 import ViewScoreList from "./components/ViewScoreList";
-import {
-    Counter,
-    LefterBtn,
-    MemoContainer, MemoContent,
-    MemoController,
-    MemoControllerPointer,
-    PlayerDiv,
-    RighterBtn
-} from "./style/StyleView";
+import {Counter, LefterBtn, PlayerDiv, RighterBtn} from "./style/StyleView";
 import {nextRound, putScore} from "../../../api/score/ScoreService";
 import MemoOnGame from "./components/MemoOnGame";
 import {getMemos} from "../../../api/memo/MemoService";
+import {endGame} from "../../../api/game/GameService";
 
 
 function NowPlaying({data}) {
@@ -24,14 +17,20 @@ function NowPlaying({data}) {
     const [memos, setMemos] =useState();
     const [showCurrentRound, setShowCurrentRound] = useState(true);
     const [selectRound, setSelectRound] = useState(1);
+
+    function findMaxRoundInfo() {
+        const maxRound = Math.max(...data.sheets.map(sheet => sheet.round));
+        const maxRoundSheets = data.sheets.filter(sheet => sheet.round === maxRound);
+        return {maxRound, maxRoundSheets};
+    }
+
     const initialClickedPlayer = () => {
         if (!data.sheets || data.sheets.length === 0) {
             return {};
         }
 
         // 가장 큰 round 값 찾기
-        const maxRound = Math.max(...data.sheets.map(sheet => sheet.round));
-        const maxRoundSheets = data.sheets.filter(sheet => sheet.round === maxRound);
+        const {maxRound, maxRoundSheets} = findMaxRoundInfo();
 
         // round-1의 요소 찾기
         const roundMinusOne = maxRound - 1;
@@ -95,11 +94,52 @@ function NowPlaying({data}) {
             })
         }
     }
-    const nextRoundHandler =()=>{
-        if(isHost){
-            nextRound(data.id, clickedPlayer).then(_=>{
 
-            })
+    function isZeroHitPlayerExist() {
+        // 가장 큰 round 값 찾기
+        const {maxRound, maxRoundSheets} = findMaxRoundInfo();
+        const playerWithZeroHit = maxRoundSheets.some(e=> e.hit<=0 )
+        return playerWithZeroHit;
+    }
+
+    function progressRound(id) {
+        nextRound(id).then(_ => {
+
+        })
+    }
+    function endThisGame(id) {
+        endGame(id).then(_ => {
+
+        })
+    }
+
+    const nextRoundHandler =()=>{
+        if(isZeroHitPlayerExist()) {
+            if (isHost) {
+                if (window.confirm("입력되지 않은 사람이 있습니다. 진행하시겠습니까")) {
+                    progressRound(data.id);
+                }
+            }
+        }else{
+            if (window.confirm("다음 홀 진행하시겠습니까")) {
+                progressRound(data.id);
+            }
+        }
+    }
+
+
+    const endGameHandler =()=>{
+
+        if(isZeroHitPlayerExist()) {
+            if (isHost) {
+                if (window.confirm("입력되지 않은 사람이 있습니다. 종료하시겠습니까")) {
+                    endThisGame(data.id);
+                }
+            }
+        }else{
+            if (window.confirm("종료합니다")) {
+                endThisGame(data.id);
+            }
         }
     }
 
