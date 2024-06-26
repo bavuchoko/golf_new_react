@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useMemo} from 'react';
 import {CurrentRound, ScoreList, ScoreListContainer, TotalScore} from "../style/StyleView";
 
 function ViewScoreList({sheets, isHost, showCurrentRound, setShowCurrentRound, memos}) {
@@ -21,6 +21,27 @@ function ViewScoreList({sheets, isHost, showCurrentRound, setShowCurrentRound, m
         return acc;
     }, {});
     const minRound = Math.min(...Object.keys(groupedSheets));
+    const playersOrder = groupedSheets[minRound].map(sheet => sheet.player);
+
+    const playerTotalScoresByCourse = useMemo(() => {
+        const scores = {};
+
+        Object.keys(groupedSheets).forEach(round => {
+            const courseIndex = Math.floor((round - 1) / 9);
+            groupedSheets[round].forEach(sheet => {
+                const playerId = sheet.player.id;
+                if (!scores[playerId]) {
+                    scores[playerId] = {};
+                }
+                if (!scores[playerId][courseIndex]) {
+                    scores[playerId][courseIndex] = 0;
+                }
+                scores[playerId][courseIndex] += sheet.hit;
+            });
+        });
+
+        return scores;
+    }, [groupedSheets]);
 
     return (
         <ScoreList isHost={isHost}>
@@ -30,6 +51,8 @@ function ViewScoreList({sheets, isHost, showCurrentRound, setShowCurrentRound, m
                 <div className={`w-[120px] text-right ${!showCurrentRound ? 'font-bold' : '' }`} onClick={()=>setShowCurrentRound(false)}>라운드 합계</div>
             </div>
             <ScoreListContainer isHost={isHost}>
+
+                {/*현재라운드*/}
                 <CurrentRound isHost={isHost} visable={showCurrentRound}>
 
                     <div className={`grid grid-cols-5 mb-2`}>
@@ -63,6 +86,24 @@ function ViewScoreList({sheets, isHost, showCurrentRound, setShowCurrentRound, m
                     ))}
                 </CurrentRound>
                 <TotalScore isHost={isHost} visable={showCurrentRound}>
+                    <div className={`grid grid-cols-5 mb-2`}>
+                        <div>코스</div>
+                        {playersOrder.map(player => (
+                            <div key={`total_${player.id}`}>
+                                {player.name}
+                            </div>
+                        ))}
+                    </div>
+                    {Object.keys(playerTotalScoresByCourse[playersOrder[0].id]).map((courseIndex) => (
+                        <div key={`course_${courseIndex}`} className={`grid grid-cols-5`}>
+                            <div>{String.fromCharCode(courseIndex + 65)}</div>
+                            {playersOrder.map(player => (
+                                <div key={`total_score_${player.id}_${courseIndex}`}>
+                                    {playerTotalScoresByCourse[player.id][courseIndex]}
+                                </div>
+                            ))}
+                        </div>
+                    ))}
                 </TotalScore>
             </ScoreListContainer>
         </ScoreList>
