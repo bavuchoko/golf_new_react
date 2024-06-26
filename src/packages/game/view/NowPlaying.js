@@ -172,7 +172,7 @@ function NowPlaying({data}) {
             {isHost &&
                 <Counter>
                     <LefterBtn onClick={putScoreHandler}>입력</LefterBtn>
-                    <NumberSelector limit={10} number={clickedPlayer.hit} setNumber={scoreChangeHandler}/>
+                    <NumberSelector limit={{upper:10, under:0}} number={clickedPlayer.hit} setNumber={scoreChangeHandler}/>
                     <RighterBtn onClick={nextRoundHandler}>다음</RighterBtn>
                 </Counter>
             }
