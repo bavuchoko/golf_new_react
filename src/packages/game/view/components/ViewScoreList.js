@@ -1,7 +1,8 @@
 import React, {useEffect, useMemo} from 'react';
 import {CurrentRound, ScoreList, ScoreListContainer, TotalScore} from "../style/StyleView";
+import CourseAccordian from "../../../../components/accordion/CourseAccordian";
 
-function ViewScoreList({sheets, isHost, showCurrentRound, setShowCurrentRound, memos}) {
+function ViewScoreList({sheets, players, isHost, showCurrentRound, setShowCurrentRound, memos}) {
 
     let vh = 0;
     useEffect(() => {
@@ -10,38 +11,15 @@ function ViewScoreList({sheets, isHost, showCurrentRound, setShowCurrentRound, m
     }, []);
 
 
+    const courses = {};
+    sheets.forEach(sheet => {
+        const round={}
 
-    // round 별로 시트를 그룹화
-    const groupedSheets = sheets.reduce((acc, sheet) => {
-        const round = sheet.round;
-        if (!acc[round]) {
-            acc[round] = [];
-        }
-        acc[round].push(sheet);
-        return acc;
-    }, {});
-    const minRound = Math.min(...Object.keys(groupedSheets));
-    const playersOrder = groupedSheets[minRound].map(sheet => sheet.player);
+    });
 
-    const playerTotalScoresByCourse = useMemo(() => {
-        const scores = {};
+    console.log(courses)
 
-        Object.keys(groupedSheets).forEach(round => {
-            const courseIndex = Math.floor((round - 1) / 9);
-            groupedSheets[round].forEach(sheet => {
-                const playerId = sheet.player.id;
-                if (!scores[playerId]) {
-                    scores[playerId] = {};
-                }
-                if (!scores[playerId][courseIndex]) {
-                    scores[playerId][courseIndex] = 0;
-                }
-                scores[playerId][courseIndex] += sheet.hit;
-            });
-        });
 
-        return scores;
-    }, [groupedSheets]);
 
     return (
         <ScoreList isHost={isHost}>
@@ -57,53 +35,47 @@ function ViewScoreList({sheets, isHost, showCurrentRound, setShowCurrentRound, m
 
                     <div className={`grid grid-cols-5 mb-2`}>
                             <div>홀</div>
-                            {groupedSheets[minRound].map((round, index) =>(
+                            {players.map((player, index) =>(
                             <div key={`hole_`+index}>
-                                {round.player.name}
+                                {player.name}
                             </div>
                             ))}
                         </div>
-                    {Object.keys(groupedSheets).map((round,index) => (
-                        <div key={`hole2_`+round} className={`grid grid-cols-5 ${index % 2 === 0 ? 'bg-odd' :'bg-even'}`}>
-                            <div className={`py-1 relative`}>
+                    {sheets.map((sheet,index) => (
+                        <div key={`hole2_`+sheet} className={`grid grid-cols-5 ${index % 2 === 0 ? 'bg-odd' :'bg-even'}`}>
 
-                                {/* 현재 홀에 메모 존재하는지 여부 */}
-                                {memos && memos.some(memo => memo.round == round) &&
+                            {/*라운드 순번*/}
+                            <div className={`py-1 relative`}>
+                                {/* 메모 있음 아이콘 */}
+                                {memos && memos.some(memo => memo.round == sheet.round) &&
                                     <div className={`absolute top-1 left-4 w-4 h-4 rounded-full bg-red-700`} />
                                 }
-
-                                <span className={`rounded-full border bg-[white] inline-block h-[35px] w-[35px] line-h-35`}>{round}</span>
+                                <span className={`rounded-full border bg-[white] inline-block h-[35px] w-[35px] line-h-35`}>{sheet.round}</span>
                             </div>
-                            {groupedSheets[round].sort((a, b) => {
-                                const playerOrder = groupedSheets[minRound].map(sheet => sheet.player.id);
-                                return playerOrder.indexOf(a.player.id) - playerOrder.indexOf(b.player.id);
-                            }).map(sheet => (
-                                <div key={`sheet_`+ sheet.player.id} className={`py-1`}>
-                                    <span className={`inline-block h-[35px] w-[35px] line-h-35`}>{sheet.hit}</span>
-                                </div>
-                            ))}
+
+                            {/*{roundSheet[round].sort((a, b) => {*/}
+                            {/*    const playerOrder = roundSheet[minRound].map(sheet => sheet.player.id);*/}
+                            {/*    return playerOrder.indexOf(a.player.id) - playerOrder.indexOf(b.player.id);*/}
+                            {/*}).map(sheet => (*/}
+                            {/*    <div key={`sheet_`+ sheet.player.id} className={`py-1`}>*/}
+                            {/*        <span className={`inline-block h-[35px] w-[35px] line-h-35`}>{sheet.hit}</span>*/}
+                            {/*    </div>*/}
+                            {/*))}*/}
                         </div>
                     ))}
                 </CurrentRound>
                 <TotalScore isHost={isHost} visable={showCurrentRound}>
                     <div className={`grid grid-cols-5 mb-2`}>
                         <div>코스</div>
-                        {playersOrder.map(player => (
+                        {players.map(player => (
                             <div key={`total_${player.id}`}>
                                 {player.name}
                             </div>
                         ))}
                     </div>
-                    {Object.keys(playerTotalScoresByCourse[playersOrder[0].id]).map((courseIndex) => (
-                        <div key={`course_${courseIndex}`} className={`grid grid-cols-5`}>
-                            <div>{String.fromCharCode(courseIndex + 65)}</div>
-                            {playersOrder.map(player => (
-                                <div key={`total_score_${player.id}_${courseIndex}`}>
-                                    {playerTotalScoresByCourse[player.id][courseIndex]}
-                                </div>
-                            ))}
-                        </div>
-                    ))}
+
+                    <CourseAccordian courseSheets={"courseSheets"} players={players}/>
+
                 </TotalScore>
             </ScoreListContainer>
         </ScoreList>

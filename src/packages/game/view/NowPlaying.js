@@ -163,7 +163,7 @@ function NowPlaying({data}) {
         <>
 
             {/*점수목록*/}
-            <ViewScoreList sheets={data.sheets} isHost={isHost} showCurrentRound={showCurrentRound} setShowCurrentRound={setShowCurrentRound}  memos={memos}/>
+            <ViewScoreList sheets={data.sheets} players={data.players} isHost={isHost} showCurrentRound={showCurrentRound} setShowCurrentRound={setShowCurrentRound}  memos={memos}/>
 
 
             {/*메모관리*/}
