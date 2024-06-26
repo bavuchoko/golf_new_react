@@ -61,6 +61,7 @@ function NowPlaying({data}) {
         const hit = record.hit;
         if (playerHits[playerId]) {
             playerHits[playerId].totalHits += hit;
+            playerHits[playerId].sheet = record;
         } else {
             playerHits[playerId] = {
                 id:playerId,
