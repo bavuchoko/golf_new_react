@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {CurrentRound, ScoreList, ScoreListContainer, TotalScore} from "../style/StyleView";
 
-function ViewScoreList({data, isHost, showCurrentRound, setShowCurrentRound, memos}) {
+function ViewScoreList({sheets, isHost, showCurrentRound, setShowCurrentRound, memos}) {
 
     let vh = 0;
     useEffect(() => {
@@ -9,7 +9,7 @@ function ViewScoreList({data, isHost, showCurrentRound, setShowCurrentRound, mem
         document.documentElement.style.setProperty('--vh', `${vh}px`);
     }, []);
 
-    const sheets = data.sheets;
+
 
     // round 별로 시트를 그룹화
     const groupedSheets = sheets.reduce((acc, sheet) => {
@@ -62,7 +62,7 @@ function ViewScoreList({data, isHost, showCurrentRound, setShowCurrentRound, mem
                         </div>
                     ))}
                 </CurrentRound>
-                <TotalScore data={data} isHost={isHost} visable={showCurrentRound}>
+                <TotalScore isHost={isHost} visable={showCurrentRound}>
                 </TotalScore>
             </ScoreListContainer>
         </ScoreList>
