@@ -75,7 +75,7 @@ function NumberSelector({limit, number, setNumber}) {
 
     const setUpCounter =()=> {
         if(limit?.upper && number>= limit.upper) {
-            toast.error('네 명을 넘을 수 없습니다.')
+            toast.error('최대 입니다.')
             return;
         }
         setNumber(number+1);
@@ -83,7 +83,7 @@ function NumberSelector({limit, number, setNumber}) {
 
     const setDownCounter =()=> {
         if(limit?.under && number<= limit.under) {
-            toast.error('최소 한명 있어야 합니다.')
+            toast.error('최소 입니다.')
             return;
         }
         setNumber(number-1);
