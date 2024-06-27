@@ -34,7 +34,8 @@ function Create(props) {
     const isNumber =  /^\d+$/;
     const [latitude, setLatitude] =useState(36.524281300000716)
     const [longitude, setLongitude] =useState(127.25976801328223)
-
+    // 주소-좌표 변환 객체를 생성합니다
+    var geocoder = new kakao.maps.services.Geocoder();
     var positions = [
         {
             title: '카카오',
@@ -91,7 +92,54 @@ function Create(props) {
             latitude,
             longitude
         );
-        //
+        function searchDetailAddrFromCoords(coords, callback) {
+            // 좌표로 법정동 상세 주소 정보를 요청합니다
+            geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
+        }
+
+// 지도 좌측상단에 지도 중심좌표에 대한 주소정보를 표출하는 함수입니다
+        function displayCenterInfo(result, status) {
+            if (status === kakao.maps.services.Status.OK) {
+                var infoDiv = document.getElementById('centerAddr');
+
+                for(var i = 0; i < result.length; i++) {
+                    // 행정동의 region_type 값은 'H' 이므로
+                    if (result[i].region_type === 'H') {
+                        infoDiv.innerHTML = result[i].address_name;
+                        break;
+                    }
+                }
+            }
+        }
+        // 지도에 클릭 이벤트를 등록
+        // 지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출
+        kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
+            searchDetailAddrFromCoords(mouseEvent.latLng, function(result, status) {
+                if (status === kakao.maps.services.Status.OK) {
+                    //도로명주소
+                    var roadAddress = !!result[0].road_address ? result[0].road_address.address_name: '';
+                    //지번주소
+                    var detailAddr =result[0].address.address_name;
+
+                    console.log(roadAddress)
+                    console.log(detailAddr)
+
+                    // 클릭한 위도, 경도 정보를 가져옴
+                    var latlng = mouseEvent.latLng;
+                    // 마커를 클릭한 위치에 표시합니다
+                    marker.setPosition(latlng);
+                    marker.setMap(map);
+                    //클릭위치의 위도
+                    latlng.getLat()
+                    //클릭위치의 경도
+                    latlng.getLng()
+                }
+            });
+
+
+
+
+        });
         // // 마커를 생성
         let marker = new kakao.maps.Marker({
             position: markerPosition,
