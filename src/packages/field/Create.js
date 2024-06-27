@@ -120,7 +120,7 @@ function Create(props) {
                     var roadAddress = !!result[0].road_address ? result[0].road_address.address_name: '';
                     //지번주소
                     var detailAddr =result[0].address.address_name;
-
+                    setAddress(roadAddress !==''? roadAddress: detailAddr)
                     console.log(roadAddress)
                     console.log(detailAddr)
 
