@@ -87,16 +87,16 @@ function Create(props) {
 
 
 
-        // let markerPosition = new kakao.maps.LatLng(
-        //     latitude,
-        //     longitude
-        // );
+        let markerPosition = new kakao.maps.LatLng(
+            latitude,
+            longitude
+        );
         //
         // // 마커를 생성
-        // let marker = new kakao.maps.Marker({
-        //     position: markerPosition,
-        // });
-        // marker.setMap(map);
+        let marker = new kakao.maps.Marker({
+            position: markerPosition,
+        });
+        marker.setMap(map);
         var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
         for (var i = 0; i < positions.length; i ++) {
 
@@ -109,7 +109,7 @@ function Create(props) {
 
 
             // 마커
-            var marker = new kakao.maps.Marker({
+            var savedMarker = new kakao.maps.Marker({
                 map: map, // 마커를 표시할 지도
                 position: positions[i].latlng,
                 image : markerImage // 마커 이미지
