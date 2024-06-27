@@ -71,6 +71,7 @@ const useGameData = (id) => {
                     },
                     withCredentials: true
                 });
+                console.log(response)
                 if (response.status === 200) {
                     newToken = rawToken;
                 }
@@ -99,12 +100,12 @@ const useGameData = (id) => {
         connectEventSource();
 
         window.addEventListener('beforeunload', () => {
-            axios.get(`${BASE_URL}/sse/disconnect/game/${id}`);
+            axios.get(`${BASE_URL}/disconnect/game/${id}`);
         });
 
         return () => {
             if (eventSource) {
-                axios.get(`${BASE_URL}/sse/disconnect/game/${id}`);
+                axios.get(`${BASE_URL}/disconnect/game/${id}`);
                 eventSource.close();
             }
         };
