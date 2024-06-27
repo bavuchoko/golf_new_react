@@ -16,7 +16,9 @@ function NowPlaying({data}) {
     const [up, setUp] =useState(false);
     const [memos, setMemos] =useState();
     const [showCurrentRound, setShowCurrentRound] = useState(true);
+    const [selectCourse, setSelectCourse] = useState(1);
     const [selectRound, setSelectRound] = useState(1);
+    const [selectHole, setSelectHole] = useState(1);
 
     function findMaxRoundInfo() {
         const maxRound = Math.max(...data.sheets.map(sheet => sheet.round));
@@ -155,7 +157,11 @@ function NowPlaying({data}) {
 
     function findMemo(){
         if(memos && memos.length >0)
-        return memos.find(memo=>memo.round ===selectRound)
+        return memos.find(memo=>
+            (memo.course === selectCourse)
+            && (memo.round ===selectRound)
+            && (memo.hole === selectHole)
+        )
         else return undefined;
     }
 
@@ -167,7 +173,7 @@ function NowPlaying({data}) {
 
 
             {/*메모관리*/}
-            <MemoOnGame up={up} setUp={setUp} isHost={isHost} memo={findMemo()} field={data.field ?? undefined} round={selectRound} setMemos={setMemos}/>
+            <MemoOnGame up={up} setUp={setUp} isHost={isHost} memo={findMemo()} field={data.field ?? undefined} round={selectRound} setMemos={setMemos} course={selectCourse} hole={selectHole}/>
 
             {isHost &&
                 <Counter>

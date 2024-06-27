@@ -9,21 +9,24 @@ import {
 } from "../style/StyleView";
 import {createMemo, pushMemo} from "../../../../api/memo/MemoService";
 
-function MemoOnGame({up, setUp, isHost, memo, field, round, setMemos}) {
+function MemoOnGame({up, setUp, isHost, memo, setMemos, field, course, round, hole}) {
 
     const [clicked, setClicked] = useState(false);
     const [memoContent, setMemoContent] = useState(memo?.content);
     const textAreaRef = useRef(null);
 
     const updateMemo =()=>{
-        console.log("awdawd")
         const newMemo = {
-            account:{id:memo.account.id},
-            field:{id:memo.field.id},
-            round:memo.round,
+            account:{id: memo.account.id},
+            field:{id: memo.field.id},
+            round: memo.round,
+            course: memo.course,
+            hole: memo.hole,
             content: memoContent
         };
         pushMemo(newMemo).then(r=>{
+            console.log("pushMemo")
+            console.log(r)
             if(r.status===200){
                 setClicked(false)
                 setMemos(r.data)
@@ -35,9 +38,13 @@ function MemoOnGame({up, setUp, isHost, memo, field, round, setMemos}) {
         const newMemo = {
             field:{id:field.id},
             round: round,
+            course:course,
+            hole:hole,
             content: memoContent
         };
         createMemo(newMemo).then(r=>{
+            console.log("createMemo")
+            console.log(r)
             if(r.status===200){
                 setClicked(false)
             }

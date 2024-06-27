@@ -1,6 +1,6 @@
 import React, {useEffect, useMemo} from 'react';
 import {CurrentRound, ScoreList, ScoreListContainer, TotalScore} from "../style/StyleView";
-import CourseAccordian from "../../../../components/accordion/CourseAccordian";
+import CourseAccordion from "../../../../components/accordion/CourseAccordion";
 
 function ViewScoreList({sheets, players, isHost, showCurrentRound, setShowCurrentRound, memos}) {
 
@@ -10,23 +10,42 @@ function ViewScoreList({sheets, players, isHost, showCurrentRound, setShowCurren
         document.documentElement.style.setProperty('--vh', `${vh}px`);
     }, []);
 
-
-    const courses = {};
+    const courseMap = {};
+    let maxCourse = 1;
     sheets.forEach(sheet => {
-        const round={}
+        const { course, hole } = sheet;
+        if (course > maxCourse) {
+            maxCourse = course;
+        }
+        if (!courseMap[course]) {
+            courseMap[course] = {};
+        }
 
+        if (!courseMap[course][hole]) {
+            courseMap[course][hole] = [];
+        }
+
+        courseMap[course][hole].push(sheet);
     });
+    const organizeSheets  = {};
 
-    console.log(courses)
+    Object.keys(courseMap).forEach(courseKey => {
+        const holes = Object.keys(courseMap[courseKey]).map(holeKey => ({
+            hole: holeKey,
+            sheets: courseMap[courseKey][holeKey]
+        }));
+
+        organizeSheets [courseKey] = { holes: holes };
+    });
 
 
 
     return (
         <ScoreList isHost={isHost}>
             <div className={`flex h-[50px] line-h-50 justify-center w-full border`}>
-                <div className={`w-[120px] text-left ${showCurrentRound ? 'font-bold' : ''}`}  onClick={()=>setShowCurrentRound(true)}>현재 라운드</div>
+                <div className={`w-[49%] text-center ${showCurrentRound ? 'font-bold' : ''}`}  onClick={()=>setShowCurrentRound(true)}>현재 스코어</div>
                 <div className={`splicer h-[30px] mt-[10px]`}/>
-                <div className={`w-[120px] text-right ${!showCurrentRound ? 'font-bold' : '' }`} onClick={()=>setShowCurrentRound(false)}>라운드 합계</div>
+                <div className={`w-[49%] text-center ${!showCurrentRound ? 'font-bold' : '' }`} onClick={()=>setShowCurrentRound(false)}>코스별 스코어</div>
             </div>
             <ScoreListContainer isHost={isHost}>
 
@@ -40,28 +59,26 @@ function ViewScoreList({sheets, players, isHost, showCurrentRound, setShowCurren
                                 {player.name}
                             </div>
                             ))}
-                        </div>
-                    {sheets.map((sheet,index) => (
-                        <div key={`hole2_`+sheet} className={`grid grid-cols-5 ${index % 2 === 0 ? 'bg-odd' :'bg-even'}`}>
+                    </div>
+                    {organizeSheets[maxCourse].holes.map((hole,index) => (
+                    <div key={`hole22_`+index} className={`grid grid-cols-5 ${index % 2 === 0 ? 'bg-odd' :'bg-even'}`}>
 
-                            {/*라운드 순번*/}
-                            <div className={`py-1 relative`}>
-                                {/* 메모 있음 아이콘 */}
-                                {memos && memos.some(memo => memo.round == sheet.round) &&
-                                    <div className={`absolute top-1 left-4 w-4 h-4 rounded-full bg-red-700`} />
-                                }
-                                <span className={`rounded-full border bg-[white] inline-block h-[35px] w-[35px] line-h-35`}>{sheet.round}</span>
-                            </div>
-
-                            {/*{roundSheet[round].sort((a, b) => {*/}
-                            {/*    const playerOrder = roundSheet[minRound].map(sheet => sheet.player.id);*/}
-                            {/*    return playerOrder.indexOf(a.player.id) - playerOrder.indexOf(b.player.id);*/}
-                            {/*}).map(sheet => (*/}
-                            {/*    <div key={`sheet_`+ sheet.player.id} className={`py-1`}>*/}
-                            {/*        <span className={`inline-block h-[35px] w-[35px] line-h-35`}>{sheet.hit}</span>*/}
-                            {/*    </div>*/}
-                            {/*))}*/}
+                        {/*라운드 순번*/}
+                        <div className={`py-1 relative`}>
+                            {/* 메모 있음 아이콘*/}
+                            {memos && memos.some(memo => (memo.course == maxCourse) && (memo.hole == hole.hole)) &&
+                                <div className={`absolute top-1 left-4 w-4 h-4 rounded-full bg-red-700`} />
+                            }
+                            <span className={`rounded-full border bg-[white] inline-block h-[35px] w-[35px] line-h-35`}>{hole.hole}</span>
                         </div>
+
+
+                        {hole.sheets.map((sheet,index)=> (
+                        <div key={`sheet_` + sheet.player.id} className={`py-1`}>
+                            <span className={`inline-block h-[35px] w-[35px] line-h-35`}>{sheet.hit}</span>
+                        </div>
+                        ))}
+                    </div>
                     ))}
                 </CurrentRound>
                 <TotalScore isHost={isHost} visable={showCurrentRound}>
@@ -74,7 +91,7 @@ function ViewScoreList({sheets, players, isHost, showCurrentRound, setShowCurren
                         ))}
                     </div>
 
-                    <CourseAccordian courseSheets={"courseSheets"} players={players}/>
+                    <CourseAccordion data={courseMap} players={players}/>
 
                 </TotalScore>
             </ScoreListContainer>

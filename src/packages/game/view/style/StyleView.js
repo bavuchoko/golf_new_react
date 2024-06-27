@@ -6,7 +6,7 @@ export const Counter = styled.div`
         display: flex;
         margin-bottom: 5px;
         width: 100%;
-        height: 140px;
+        height: 120px;
     `;
 
 
@@ -30,23 +30,23 @@ export const LefterBtn = styled.button`
         
         text-align: center;
         border: 1px solid #d5d5d5;
-        height: 140px;
-        width: calc(50% - 75px);
+        height: 120px;
+        width: calc(50% - 60px);
     `;
 export const RighterBtn = styled.button`
         padding: 0 10px;
         
         text-align: center;
         border: 1px solid #d5d5d5;
-        height: 140px;
-        width: calc(50% - 75px);
+        height: 120px;
+        width: calc(50% - 60px);
     `;
 
 export const ScoreList = styled.div.withConfig({
     shouldForwardProp: (prop) => shouldForwardProp(prop) && prop !== 'isOpen'
 })`     
     text-align: center;
-    height: ${props => props.isHost ? 'calc(var(--vh, 1vh) * 100 - 320px)' : 'calc(var(--vh, 1vh) * 100 - 165px)'};
+    height: ${props => props.isHost ? 'calc(var(--vh, 1vh) * 100 - 290px)' : 'calc(var(--vh, 1vh) * 100 - 185px)'};
 `;
 
 export const ScoreListContainer = styled.div.withConfig({
@@ -56,7 +56,7 @@ export const ScoreListContainer = styled.div.withConfig({
     text-align: center;
     overflow-y: auto;
     overflow-x: hidden;
-    height: ${props => props.isHost ? 'calc(var(--vh, 1vh) * 100 - 370px)' : 'calc(var(--vh, 1vh) * 100 - 215px)'};
+    height: ${props => props.isHost ? 'calc(var(--vh, 1vh) * 100 - 350px)' : 'calc(var(--vh, 1vh) * 100 - 235px)'};
 `;
 export const CurrentRound = styled.button.withConfig({
     shouldForwardProp: (prop) => shouldForwardProp(prop) && prop !== 'isOpen'
@@ -69,7 +69,7 @@ export const CurrentRound = styled.button.withConfig({
     width: 100%;
     background: white;
     overflow-y: auto;
-    max-height: ${props => props.isHost ? 'calc(var(--vh, 1vh) * 100 - 370px)' : 'calc(var(--vh, 1vh) * 100 - 215px)'};
+    max-height: ${props => props.isHost ? 'calc(var(--vh, 1vh) * 100 - 350px)' : 'calc(var(--vh, 1vh) * 100 - 235px)'};
 `;
 export const TotalScore = styled.button.withConfig({
     shouldForwardProp: (prop) => shouldForwardProp(prop) && prop !== 'isOpen'
@@ -84,7 +84,7 @@ export const TotalScore = styled.button.withConfig({
     width: 100%;
     background: white;
     overflow-y: auto;
-    max-height: ${props => props.isHost ? 'calc(var(--vh, 1vh) * 100 - 370px)' : 'calc(var(--vh, 1vh) * 100 - 215px)'};
+    max-height: ${props => props.isHost ? 'calc(var(--vh, 1vh) * 100 - 350px)' : 'calc(var(--vh, 1vh) * 100 - 235px)'};
 `;
 export const slideLeftIn = keyframes`
         from {

@@ -14,15 +14,15 @@ const CountSelectorBox = styled.div`
 const ConterBox=styled.div`
     margin: 0 auto;
     position: relative;
-    width: 150px;
-    height: 140px;
+    width: 130px;
+    height: 120px;
 `;
 const CountDisplay=styled.div`
-  width: 150px;
-  height: 140px;
+  width: 130px;
+  height: 120px;
   font-size: 6rem;
   font-weight: bold;
-  line-height: 140px;
+  line-height: 110px;
   color:  ${theme =>(theme ? 'white': 'white' )};
   position: absolute;
   z-index: 20;
