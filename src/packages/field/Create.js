@@ -129,10 +129,10 @@ function Create(props) {
                     // 마커를 클릭한 위치에 표시합니다
                     marker.setPosition(latlng);
                     marker.setMap(map);
-                    //클릭위치의 위도
-                    latlng.getLat()
-                    //클릭위치의 경도
-                    latlng.getLng()
+
+                    setLatitude(latlng.getLat())
+                    setLongitude(latlng.getLng())
+
                 }
             });
 
