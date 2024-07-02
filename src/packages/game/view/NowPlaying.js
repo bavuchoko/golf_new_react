@@ -1,11 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import NumberSelector from "../../../components/selectbox/NumberSelector";
 import {useSelector} from "react-redux";
 import ViewScoreList from "./components/ViewScoreList";
 import {Counter, LefterBtn, PlayerDiv, RighterBtn} from "./style/StyleView";
 import {nextRound, putScore} from "../../../api/score/ScoreService";
 import MemoOnGame from "./components/MemoOnGame";
-import {getMemos} from "../../../api/memo/MemoService";
 import {endGame} from "../../../api/game/GameService";
 
 
@@ -13,12 +12,11 @@ function NowPlaying({data}) {
 
     const user = useSelector((state) => state.user.user);
     const isHost = user.id===data.host.id
-    const [up, setUp] =useState(false);
-    const [memos, setMemos] =useState();
     const [showCurrentRound, setShowCurrentRound] = useState(true);
-    const [selectCourse, setSelectCourse] = useState(1);
-    const [selectRound, setSelectRound] = useState(1);
-    const [selectHole, setSelectHole] = useState(1);
+    const [clickedHole, setClickedHole] = useState({
+        course:1,
+        hole:1
+    });
 
     function findMaxRoundInfo() {
         const maxRound = Math.max(...data.sheets.map(sheet => sheet.round));
@@ -146,34 +144,18 @@ function NowPlaying({data}) {
         }
     }
 
-    useEffect(() => {
 
-        getMemos(data.field?.id).then(r => {
-           if(r)
-            setMemos(r.data)
-        })
 
-    }, []);
-
-    function findMemo(){
-        if(memos && memos.length >0)
-        return memos.find(memo=>
-            (memo.course === selectCourse)
-            && (memo.round ===selectRound)
-            && (memo.hole === selectHole)
-        )
-        else return undefined;
-    }
 
     return (
         <>
 
             {/*점수목록*/}
-            <ViewScoreList sheets={data.sheets} players={data.players} isHost={isHost} showCurrentRound={showCurrentRound} setShowCurrentRound={setShowCurrentRound}  memos={memos}/>
+            <ViewScoreList sheets={data.sheets} players={data.players} isHost={isHost} showCurrentRound={showCurrentRound} setShowCurrentRound={setShowCurrentRound} setClickedHole={setClickedHole}/>
 
 
             {/*메모관리*/}
-            <MemoOnGame up={up} setUp={setUp} isHost={isHost} memo={findMemo()} field={data.field ?? undefined} round={selectRound} setMemos={setMemos} course={selectCourse} hole={selectHole}/>
+            <MemoOnGame isHost={isHost} field={data.field ?? undefined} selected={clickedHole} />
 
             {isHost &&
                 <Counter>

@@ -1,9 +1,10 @@
-import React, {useEffect, useMemo} from 'react';
+import React, {useEffect} from 'react';
 import {CurrentRound, ScoreList, ScoreListContainer, TotalScore} from "../style/StyleView";
 import CourseAccordion from "../../../../components/accordion/CourseAccordion";
+import {useSelector} from "react-redux";
 
-function ViewScoreList({sheets, players, isHost, showCurrentRound, setShowCurrentRound, memos}) {
-
+function ViewScoreList({sheets, players, isHost, showCurrentRound, setShowCurrentRound, setClickedHole}) {
+    const memos =useSelector(state => state.memo.data);
     let vh = 0;
     useEffect(() => {
         vh = window.innerHeight * 0.01;
@@ -31,7 +32,8 @@ function ViewScoreList({sheets, players, isHost, showCurrentRound, setShowCurren
 
     Object.keys(courseMap).forEach(courseKey => {
         const holes = Object.keys(courseMap[courseKey]).map(holeKey => ({
-            hole: holeKey,
+            hole: parseInt(holeKey),
+            course: parseInt(courseKey),
             sheets: courseMap[courseKey][holeKey]
         }));
 
@@ -49,9 +51,10 @@ function ViewScoreList({sheets, players, isHost, showCurrentRound, setShowCurren
             </div>
             <ScoreListContainer isHost={isHost}>
 
-                {/*현재라운드*/}
+                {/*현재라운드 컨테이너*/}
                 <CurrentRound isHost={isHost} visable={showCurrentRound}>
 
+                    {/*헤더*/}
                     <div className={`grid grid-cols-5 mb-2`}>
                             <div>홀</div>
                             {players.map((player, index) =>(
@@ -60,8 +63,13 @@ function ViewScoreList({sheets, players, isHost, showCurrentRound, setShowCurren
                             </div>
                             ))}
                     </div>
+
+                    {/*점수*/}
                     {organizeSheets[maxCourse].holes.map((hole,index) => (
-                    <div key={`hole22_`+index} className={`grid grid-cols-5 ${index % 2 === 0 ? 'bg-odd' :'bg-even'}`}>
+                    <div key={`hole22_`+index} className={`grid grid-cols-5 ${index % 2 === 0 ? 'bg-odd' :'bg-even'}`} onClick={()=>setClickedHole({
+                        hole:hole.hole,
+                        course:hole.course
+                    })}>
 
                         {/*라운드 순번*/}
                         <div className={`py-1 relative`}>

@@ -135,11 +135,11 @@ export const MemoController = styled.div.withConfig({
     bottom: 0;
     border-radius: 7px 7px 0 0;
     width: 100%;
-    height: ${(props) => (props.up ? props.isHost ? 'calc(var(--vh, 1vh) * 100 - 360px)' : 'calc(var(--vh, 1vh) * 100 - 210px)' : '38px')};
+    height: ${(props) => (props.showUp ? props.isHost ? 'calc(var(--vh, 1vh) * 100 - 360px)' : 'calc(var(--vh, 1vh) * 100 - 210px)' : '38px')};
     border-top: 1px solid var(--main-gray-line);
-    background:  ${(props) => (props.up? 'white':'var(--main-btn-color);')}; 
+    background:  ${(props) => (props.showUp? 'white':'var(--main-btn-color);')}; 
     z-index: 40;
-    color: ${(props)=>(props.up? 'balck' : 'white')};
+    color: ${(props)=>(props.showUp? 'balck' : 'white')};
     text-align: center;
     font-size: 17px;
     transition: 0.35s ease;
@@ -163,10 +163,10 @@ export const MemoControllerPointer = styled.div.withConfig({
 export const MemoContent = styled.div.withConfig({
     shouldForwardProp: (prop) => shouldForwardProp(prop) && prop !== 'isOpen'
 })`
-    display:  ${props => props.up ? 'block' : 'none'};
-    padding: ${props => props.up ? '10px' : ''};
+    display:  ${props => props.showUp ? 'block' : 'none'};
+    padding: ${props => props.showUp ? '10px' : ''};
     overflow-y: auto;
-    height: ${props =>  (props.up ? props.isHost ? 'calc(var(--vh, 1vh) * 100 - 400px)' : 'calc(var(--vh, 1vh) * 100 - 250px)' : '38px')};
+    height: ${props =>  (props.showUp ? props.isHost ? 'calc(var(--vh, 1vh) * 100 - 400px)' : 'calc(var(--vh, 1vh) * 100 - 250px)' : '38px')};
 `;
 export const MemoTextArea = styled.textarea.withConfig({
     shouldForwardProp: (prop) => shouldForwardProp(prop) && prop !== 'isOpen'
@@ -176,8 +176,8 @@ export const MemoTextArea = styled.textarea.withConfig({
     margin-bottom: 5px;
     text-indent: 5px;
     width: calc(100%);
-    display:  ${props => props.up ? 'block' : 'none'};
-    height: ${(props) => (props.up ? props.isHost ? 'calc(var(--vh, 1vh) * 100 - 510px)' : 'calc(var(--vh, 1vh) * 100 - 370px)' : '38px')};
+    display:  ${props => props.showUp ? 'block' : 'none'};
+    height: ${(props) => (props.showUp ? props.isHost ? 'calc(var(--vh, 1vh) * 100 - 510px)' : 'calc(var(--vh, 1vh) * 100 - 370px)' : '38px')};
 `;
 
 
