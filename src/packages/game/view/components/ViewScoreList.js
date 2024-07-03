@@ -28,26 +28,29 @@ function ViewScoreList({sheets, players, isHost, showCurrentRound, setShowCurren
 
         courseMap[course][hole].push(sheet);
     });
-    const organizeSheets  = {};
-
+    console.log(courseMap)
+    // 각 코스와 홀의 sheets를 data.players 순서에 맞게 정렬
     Object.keys(courseMap).forEach(courseKey => {
-        const holes = Object.keys(courseMap[courseKey]).map(holeKey => {
-            // 각 hole의 sheets를 data.players 순서에 맞게 정렬
+        Object.keys(courseMap[courseKey]).forEach(holeKey => {
+            // 현재 홀의 sheets 배열을 data.players 순서에 맞게 정렬
             const sortedSheets = players.map(player => {
                 return courseMap[courseKey][holeKey].find(sheet => sheet.player.id === player.id) || { player: player, hit: 0 };
             });
-
-            return {
-                hole: parseInt(holeKey),
-                course: parseInt(courseKey),
-                sheets: sortedSheets
-            };
+            courseMap[courseKey][holeKey] = sortedSheets;
         });
+    });
 
+// organizeSheets 생성
+    const organizeSheets = {};
+    Object.keys(courseMap).forEach(courseKey => {
+        const holes = Object.keys(courseMap[courseKey]).map(holeKey => ({
+            hole: parseInt(holeKey),
+            course: parseInt(courseKey),
+            sheets: courseMap[courseKey][holeKey]
+        }));
         organizeSheets[courseKey] = { holes: holes };
     });
 
-    console.log(organizeSheets)
 
     return (
         <ScoreList isHost={isHost}>
