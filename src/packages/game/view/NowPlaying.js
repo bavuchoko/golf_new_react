@@ -6,11 +6,13 @@ import {Counter, EndBtn, LefterBtn, PlayerDiv, RighterBtn} from "./style/StyleVi
 import {nextRound, putScore} from "../../../api/score/ScoreService";
 import MemoOnGame from "./components/MemoOnGame";
 import {endGame} from "../../../api/game/GameService";
+import {useNavigate} from "react-router-dom";
 
 
 function NowPlaying({data}) {
 
     const user = useSelector((state) => state.user.user);
+    const navigate =useNavigate();
     const isHost = user.id===data.host.id
     const [showCurrentRound, setShowCurrentRound] = useState(true);
     const [clickedHole, setClickedHole] = useState({
@@ -120,7 +122,10 @@ function NowPlaying({data}) {
     }
     function endThisGame(id) {
         endGame(id).then(_ => {
-
+            console.log(_)
+            if(_.status===200){
+                navigate(`/game/score/${data.id}`)
+            }
         })
     }
 

@@ -100,12 +100,12 @@ const useGameData = (id) => {
         connectEventSource();
 
         window.addEventListener('beforeunload', () => {
-            axios.get(`${BASE_URL}/disconnect/game/${id}`);
+            axios.get(`${BASE_URL}/sse/disconnect/game/${id}`);
         });
 
         return () => {
             if (eventSource) {
-                axios.get(`${BASE_URL}/disconnect/game/${id}`);
+                axios.get(`${BASE_URL}/sse/disconnect/game/${id}`);
                 eventSource.close();
             }
         };
