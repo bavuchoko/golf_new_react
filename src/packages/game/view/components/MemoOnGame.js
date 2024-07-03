@@ -94,7 +94,7 @@ function MemoOnGame({isHost, field, selected}) {
         setMemoContent(memo?.content);
     }, [memo]);
     if(!field){
-        return <></>;
+        return <div className={'w-full h-[40px]'}></div>;
     }
     return (
         <MemoContainer>

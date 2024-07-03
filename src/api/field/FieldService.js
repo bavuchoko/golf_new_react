@@ -1,7 +1,6 @@
 import {needAuth, noAuth} from "../instance/Instance";
 
 async function createField(field) {
-    console.log(field)
     return await needAuth.post('/field', field);
 }
 
