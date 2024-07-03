@@ -31,16 +31,23 @@ function ViewScoreList({sheets, players, isHost, showCurrentRound, setShowCurren
     const organizeSheets  = {};
 
     Object.keys(courseMap).forEach(courseKey => {
-        const holes = Object.keys(courseMap[courseKey]).map(holeKey => ({
-            hole: parseInt(holeKey),
-            course: parseInt(courseKey),
-            sheets: courseMap[courseKey][holeKey]
-        }));
+        const holes = Object.keys(courseMap[courseKey]).map(holeKey => {
+            // 각 hole의 sheets를 data.players 순서에 맞게 정렬
+            const sortedSheets = players.map(player => {
+                return courseMap[courseKey][holeKey].find(sheet => sheet.player.id === player.id) || { player: player, hit: 0 };
+            });
 
-        organizeSheets [courseKey] = { holes: holes };
+            return {
+                hole: parseInt(holeKey),
+                course: parseInt(courseKey),
+                sheets: sortedSheets
+            };
+        });
+
+        organizeSheets[courseKey] = { holes: holes };
     });
 
-
+    console.log(organizeSheets)
 
     return (
         <ScoreList isHost={isHost}>

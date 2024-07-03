@@ -54,37 +54,34 @@ function NowPlaying({data}) {
 
     const [clickedPlayer, setClickedPlayer] = useState(initialClickedPlayer);
 
-    const playerHits = {};
+    const playerHitsArray = data.players.map(player => ({
+        id: player.id,
+        name: player.name,
+        totalHits: 0, // totalHits를 0으로 초기화
+        sheet: null // sheet를 null 또는 undefined로 초기화
+    }));
 
-    data.players.forEach(player => {
-        const playerId = player.id;
-        const playerName = player.name;
-        playerHits[playerId] = {
-            id: playerId,
-            name: playerName,
-            totalHits: 0, // totalHits를 0으로 초기화
-            sheet: null // sheet를 null 또는 undefined로 초기화
-        };
-    });
-
-// sheets 배열을 순회하면서 playerHits 업데이트
+// sheets 배열을 순회하면서 playerHitsArray 업데이트
     data.sheets.forEach(record => {
         const playerId = record.player.id;
-        const playerName = record.player.name;
         const hit = record.hit;
-        if (playerHits[playerId]) {
-            playerHits[playerId].totalHits += hit;
-            playerHits[playerId].sheet = record;
+
+        // playerHitsArray에서 해당 player를 찾아 업데이트
+        const playerIndex = data.players.findIndex(player => player.id === playerId);
+        if (playerIndex !== -1) {
+            playerHitsArray[playerIndex].totalHits += hit;
+            playerHitsArray[playerIndex].sheet = record;
         } else {
-            playerHits[playerId] = {
+            // 만약 해당 player가 playerHitsArray에 없으면 새로 추가
+            playerHitsArray.push({
                 id: playerId,
-                name: playerName,
+                name: record.player.name,
                 totalHits: hit,
                 sheet: record
-            };
+            });
         }
     });
-    const playerHitsArray = data.players.map(player => playerHits[player.id]);
+
 
 
     const scoreChangeHandler =(value)=>{
