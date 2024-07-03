@@ -55,6 +55,19 @@ function NowPlaying({data}) {
     const [clickedPlayer, setClickedPlayer] = useState(initialClickedPlayer);
 
     const playerHits = {};
+
+    data.players.forEach(player => {
+        const playerId = player.id;
+        const playerName = player.name;
+        playerHits[playerId] = {
+            id: playerId,
+            name: playerName,
+            totalHits: 0, // totalHits를 0으로 초기화
+            sheet: null // sheet를 null 또는 undefined로 초기화
+        };
+    });
+
+// sheets 배열을 순회하면서 playerHits 업데이트
     data.sheets.forEach(record => {
         const playerId = record.player.id;
         const playerName = record.player.name;
@@ -64,14 +77,14 @@ function NowPlaying({data}) {
             playerHits[playerId].sheet = record;
         } else {
             playerHits[playerId] = {
-                id:playerId,
+                id: playerId,
                 name: playerName,
                 totalHits: hit,
-                sheet :record
+                sheet: record
             };
         }
     });
-    const playerHitsArray = Object.values(playerHits);
+    const playerHitsArray = data.players.map(player => playerHits[player.id]);
 
 
     const scoreChangeHandler =(value)=>{
