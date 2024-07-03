@@ -1,5 +1,5 @@
 import styled, {keyframes} from "styled-components";
-import shouldForwardProp from "@styled-system/should-forward-prop";
+import shouldForwardProp, {props} from "@styled-system/should-forward-prop";
 
 
 export const Counter = styled.div`
@@ -33,13 +33,24 @@ export const LefterBtn = styled.button`
         height: 120px;
         width: calc(50% - 60px);
     `;
-export const RighterBtn = styled.button`
-        padding: 0 10px;
-        
-        text-align: center;
-        border: 1px solid #d5d5d5;
-        height: 120px;
-        width: calc(50% - 60px);
+export const RighterBtn = styled.button.withConfig({
+    shouldForwardProp: (prop) => shouldForwardProp(prop) && prop !== 'isOpen'
+})`
+    padding: 0 10px;
+    text-align: center;
+    border: 1px solid #d5d5d5;
+    height: ${props => props.endable ? '60px': '120px'};
+    width: 100%;
+    `;
+export const EndBtn = styled.button.withConfig({
+    shouldForwardProp: (prop) => shouldForwardProp(prop) && prop !== 'isOpen'
+})`
+    padding: 0 10px;
+    text-align: center;
+    border: 1px solid #d5d5d5;
+    height: 60px;
+    display: ${props => props.endable ? 'block': 'none'};
+    width: 100%;
     `;
 
 export const ScoreList = styled.div.withConfig({

@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import NumberSelector from "../../../components/selectbox/NumberSelector";
 import {useSelector} from "react-redux";
 import ViewScoreList from "./components/ViewScoreList";
-import {Counter, LefterBtn, PlayerDiv, RighterBtn} from "./style/StyleView";
+import {Counter, EndBtn, LefterBtn, PlayerDiv, RighterBtn} from "./style/StyleView";
 import {nextRound, putScore} from "../../../api/score/ScoreService";
 import MemoOnGame from "./components/MemoOnGame";
 import {endGame} from "../../../api/game/GameService";
@@ -156,7 +156,6 @@ function NowPlaying({data}) {
 
 
 
-
     return (
         <>
 
@@ -171,7 +170,10 @@ function NowPlaying({data}) {
                 <Counter>
                     <LefterBtn onClick={putScoreHandler}>입력</LefterBtn>
                     <NumberSelector limit={{upper:10, under:0}} number={clickedPlayer.hit} setNumber={scoreChangeHandler}/>
-                    <RighterBtn onClick={nextRoundHandler}>다음</RighterBtn>
+                    <div className={`w-5-6`}>
+                        <RighterBtn onClick={nextRoundHandler} endable={data.round%9===0 ? 'true' : undefined}>다음</RighterBtn>
+                        <EndBtn onClick={endGameHandler} endable={data.round%9===0 ? 'true' : undefined}>종료</EndBtn>
+                    </div>
                 </Counter>
             }
 

@@ -582,3 +582,6 @@ ul.dropLi > a >li{
 .each-player:last-child{
    margin-left: 0px;
  }
+.w-5-6{
+  width: calc(50% - 60px)
+}
