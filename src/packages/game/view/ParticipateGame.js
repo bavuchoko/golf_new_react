@@ -29,7 +29,7 @@ function ParticipateGame({data, width}) {
                          key={player.id}>
                         {user && parseInt(user.id) === data.host.id ?
                             player.id !== data.host.id &&
-                            <img className="expel-player" onClick={() => expelPlayer(data.id, player.id)} src={CloseRY}/>
+                            <img className="expel-player bg-gray-each" onClick={() => expelPlayer(data.id, player.id)} src={CloseRY}/>
                             :
                             user && parseInt(user.id, 10) === player.id &&
                             <img className="expel-player" onClick={() => expelPlayer(data.id, player.id)} src={CloseRY}/>

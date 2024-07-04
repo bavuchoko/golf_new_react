@@ -55,8 +55,8 @@ function App() {
                         </Route>
                         <Route path="/login"  element={ <Login />} />
                         <Route path="/join"  element={ <Join />} />
-                        <Route path="/game/quick"  element={ <Quick />} />
-                        <Route path="/game/create"  element={ <Create />} />
+                        <Route path="/game/quick"  element={isLoggedIn? <Quick /> : <Login />} />
+                        <Route path="/game/create"  element={isLoggedIn? <Create />: <Login />} />
                         <Route path="/main" element={<Info />} />
                         <Route path="/test" element={<Test />} />
                     </Routes>

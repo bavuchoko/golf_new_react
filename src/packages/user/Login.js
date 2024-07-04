@@ -57,6 +57,7 @@ function Login() {
                     <Link to={"/"}>
                         <span className={"Headland font-bold text-[20px]"}>P</span>arkGolf
                     </Link>
+                    <p className={`ml-auto text-[15px] text-[blue] hover:cursor-pointer`} onClick={()=>navigate(-1)}>뒤로가기</p>
                 </div>
             </div>
             

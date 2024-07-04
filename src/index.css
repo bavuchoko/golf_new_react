@@ -106,6 +106,27 @@ body {
   z-index: 998;
   background: rgba(31,48,60,.6);
 }
+.section-init-container{
+  background: gray;
+  height: calc(100vh - 165px);
+  margin-bottom: 40px;
+  padding-top: 65px;
+}
+.section-init-btn-container{
+  margin: auto;
+  width: 320px;
+  height: 60px;
+}
+.section-init-btn-container > a{
+  display: inline-block;
+  font-size: 15px;
+  border-radius: 30px;
+  text-align: center;
+  padding: 8px;
+  justify-content: space-around;
+  border: 1px solid black;
+  width: 150px;
+}
 .border-bottom{
   border-radius: 0;
   border-bottom: 1px solid var(--main-gray-line);
@@ -574,10 +595,13 @@ ul.dropLi > a >li{
   font-weight: bold;
   text-align: center;
   border-radius: 50%;
-  background: #f6f6f6;
+
   /*background: var(--main-btn-color);*/
   color: #45464b;
 
+}
+.bg-gray-each{
+  background: #f6f6f6;
 }
 .each-player:last-child{
    margin-left: 0px;
