@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
-import {Link, useNavigate} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import {useLogin} from "../../api/auth/AuthService";
 import {useHeaderContext} from "../../layout/context/HeaderContext";
 
 function Login() {
-
+    const location = useLocation();
     const [id, setId] =useState("010");
     const [pass, setPass] =useState("");
     const isNumber = /^-?\d*\.?\d+$/;
@@ -26,7 +26,7 @@ function Login() {
             });
         }
     }
-
+    console.log(location.pathname)
     async function handleLogin() {
         const user ={
             username:id,
@@ -37,7 +37,7 @@ function Login() {
             const response = await useLogin(user);
             if(response.status===200){
                 localStorage.setItem('accessToken', response.data);
-                navigate("/")
+                navigate(location.pathname && location.pathname ==='/login'? '/' : location.pathname)
                 window.location.reload();
             }
         } catch (error) {
