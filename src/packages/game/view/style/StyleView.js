@@ -32,6 +32,9 @@ export const LefterBtn = styled.button`
         border: 1px solid #d5d5d5;
         height: 120px;
         width: calc(50% - 60px);
+    &:active {
+        transform: scale(0.97);
+    }
     `;
 export const RighterBtn = styled.button.withConfig({
     shouldForwardProp: (prop) => shouldForwardProp(prop) && prop !== 'isOpen'
@@ -41,6 +44,9 @@ export const RighterBtn = styled.button.withConfig({
     border: 1px solid #d5d5d5;
     height: ${props => props.endable ? '60px': '120px'};
     width: 100%;
+    &:active {
+        transform: scale(0.97);
+    }
     `;
 export const EndBtn = styled.button.withConfig({
     shouldForwardProp: (prop) => shouldForwardProp(prop) && prop !== 'isOpen'
@@ -51,6 +57,9 @@ export const EndBtn = styled.button.withConfig({
     height: 60px;
     display: ${props => props.endable ? 'block': 'none'};
     width: 100%;
+    &:active {
+        transform: scale(0.97);
+    }
     `;
 
 export const ScoreList = styled.div.withConfig({

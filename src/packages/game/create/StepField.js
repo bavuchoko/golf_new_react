@@ -7,7 +7,6 @@ import {gameCreate} from "../../../api/game/GameService";
 import {useHeaderContext} from "../../../layout/context/HeaderContext";
 
 function StepField({setStep, data}) {
-    const {setApiLoading  } = useHeaderContext();
     const [clicked, setClicked] =useState({id:0})
     const navigate = useNavigate();
 
@@ -20,13 +19,9 @@ function StepField({setStep, data}) {
         }
 
         gameCreate(newData).then(_=> {
-            setApiLoading(false);
-            console.log(_)
             navigate('/game/' + _.data.id)
         }).finally(()=> {
-                setApiLoading(false);
-            }
-        );
+        });
 
     }
 

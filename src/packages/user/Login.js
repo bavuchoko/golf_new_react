@@ -9,7 +9,6 @@ function Login() {
     const [pass, setPass] =useState("");
     const isNumber = /^-?\d*\.?\d+$/;
     const navigate = useNavigate();
-    const {apiLoading, setApiLoading  } = useHeaderContext();
     const idInputHandler=(e)=>{
         if (isNumber.test(e.target.value)) {
             setId(e.target.value)
@@ -29,7 +28,6 @@ function Login() {
     }
 
     async function handleLogin() {
-        setApiLoading(true)
         const user ={
             username:id,
             password:pass
@@ -38,13 +36,11 @@ function Login() {
             // eslint-disable-next-line react-hooks/rules-of-hooks
             const response = await useLogin(user);
             if(response.status===200){
-                setApiLoading(false)
                 localStorage.setItem('accessToken', response.data);
                 navigate("/")
                 window.location.reload();
             }
         } catch (error) {
-            setApiLoading(false)
             if(error.message==='Network Error') alert('서버가 응답하지 않습니다. \n관리자에게 문의하세요');
             else{
                 alert('아이디와 비밀번호를 확인하세요');
@@ -52,7 +48,6 @@ function Login() {
             }
 
         }finally {
-            setApiLoading(false)
         }
     }
     return (

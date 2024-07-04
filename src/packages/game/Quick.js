@@ -7,7 +7,6 @@ import toast from "react-hot-toast";
 import {useHeaderContext} from "../../layout/context/HeaderContext";
 
 function Quick() {
-    const {apiLoading, setApiLoading  } = useHeaderContext();
     const [number, setNumber] =useState(1)
     const [direct, setDirect] =useState(false)
     const navigate = useNavigate();
@@ -15,7 +14,7 @@ function Quick() {
     const names = ["1번", "2번", "3번"];
 
     const quickStartHandler = async ()=>{
-        setApiLoading(true)
+
         try {
             const response = await quickStart(
                 {
@@ -32,7 +31,6 @@ function Quick() {
         } catch (error){
             toast.error("에러가 발생했습니다.")
         }finally {
-            setApiLoading(false)
         }
     }
 

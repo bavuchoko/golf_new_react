@@ -7,7 +7,6 @@ import All from "./list/All";
 import {getFieldList} from "../../api/field/FieldService";
 
 function List(props) {
-    const [apiLoading, setApiLoading] = useState(false);
     const geolocation = useGeolocation();
     const latitude = geolocation.latitude
     const longitude = geolocation.longitude
@@ -27,7 +26,6 @@ function List(props) {
     });
 
     async function getList() {
-        setApiLoading(true);
 
         try {
             const response = await getFieldList(search, pageable);
@@ -42,7 +40,6 @@ function List(props) {
             }
         } catch (error) {
         }finally {
-            setApiLoading(false);
         }
     }
     useEffect(() => {

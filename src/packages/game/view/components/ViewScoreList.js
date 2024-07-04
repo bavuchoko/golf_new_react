@@ -28,7 +28,6 @@ function ViewScoreList({sheets, players, isHost, showCurrentRound, setShowCurren
 
         courseMap[course][hole].push(sheet);
     });
-    console.log(courseMap)
     // 각 코스와 홀의 sheets를 data.players 순서에 맞게 정렬
     Object.keys(courseMap).forEach(courseKey => {
         Object.keys(courseMap[courseKey]).forEach(holeKey => {

@@ -71,7 +71,6 @@ const useGameData = (id) => {
                     },
                     withCredentials: true
                 });
-                console.log(response)
                 if (response.status === 200) {
                     newToken = rawToken;
                 }

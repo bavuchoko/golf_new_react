@@ -10,7 +10,6 @@ import {startGame} from "../../api/game/GameService";
  * */
 
 const SliderShowButton = ({data, expose}) => {
-    const {apiLoading, setApiLoading  } = useHeaderContext();
     const [{ pos }, set] = useSpring(() => ({
         pos: [0, 0],
         config: { tension: 300, friction: 20 }
@@ -35,9 +34,7 @@ const SliderShowButton = ({data, expose}) => {
 
                 if (mx > 220) {
                     if(window.confirm("경기를 시작합니다.")){
-                        setApiLoading(true)
                         startGame(data.id).then(_ =>{
-                            setApiLoading(false);
                         })
                     }else{
                         set({ pos: [-expose, 0] });
@@ -97,13 +94,6 @@ const SliderShowButton = ({data, expose}) => {
                         d="M24 12l-8.991 6.228v-2.722c2.54-1.757 5.053-3.506 5.053-3.506s-2.513-1.718-5.053-3.474v-2.722l8.991 6.196zm-6.96 0l-9.04-6.118v3.118h-8v6h8v3.118l9.04-6.118z"/>
                 </svg>
             </animated.div>
-
-
-            {apiLoading &&
-                <LoadingModal />
-            }
-
-
         </div>
     );
 };

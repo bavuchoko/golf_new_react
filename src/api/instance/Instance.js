@@ -1,5 +1,7 @@
 import axios from 'axios'
 import {userLogout} from "../auth/AuthService";
+import {store} from "../../redux/store/store";
+import {finish, load} from "../../redux/slice/apiSlice";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
@@ -18,10 +20,18 @@ noAuthapi.interceptors.request.use((config) => {
     return config;
 });
 
+const useShowLoader =()=>{
+    store.dispatch(load());
+}
 
+
+const useHideLoader =()=>{
+    store.dispatch(finish());
+}
 
 needAuthapi.interceptors.request.use((config) => {
     const token = localStorage.getItem('accessToken');
+    useShowLoader();
     if (token) {
         config.headers['Authorization'] = `Bearer ${token}`;
     }
@@ -34,9 +44,11 @@ needAuthapi.interceptors.request.use((config) => {
 needAuthapi.interceptors.response.use(
     function (response) {
         // 2xx 번대 응답코드의 응답에 대한 인터셉터
+        useHideLoader();
         return response;
     },
     async (error) => {
+        console.log(error)
         const {
             config,
             response: { status },
@@ -69,6 +81,7 @@ needAuthapi.interceptors.response.use(
                 return response;
             }
         }
+        useHideLoader();
         return Promise.reject(error);
     }
 );

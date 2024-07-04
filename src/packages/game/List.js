@@ -10,7 +10,6 @@ import {useHeaderContext} from "../../layout/context/HeaderContext";
 
 function List(props) {
     const [ select, setSelect] = useState('전체');
-    const {apiLoading, setApiLoading  } = useHeaderContext();
     const [data, setData] =useState();
     const [date, setDate] = useState(new Date());
     const [openStart, setOpenStart] =useState(false);
@@ -36,7 +35,6 @@ function List(props) {
     ]
 
     useEffect(()=>{
-        setApiLoading(true)
         const newSearch = {
             ...search,
             startDate:toKSTISOString(date),
@@ -51,7 +49,6 @@ function List(props) {
                 }));
             }
             }).then(
-                setApiLoading(false)
         );
     },[pageable.page, date])
 

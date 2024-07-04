@@ -13,7 +13,6 @@ function StepPass({setStep, data, fnc, target}) {
     const [alertMessage, setAlertMessage]= useState("");
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const {apiLoading, setApiLoading  } = useHeaderContext();
 
     const onchangeInputHandler = (value) =>{
         fnc((prev)=>({
@@ -43,36 +42,28 @@ function StepPass({setStep, data, fnc, target}) {
     }
 
     const handleUserJoin  = async ()=>{
-        setApiLoading(true)
         try {
             const response = await userJoin(data);
             if(response.status===200){
                 alert("회원가입에 성공하여\n메인페이지로 돌아갑니다.");
-                setApiLoading(false);
                 localStorage.setItem('accessToken', response.data);
                 dispatch(login(true));
                 navigate("/")
                 return;
             }
             if(response.status===202){
-                setApiLoading(false);
                 setAlertMessage(response.data)
                 return;
             }
         } catch (error) {
             console.log(error)
-            setApiLoading(false);
             alert("아이디와 비밀번호를 확인하세요")
         } finally {
-            setApiLoading(false);
         }
     };
 
     return (
         <div className={"px-[30px]"}>
-            {apiLoading &&
-                <LoadingModal />
-            }
             <div className="w-full  line-h-40 py-[5px] line-h-50 h-[55px] ">
                 <div className="inline-block w-[100%] flex h-[50px]" >
                     <p onClick={()=>setStep("성별")}>뒤로</p>
