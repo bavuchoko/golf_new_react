@@ -9,8 +9,10 @@ function Home() {
 
             </div>
             <div className={`section-init-btn-container`}>
-                <Link to={"/game/quick"} className={`mr-[20px]`}>빠른ww시작</Link>
-                <Link to={"/game/create"}>연습경기</Link>
+                <div className={`w-[320px] m-auto`}>
+                    <Link to={"/game/quick"} className={`mr-[20px]`}>빠른시작</Link>
+                    <Link to={"/game/create"}>연습경기</Link>
+                </div>
             </div>
         </div>
     );
