@@ -44,6 +44,9 @@ body {
   -webkit-box-orient: vertical;
   word-break: keep-all;
 }
+.verti-top{
+  vertical-align: text-top;
+}
 .splicer{
   width: 1px;
   border-left: 1px solid var(--main-inner-color);
@@ -106,31 +109,7 @@ body {
   z-index: 998;
   background: rgba(31,48,60,.6);
 }
-.section-init-container{
-  background: gray;
-  height: calc(100vh - 100px);
-}
-.section-init-btn-container{
-  padding-top: 15px;
-  background: white;
-  z-index: 20;
-  left: 0;
-  position: absolute;
-  bottom: 0px;
-  margin: auto;
-  width: 100%;
-  height: 100px;
-}
-.section-init-btn-container > div > a{
-  display: inline-block;
-  font-size: 15px;
-  border-radius: 30px;
-  text-align: center;
-  padding: 8px;
-  justify-content: space-around;
-  border: 1px solid black;
-  width: 150px;
-}
+
 .border-bottom{
   border-radius: 0;
   border-bottom: 1px solid var(--main-gray-line);

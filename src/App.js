@@ -3,12 +3,11 @@ import './App.css';
 import Layout from "./layout/Layout";
 import {HeaderContextProvider} from "./layout/context/HeaderContext";
 import Login from "./packages/user/Login";
-import Info from "./layout/Info";
-import Home from "./layout/Home";
+import Info from "./layout/container/Info";
+import Home from "./layout/container/Home";
 import Join from "./packages/user/Join";
-import React from "react";
+import React, {useEffect} from "react";
 import List from "./packages/game/List";
-import Test from "./layout/Test";
 import FieldContainer from "./packages/field/FieldContainer";
 import {Toaster} from "react-hot-toast";
 import Quick from "./packages/game/Quick";
@@ -36,6 +35,11 @@ function App() {
     const isLoggedIn = localStorage.getItem("accessToken") != null
 
     const status = useSelector(status=>status.api)
+    let vh = 0;
+    useEffect(() => {
+        vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+    }, []);
 
     return (
         <>
@@ -58,7 +62,6 @@ function App() {
                         <Route path="/game/quick"  element={isLoggedIn? <Quick /> : <Login />} />
                         <Route path="/game/create"  element={isLoggedIn? <Create />: <Login />} />
                         <Route path="/main" element={<Info />} />
-                        <Route path="/test" element={<Test />} />
                     </Routes>
                 </Router>
             </HeaderContextProvider>

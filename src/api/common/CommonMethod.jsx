@@ -4,6 +4,6 @@ const toKSTISOString = (date) => {
     const kstDate = new Date(kstTimestamp);
     return kstDate.toISOString();
 }
-
-export {toKSTISOString};
+const isLoggedIn = localStorage.getItem("accessToken") != null
+export {toKSTISOString, isLoggedIn};
 

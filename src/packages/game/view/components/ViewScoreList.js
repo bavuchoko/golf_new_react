@@ -5,12 +5,6 @@ import {useSelector} from "react-redux";
 
 function ViewScoreList({sheets, players, isHost, showCurrentRound, setShowCurrentRound, setClickedHole}) {
     const memos =useSelector(state => state.memo.data);
-    let vh = 0;
-    useEffect(() => {
-        vh = window.innerHeight * 0.01;
-        document.documentElement.style.setProperty('--vh', `${vh}px`);
-    }, []);
-
     const courseMap = {};
     let maxCourse = 1;
     sheets.forEach(sheet => {
