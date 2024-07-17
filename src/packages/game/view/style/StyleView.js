@@ -20,7 +20,7 @@ export const PlayerDiv = styled.div.withConfig({
 
     background: ${props => props.clicked ? '#303038' : 'white'};
     color: ${props => props.clicked ? 'white' : ''};
-    scale: ${props => props.clicked ? '1.1' : '1'};
+    scale: ${props => props.clicked ? '1' : '1'};
     z-index: ${props => props.clicked ? '3' : ''};
     box-shadow: ${props => props.clicked ?'2px 2px 7px #303038' : ''}; 
 `;
@@ -89,6 +89,7 @@ export const CurrentRound = styled.button.withConfig({
     width: 100%;
     background: white;
     overflow-y: auto;
+    height: ${props => props.open ? 'calc(var(--vh, 1vh) * 100 - 215px)' : '80px'};;
     max-height: ${props => props.isHost ? 'calc(var(--vh, 1vh) * 100 - 350px)' : 'calc(var(--vh, 1vh) * 100 - 215px)'};
 `;
 export const TotalScore = styled.button.withConfig({

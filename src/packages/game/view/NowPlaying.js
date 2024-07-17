@@ -164,31 +164,36 @@ function NowPlaying({data}) {
         <>
 
             {/*점수목록*/}
-            <ViewScoreList sheets={data.sheets} players={data.players} isHost={isHost} showCurrentRound={showCurrentRound} setShowCurrentRound={setShowCurrentRound} setClickedHole={setClickedHole}/>
+            <ViewScoreList sheets={data.sheets} players={data.players} isHost={isHost}
+                           showCurrentRound={showCurrentRound} setShowCurrentRound={setShowCurrentRound}
+                           setClickedHole={setClickedHole}/>
 
 
             {/*메모관리*/}
-            <MemoOnGame isHost={isHost} field={data.field ?? undefined} selected={clickedHole} />
-
+            <MemoOnGame isHost={isHost} field={data.field ?? undefined} selected={clickedHole}/>
+            <div className={`grid grid-cols-4 gap-1`}>
+                {playerHitsArray.map(player => (
+                    <PlayerDiv key={player.name} clicked={isHost && player.id === clickedPlayer.player.id}
+                               onClick={() => playerClickHandler(player.sheet)}>
+                        <p className={`font-bold ${isHost && player.id === clickedPlayer.player.id ? 'text-[18px] h-[30px] line-h-30 ' : 'text-[14px] h-[40px] line-h-40 '} `}> {player.totalHits}</p>
+                        <p className={` ${isHost && player.id === clickedPlayer.player.id ? 'text-[18px] h-[40px]' : 'text-[14px] h-[30px]'}`}> {player.name}</p>
+                    </PlayerDiv>
+                ))}
+            </div>
             {isHost &&
                 <Counter>
                     <LefterBtn onClick={putScoreHandler}>입력</LefterBtn>
-                    <NumberSelector limit={{upper:10, under:0}} number={clickedPlayer.hit} setNumber={scoreChangeHandler}/>
+                    <NumberSelector limit={{upper: 10, under: 0}} number={clickedPlayer.hit}
+                                    setNumber={scoreChangeHandler}/>
                     <div className={`w-5-6`}>
-                        <RighterBtn onClick={nextRoundHandler} endable={data.round%9===0 ? 'true' : undefined}>다음</RighterBtn>
-                        <EndBtn onClick={endGameHandler} endable={data.round%9===0 ? 'true' : undefined}>종료</EndBtn>
+                        <RighterBtn onClick={nextRoundHandler}
+                                    endable={data.round % 9 === 0 ? 'true' : undefined}>다음</RighterBtn>
+                        <EndBtn onClick={endGameHandler} endable={data.round % 9 === 0 ? 'true' : undefined}>종료</EndBtn>
                     </div>
                 </Counter>
             }
 
-            <div className={`grid grid-cols-4 gap-1`}>
-                {playerHitsArray.map(player => (
-                    <PlayerDiv key={player.name} clicked={isHost && player.id===clickedPlayer.player.id} onClick={()=>playerClickHandler(player.sheet)}>
-                        <p className={`font-bold ${isHost && player.id===clickedPlayer.player.id? 'text-[18px] h-[30px] line-h-30 ': 'text-[14px] h-[40px] line-h-40 '} `}> {player.totalHits}</p>
-                        <p className={` ${isHost && player.id===clickedPlayer.player.id? 'text-[18px] h-[40px]': 'text-[14px] h-[30px]'}`}> {player.name}</p>
-                    </PlayerDiv>
-                ))}
-            </div>
+
         </>
     );
 }
