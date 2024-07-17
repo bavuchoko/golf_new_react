@@ -89,7 +89,6 @@ export const CurrentRound = styled.button.withConfig({
     width: 100%;
     background: white;
     overflow-y: auto;
-    height: ${props => props.open ? 'calc(var(--vh, 1vh) * 100 - 215px)' : '80px'};;
     max-height: ${props => props.isHost ? 'calc(var(--vh, 1vh) * 100 - 350px)' : 'calc(var(--vh, 1vh) * 100 - 215px)'};
 `;
 export const TotalScore = styled.button.withConfig({

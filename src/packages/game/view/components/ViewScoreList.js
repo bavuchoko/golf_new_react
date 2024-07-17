@@ -1,10 +1,11 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {CurrentRound, ScoreList, ScoreListContainer, TotalScore} from "../style/StyleView";
 import CourseAccordion from "../../../../components/accordion/CourseAccordion";
 import {useSelector} from "react-redux";
 
 function ViewScoreList({sheets, players, isHost, showCurrentRound, setShowCurrentRound, setClickedHole}) {
     const memos =useSelector(state => state.memo.data);
+    const [expand, setExpand ]=useState(false);
     const courseMap = {};
     let maxCourse = 1;
     sheets.forEach(sheet => {
@@ -55,43 +56,49 @@ function ViewScoreList({sheets, players, isHost, showCurrentRound, setShowCurren
             <ScoreListContainer isHost={isHost}>
 
                 {/*현재라운드 컨테이너*/}
-                <CurrentRound isHost={isHost} visable={showCurrentRound}>
-
+                <CurrentRound isHost={isHost} visable={showCurrentRound} >
                     {/*헤더*/}
                     <div className={`grid grid-cols-5 mb-2`}>
-                            <div>홀</div>
-                            {players.map((player, index) =>(
-                            <div key={`hole_`+index}>
+                        <div>홀</div>
+                        {players.map((player, index) => (
+                            <div key={`hole_` + index}>
                                 {player.name}
                             </div>
-                            ))}
+                        ))}
                     </div>
 
                     {/*점수*/}
-                    {organizeSheets[maxCourse].holes.reverse().map((hole,index) => (
-                    <div key={`hole22_`+index} className={`grid grid-cols-5 ${index % 2 === 0 ? 'bg-odd' :'bg-even'}`} onClick={()=>setClickedHole({
-                        hole:hole.hole,
-                        course:hole.course
-                    })}>
+                    {organizeSheets[maxCourse].holes.reverse().map((hole, index) => (
+                        <div key={`hole22_` + index}
+                             className={`grid grid-cols-5 ${index % 2 === 0 ? 'bg-odd' : 'bg-even'} ${expand || index===0 ? '':'hidden'}`}
+                             onClick={() => setClickedHole({
+                                 hole: hole.hole,
+                                 course: hole.course
+                             })}>
 
-                        {/*라운드 순번*/}
-                        <div className={`py-1 relative`}>
-                            {/* 메모 있음 아이콘*/}
-                            {memos && memos.some(memo => (memo.course == maxCourse) && (memo.hole == hole.hole)) &&
-                                <div className={`absolute top-1 left-4 w-4 h-4 rounded-full bg-red-700`} />
-                            }
-                            <span className={`rounded-full border bg-[white] inline-block h-[35px] w-[35px] line-h-35`}>{hole.hole}</span>
+                            {/*라운드 순번*/}
+                            <div className={`py-1 relative`}>
+                                {/* 메모 있음 아이콘*/}
+                                {memos && memos.some(memo => (memo.course == maxCourse) && (memo.hole == hole.hole)) &&
+                                    <div className={`absolute top-1 left-4 w-4 h-4 rounded-full bg-red-700`}/>
+                                }
+                                <span
+                                    className={`rounded-full border bg-[white] inline-block h-[35px] w-[35px] line-h-35`}>{hole.hole}</span>
+                            </div>
+
+
+                            {hole.sheets.map((sheet, index) => (
+                                <div key={`sheet_` + sheet.player.id} className={`py-1`} onClick={()=>setExpand(!expand)}>
+                                    <span className={`inline-block h-[35px] w-[35px] line-h-35`}>{sheet.hit}</span>
+                                </div>
+                            ))}
                         </div>
-
-
-                        {hole.sheets.map((sheet,index)=> (
-                        <div key={`sheet_` + sheet.player.id} className={`py-1`}>
-                            <span className={`inline-block h-[35px] w-[35px] line-h-35`}>{sheet.hit}</span>
-                        </div>
-                        ))}
-                    </div>
                     ))}
+                    <div className={`mt-5 mb-1 text-[15px] `}>
+                    {!expand ? <p  onClick={()=>setExpand(true)}>추가정보 보기</p> : <p onClick={()=>setExpand(false)}>닫기</p>}
+                    </div>
                 </CurrentRound>
+
                 <TotalScore isHost={isHost} visable={showCurrentRound}>
                     <div className={`grid grid-cols-5 mb-2`}>
                         <div>코스</div>
@@ -101,10 +108,9 @@ function ViewScoreList({sheets, players, isHost, showCurrentRound, setShowCurren
                             </div>
                         ))}
                     </div>
-
                     <CourseAccordion data={courseMap} players={players}/>
-
                 </TotalScore>
+
             </ScoreListContainer>
         </ScoreList>
     );
