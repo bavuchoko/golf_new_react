@@ -34,12 +34,15 @@
   "scripts": {
     "start": "env-cmd -f .env.deploy PORT=3000 react-scripts start",
     "start:https-windows": "env-cmd -f .env.dev.https react-scripts start",
+    "start:https-mac": "env-cmd -f .env.dev.https react-scripts start",
     "dev": "env-cmd -f .env.dev react-scripts start",
-    "dev:https-windows": "set HTTPS=true&&set SSL_CRT_FILE=./ssl/dev.golf.com+3.pem&&set SSL_KEY_FILE=./ssl/dev.golf.com+3-key.pem&&npm run start:https-windows",
+    "dev:https-windows": "set HTTPS=true&&set SSL_CRT_FILE=./ssl/minica.pem&&set SSL_KEY_FILE=./ssl/minica-key.pem&&npm run start:https-windows",
+    "dev:https-mac": "export HTTPS=true && export SSL_CRT_FILE=./ssl/server.cert && export SSL_KEY_FILE=./ssl/server.key && npm run start:https-mac",
     "build": "env-cmd -f .env.deploy react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+
   "eslintConfig": {
     "extends": [
       "react-app",
