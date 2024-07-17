@@ -68,7 +68,7 @@ function ViewScoreList({sheets, players, isHost, showCurrentRound, setShowCurren
                     </div>
 
                     {/*점수*/}
-                    {organizeSheets[maxCourse].holes.map((hole,index) => (
+                    {organizeSheets[maxCourse].holes.reverse().map((hole,index) => (
                     <div key={`hole22_`+index} className={`grid grid-cols-5 ${index % 2 === 0 ? 'bg-odd' :'bg-even'}`} onClick={()=>setClickedHole({
                         hole:hole.hole,
                         course:hole.course
