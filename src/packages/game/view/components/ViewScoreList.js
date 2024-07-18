@@ -54,7 +54,7 @@ function ViewScoreList({sheets, players, isHost, showCurrentRound, setShowCurren
             <div className={`flex h-[50px] line-h-50 justify-center w-full border`}>
                 <div className={`w-[49%] text-center ${showCurrentRound ? 'font-bold' : ''}`}  onClick={()=>setShowCurrentRound(true)}>현재 스코어</div>
                 <div className={`splicer h-[30px] mt-[10px]`}/>
-                <div className={`w-[49%] text-center ${!showCurrentRound ? 'font-bold' : '' }`} onClick={()=>setShowCurrentRound(false)}>코스별 스코어</div>
+                <div className={`w-[49%] text-center ${!showCurrentRound ? 'font-bold' : '' }`} onClick={()=>setShowCurrentRound(false)}>코스별 총점</div>
             </div>
             <ScoreListContainer isHost={isHost}>
 
