@@ -17,6 +17,7 @@ import {setUsers} from "./redux/slice/userSlice";
 import {logout} from "./redux/slice/authSlice";
 import View from "./packages/game/View";
 import FinalScore from "./packages/game/view/FinalScore";
+import Test from "./packages/Test";
 import LoadingModal from "./components/modal/LoadingModal";
 import ErrorModal from "./components/modal/ErrorModal";
 
@@ -62,6 +63,7 @@ function App() {
                         <Route path="/game/quick"  element={isLoggedIn? <Quick /> : <Login />} />
                         <Route path="/game/create"  element={isLoggedIn? <Create />: <Login />} />
                         <Route path="/main" element={<Info />} />
+                        <Route path="/test" element={<Test />} />
                     </Routes>
                 </Router>
             </HeaderContextProvider>
