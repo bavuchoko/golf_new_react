@@ -1,11 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import {CurrentRound, ScoreList, ScoreListContainer, TotalScore} from "../style/StyleView";
 import CourseAccordion from "../../../../components/accordion/CourseAccordion";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {opener} from "../../../../redux/slice/openerSlice";
 
 function ViewScoreList({sheets, players, isHost, showCurrentRound, setShowCurrentRound, setClickedHole}) {
     const memos =useSelector(state => state.memo.data);
     const [expand, setExpand ]=useState(false);
+    const memoOpen =useSelector(state => state.opener.MemoOnGame);
+    const dp =useDispatch();
     const courseMap = {};
     let maxCourse = 1;
     sheets.forEach(sheet => {
@@ -77,7 +80,9 @@ function ViewScoreList({sheets, players, isHost, showCurrentRound, setShowCurren
                              })}>
 
                             {/*라운드 순번*/}
-                            <div className={`py-1 relative`}>
+                            <div className={`py-1 relative`} onClick={()=> {
+                                dp(opener({key:'MemoOnGame'}))
+                                }}>
                                 {/* 메모 있음 아이콘*/}
                                 {memos && memos.some(memo => (memo.course == maxCourse) && (memo.hole == hole.hole)) &&
                                     <div className={`absolute top-1 left-4 w-4 h-4 rounded-full bg-red-700`}/>

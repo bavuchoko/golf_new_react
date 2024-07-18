@@ -10,7 +10,7 @@
   --main-deep-blue : #1e1e80;
   --main-deep-red :#b01313;
   --main-red : #ea163d;
-  --main-inner-color : #ccd6e8;
+  --main-inner-color : #dedede;
   --main-inner-light-color : #e7e9ee;
   --main-cancel-color : #37af29;
   --main-excel-color : 222,234,223,1;
@@ -593,3 +593,79 @@ ul.dropLi > a >li{
 .w-5-6{
   width: calc(50% - 60px)
 }
+
+.memo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  position: relative;
+}
+.border-black{
+  border: 1px solid #1f1f1f;
+}
+.memo-box {
+  width: 100%;
+  height: 100px;
+  background-color: blue;
+  position: absolute;
+  border-radius: 3px ;
+  bottom: 20px;
+  right: 20px;
+  transform-origin: bottom right;
+}
+
+/* Animation for appearing */
+.animate-in {
+  animation: scaleUp 0.4s forwards;
+}
+
+/* Animation for disappearing */
+.animate-out {
+  animation: scaleDown 0.5s forwards;
+}
+
+@keyframes scaleUp {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.15);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes scaleDown {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(0.9);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(0);
+    opacity: 0;
+  }
+}
+
+/* New balloon shrink animation */
+@keyframes balloonShrink {
+  0% {
+    border-radius: 50%;
+  }
+  50% {
+    border-radius: 30%;
+  }
+  100% {
+    border-radius: 0%;
+  }
+}
+

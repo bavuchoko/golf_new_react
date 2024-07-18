@@ -1,27 +1,23 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {
-    MemoContainer,
-    MemoContent,
-    MemoController,
-    MemoControllerPointer,
-    MemoPushButton,
-    MemoTextArea
-} from "../style/StyleView";
+import {MemoContainer, MemoContent, MemoController, MemoPushButton, MemoTextArea} from "../style/StyleView";
 import {createMemo, getMemos, pushMemo} from "../../../../api/memo/MemoService";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {set} from "../../../../redux/slice/memoSlice";
+import Pencil from "../../../../resources/icons/pencil.png";
+import Close from "../../../../resources/icons/close.png";
+import {closer, toggleModal} from "../../../../redux/slice/openerSlice";
 
 function MemoOnGame({isHost, field, selected}) {
     const [memos, setMemos]= useState([]);
     const [memo, setMemo]= useState();
-    const [showUp, setShowUp]= useState(false);
-    const dispatch = useDispatch();
+    const open =useSelector(state => state.opener.MemoOnGame);
+    const dp = useDispatch();
     useEffect(() => {
         if(field)
             getMemos(field.id).then(r => {
                 if(r)
                     setMemos(r.data)
-                    dispatch(set(r.data))
+                    dp(set(r.data))
             })
         setMemo(findMemo())
     }, []);
@@ -55,7 +51,7 @@ function MemoOnGame({isHost, field, selected}) {
             if(r.status===200){
                 setClicked(false)
                 setMemos(r.data)
-                dispatch(set(r.data))
+                dp(set(r.data))
             }
         })
 
@@ -70,9 +66,9 @@ function MemoOnGame({isHost, field, selected}) {
         createMemo(newMemo).then(r=>{
             if(r.status==200){
                 setClicked(false)
-                setShowUp(false)
+                dp(closer({key:'MemoOnGame'}))
                 setMemos(r.data)
-                dispatch(set(r.data))
+                dp(set(r.data))
             }
         })
     }
@@ -97,46 +93,55 @@ function MemoOnGame({isHost, field, selected}) {
         return <div className={'w-full h-[40px]'}></div>;
     }
     return (
-        <MemoContainer>
-            <MemoController showUp={showUp} isHost={isHost}>
-                <MemoControllerPointer  onClick={() => setShowUp(!showUp)}>
-                    <div className={`draw-show-handler-pointer `} />
-                    <p className={`pt-[3px] w-full`}> {showUp ? '닫기' : `${field.name} ${selected.hole}홀  메모 보기`}</p>
-                </MemoControllerPointer>
 
-                <MemoContent showUp={showUp} isHost={isHost} className={``} style={{}} >
-                    {memo ?
-                        (clicked ?
-                                <div className={''}  ref={textAreaRef}>
+        <MemoContainer >
+            <MemoContent open={open} className={`${open ? 'animate-in' : 'animate-out'}`} >
+                <div  className={`bg- py-2 bg-black text-[white] h-[34px]`} onClick={()=>dp(closer({key:'MemoOnGame'}))} >
+                    <img src={Close} className={`w-[20px] bg-white float-right mr-[10px]`} onClick={()=>dp(closer({key:'MemoOnGame'}))} />
+                </div>
+                <div className={`mx-[10px] mt-[10px] mb-[20px]`}>
+                    <span className={`inline-block mr-2`}>{field.name}</span>
+                    <span className={`inline-block mr-2`}>{selected.hole} 홀</span>
+                </div>
+                {memo ?
+                    (clicked ?
+                                        <div className={''}  ref={textAreaRef}>
+                                            <MemoTextArea
+                                                open={open} isHost={isHost}
+                                                className="w-full radius-no indent-2 no-outline text-[13px] text-[black]"
+                                                value={memoContent}
+                                                autoFocus={true}
+                                                onChange={(e) => setMemoContent(e.target.value)}
+                                            />
+                                            <MemoPushButton  onClick={showdateMemo}>수정</MemoPushButton>
+                                        </div>
+                                        :
+                                        <>
+                                        <pre key={memo.round}
+                                             className={'text-left min-h-[200px] bg-amber-50 m-2'}
+                                            onClick={()=>setClicked(true)}
+                                        >{memo.content}</pre>
+                                            <p className={`text-center text-[15px]`}>위 영역을 클릭하여 수정하세요</p>
+                                        </>
+                                )
+                                :
+                                <>
                                     <MemoTextArea
-                                        showUp={showUp} isHost={isHost}
-                                        className="w-full radius-no indent-2 no-outline text-[14px] text-[black]"
-                                        value={memoContent}
-                                        autoFocus={true}
+                                        open={open} isHost={isHost}
+                                        placeholder={'내용을 입력하세요'}
                                         onChange={(e) => setMemoContent(e.target.value)}
                                     />
-                                    <MemoPushButton  onClick={showdateMemo}>수정</MemoPushButton>
-                                </div>
-                                :
-                                <pre key={memo.round}
-                                     className={'text-left min-h-[200px]'}
-                                    onClick={()=>setClicked(true)}
-                                >{memo.content}</pre>
-                        )
-                        :
-                        <>
-                            <MemoTextArea
-                                showUp={showUp} isHost={isHost}
-                                placeholder={'내용을 입력하세요'}
-                                onChange={(e) => setMemoContent(e.target.value)}
-                            />
-                            <MemoPushButton onClick={saveMemo}>저장</MemoPushButton>
-                        </>
-                    }
-                </MemoContent>
+                                    <MemoPushButton onClick={saveMemo}>저장</MemoPushButton>
+                                </>
+                            }
+                        </MemoContent>
 
+            <MemoController
+                onClick={() => dp(toggleModal({key:'MemoOnGame'}))}>
+                <img src={Pencil} className={`w-[40px]`}/>
             </MemoController>
         </MemoContainer>
+
 
     );
 }
