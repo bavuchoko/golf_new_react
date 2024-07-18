@@ -186,7 +186,7 @@ export const MemoTextArea = styled.textarea.withConfig({
     width: calc(100% - 20px);
     font-size: 17px;
     display:  ${props => props.open ? 'block' : 'none'};
-    height: ${(props) => (props.open ? props.isHost ? 'calc(var(--vh, 1vh) * 100 - 510px)' : 'calc(var(--vh, 1vh) * 100 - 370px)' : '38px')};
+    height: ${(props) => (props.open ? props.isHost ? 'calc(var(--vh, 1vh) * 100 - 650px)' : 'calc(var(--vh, 1vh) * 100 - 650px)' : '38px')};
 `;
 
 

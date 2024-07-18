@@ -12,6 +12,8 @@ function MemoOnGame({isHost, field, selected}) {
     const [memo, setMemo]= useState();
     const open =useSelector(state => state.opener.MemoOnGame);
     const dp = useDispatch();
+    const ref = useRef(null);
+
     useEffect(() => {
         if(field)
             getMemos(field.id).then(r => {
@@ -89,12 +91,29 @@ function MemoOnGame({isHost, field, selected}) {
     useEffect(() => {
         setMemoContent(memo?.content);
     }, [memo]);
+
+    useEffect(() => {
+        //외부 클릭시 userMenu 닫음
+        function handleClickOutside(event) {
+            if (ref.current && !ref.current.contains(event.target)) {
+                dp(closer({key:'MemoOnGame'}))
+            }
+        }
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+
+    }, [ref]);
+
+
     if(!field){
         return <div className={'w-full h-[40px]'}></div>;
     }
+
     return (
 
-        <MemoContainer >
+        <MemoContainer ref={ref}>
             <MemoContent open={open} className={`${open ? 'animate-in' : 'animate-out'}`} >
                 <div  className={`bg- py-2 bg-black text-[white] h-[34px]`} onClick={()=>dp(closer({key:'MemoOnGame'}))} >
                     <img src={Close} className={`w-[20px] bg-white float-right mr-[10px]`} onClick={()=>dp(closer({key:'MemoOnGame'}))} />
