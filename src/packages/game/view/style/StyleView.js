@@ -165,13 +165,13 @@ export const MemoContent = styled.div.withConfig({
     shouldForwardProp: (prop) => shouldForwardProp(prop) && prop !== 'isOpen'
 })`
     position: fixed;
-    width: 100%;
+    width: calc(100% - 20px);
     height: 350px;
     background-color: #ffffff;
     border-radius: 3px;
     z-index: 20;
     bottom: 200px;
-    right: -0px;
+    right: 10px;
     transform-origin: bottom right;
     box-shadow: 0 4px 9px 2px hsla(0, 1%, 17%, 0.5);
 
