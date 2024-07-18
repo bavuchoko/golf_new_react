@@ -66,7 +66,7 @@ export const ScoreList = styled.div.withConfig({
     shouldForwardProp: (prop) => shouldForwardProp(prop) && prop !== 'isOpen'
 })`     
     text-align: center;
-    height: ${props => props.isHost ? 'calc(var(--vh, 1vh) * 100 - 290px)' : 'calc(var(--vh, 1vh) * 100 - 165px)'};
+    height: ${props => props.isHost ? 'calc(var(--vh, 1vh) * 100 - 250px)' : 'calc(var(--vh, 1vh) * 100 - 125px)'};
 `;
 
 export const ScoreListContainer = styled.div.withConfig({
@@ -76,7 +76,7 @@ export const ScoreListContainer = styled.div.withConfig({
     text-align: center;
     overflow-y: auto;
     overflow-x: hidden;
-    height: ${props => props.isHost ? 'calc(var(--vh, 1vh) * 100 - 350px)' : 'calc(var(--vh, 1vh) * 100 - 215px)'};
+    height: ${props => props.isHost ? 'calc(var(--vh, 1vh) * 100 - 310px)' : 'calc(var(--vh, 1vh) * 100 - 175px)'};
 `;
 export const CurrentRound = styled.button.withConfig({
     shouldForwardProp: (prop) => shouldForwardProp(prop) && prop !== 'isOpen'
@@ -146,7 +146,7 @@ export const MemoContainer = styled.div`
     right: 20px;
     width: 50px;
     z-index:10;
-    bottom: 280px;
+    bottom: 220px;
     height: 50px;
 `;
 export const MemoController = styled.div.withConfig({
@@ -166,11 +166,11 @@ export const MemoContent = styled.div.withConfig({
 })`
     position: fixed;
     width: 100%;
-    height: 520px;
+    height: 350px;
     background-color: #ffffff;
     border-radius: 3px;
     z-index: 20;
-    bottom: 250px;
+    bottom: 200px;
     right: -0px;
     transform-origin: bottom right;
     box-shadow: 0 4px 9px 2px hsla(0, 1%, 17%, 0.5);
