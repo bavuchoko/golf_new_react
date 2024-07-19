@@ -90,7 +90,7 @@ function ViewScoreList({sheets, players, isHost, showCurrentRound, setShowCurren
                                     <img src={Memo} className={`absolute top-1 left-4 w-4 h-4  bg-white`}/>
                                     :
                                     // <div className={`absolute top-1 left-4 w-4 h-4 rounded-full bg-red-300`}/>
-                                    <img src={Question} className={`absolute top-1 left-4 w-4 h-4  bg-white`}/>
+                                    <img src={Question} className={`absolute top-1 left-4 w-4 h-4  bg-white rounded-full`}/>
                                 }
                                 <span
                                     className={`rounded-full border bg-[white] inline-block h-[35px] w-[35px] line-h-35`}>{hole.hole}</span>
