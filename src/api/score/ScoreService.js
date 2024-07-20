@@ -1,7 +1,6 @@
 import {needAuth} from "../instance/Instance";
 
 async function putScore(id,sheet) {
-    console.log(sheet)
     return await needAuth.put(`/sheet/score/${id}`, sheet);
 }
 
