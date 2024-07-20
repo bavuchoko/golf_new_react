@@ -5,7 +5,8 @@ import TypeSelectBox from "../../components/selectbox/TypeSelectBox";
 import {Link, useNavigate} from "react-router-dom";
 import {getGameList} from "../../api/game/GameService";
 import {toKSTISOString} from "../../api/common/CommonMethod";
-import {useHeaderContext} from "../../layout/context/HeaderContext";
+import {useDispatch} from "react-redux";
+import {finish} from "../../redux/slice/apiSlice";
 
 
 function List(props) {
@@ -13,6 +14,7 @@ function List(props) {
     const [data, setData] =useState();
     const [date, setDate] = useState(new Date());
     const [openStart, setOpenStart] =useState(false);
+    const dp = useDispatch();
     const [search, setSearch] =useState({
         searchTxt:"",
         startDate:toKSTISOString(date),
@@ -49,6 +51,7 @@ function List(props) {
                 }));
             }
             }).then(
+            dp(finish())
         );
     },[pageable.page, date])
 
