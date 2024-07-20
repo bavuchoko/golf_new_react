@@ -66,6 +66,8 @@ needAuthapi.interceptors.response.use(
                 const response = await userLogout();
                 window.location.replace("/");
                 return response;
+            }finally {
+                useHideLoader();
             }
             localStorage.removeItem("accessToken");
             await localStorage.setItem("accessToken", accessToken);
@@ -79,6 +81,8 @@ needAuthapi.interceptors.response.use(
                 const response = await userLogout();
                 // window.location.replace("/");
                 return response;
+            }finally {
+                useHideLoader();
             }
         }
         useHideLoader();

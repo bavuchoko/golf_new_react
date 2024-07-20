@@ -7,6 +7,7 @@ import {tokenValidate} from "../../api/auth/AuthService";
 
 import {logout} from "../../redux/slice/authSlice";
 import {useDispatch} from "react-redux";
+import {finish} from "../../redux/slice/apiSlice";
 
 
 function MainHeader() {
@@ -25,6 +26,7 @@ function MainHeader() {
         onError: (error) => {
             alert("세션이 종료되어 로그아웃되었습니다.")
             dp(logout());
+            dp(finish());
         },
         onSuccess: (data) => {
             if (!data) {
