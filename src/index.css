@@ -23,7 +23,7 @@
 
 }
 body {
-  backgroud-color: white;
+  background: #fff;
   height: var(--vh);
   font-size: 18px;
 }

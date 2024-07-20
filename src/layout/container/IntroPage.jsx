@@ -416,7 +416,7 @@ const MyComponent = () => {
 
     useEffect(() => {
 
-
+        document.body.style.backgroundColor = '#fafafa';
 
 
         const elements = {
@@ -563,6 +563,7 @@ const MyComponent = () => {
 
         return () => {
             window.removeEventListener("scroll", onScroll);
+            document.body.style.backgroundColor = 'white';
         };
 
     }, []); // useEffect 의 dependency 배열은 빈 배열로 설정하여 한 번만 실행되도록 합니다.
