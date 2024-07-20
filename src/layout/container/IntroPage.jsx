@@ -452,7 +452,6 @@ const MyComponent = () => {
 
         function onScroll() {
             // 현재 스크롤 위치 파악
-            console.log(disabled)
             const scrollTop = window.scrollY || window.pageYOffset;
             const currentPos = scrollTop + window.innerHeight / 2;
             // disabled 순회하며 활성화할 요소 찾기.
@@ -547,7 +546,6 @@ const MyComponent = () => {
             disabled.forEach((obj, id) => {
                 Object.keys(obj.topStyle).forEach((styleName) => {
                     const pushValue = obj.topStyle[styleName];
-                    console.log(elements[id])
                     applyStyle(elements[id], styleName, pushValue);
                 });
             });
