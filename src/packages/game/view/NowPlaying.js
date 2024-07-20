@@ -20,41 +20,52 @@ function NowPlaying({data}) {
         hole:1
     });
 
-    function findMaxRoundInfo() {
-        const maxRound = Math.max(...data.sheets.map(sheet => sheet.round));
-        const maxRoundSheets = data.sheets.filter(sheet => sheet.round === maxRound);
-        return {maxRound, maxRoundSheets};
+    function findMaxRoundInfo(game) {
+        const currentRound = Math.max(...game.sheets.map(sheet => sheet.round));
+        const currentSheets = game.sheets.filter(sheet => sheet.round === currentRound);
+        return {currentRound, currentSheets};
     }
 
-    const initialClickedPlayer = () => {
-        if (!data.sheets || data.sheets.length === 0) {
+    const getHoleStarter = (game) => {
+        if (!game.sheets || game.sheets.length === 0) {
             return {};
         }
 
-        // 가장 큰 round 값 찾기
-        const {maxRound, maxRoundSheets} = findMaxRoundInfo();
+        // 현재 라운드
+        const {currentRound, currentSheets} = findMaxRoundInfo(game);
+        // 이전 라운드
+        const prevRound = currentRound - 1;
+        const prevSheet = game.sheets.filter(sheet => sheet.round === prevRound);
 
-        // round-1의 요소 찾기
-        const roundMinusOne = maxRound - 1;
-        const roundMinusOneSheets = data.sheets.filter(sheet => sheet.round === roundMinusOne);
+        //이전 라운드에서 가장 적게 친 선수 : 최소 타수 동점자가 여러명이면 재귀를 돌며 찾음. 첫 라운드까지 못찾으면 host
+        const playerId = getBestPlayerOfPrev(game.sheets, prevSheet);
+        const playerSheet = currentSheets.find(sheet=>sheet.player.id === playerId)
 
-        // 조건에 맞는 요소 찾기
-        let selectedSheet;
-        if (roundMinusOneSheets.length > 0) {
-            // 최저 hit 찾기
-            const minHit = Math.min(...roundMinusOneSheets.map(sheet => sheet.hit));
-            // 최저 hit를 가진 요소들 찾기
-            const minHitSheets = roundMinusOneSheets.filter(sheet => sheet.hit === minHit);
-            // id가 가장 작은 요소 선택
-            selectedSheet = minHitSheets.reduce((prev, current) => (prev.player.id < current.player.id ? prev : current));
-        } else {
-            selectedSheet = maxRoundSheets.reduce((prev, current) => (prev.player.id < current.player.id ? prev : current));
-        }
-
-        return selectedSheet;
+        return playerSheet;
     };
 
-    const [clickedPlayer, setClickedPlayer] = useState(initialClickedPlayer);
+    function getBestPlayerOfPrev(totalSheet, prevSheet) {
+        if (prevSheet && prevSheet.length > 0) {
+            const prevRound = prevSheet.round
+            // 이전 라운드의 최저 hit 찾기
+            const minHit = Math.min(...prevSheet.map(sheet => sheet.hit));
+            // 지난 홀에서 최저 hit를 가진 요소들 찾기
+            const minHitSheets = prevSheet.filter(sheet => sheet.hit === minHit);
+            //최저 득점자가 여러명이면
+            if(minHitSheets && minHitSheets.length > 1 ) {
+                const prevPrevSheet = totalSheet.filter(sheet => sheet.round === (prevRound-1));
+                return getBestPlayerOfPrev(totalSheet, prevPrevSheet);
+            }else{
+                console.log(minHitSheets)
+                return minHitSheets[0].player.id;
+            }
+        } else {
+            //첫 라운드면
+            return data.host.id;
+        }
+    }
+
+    const [clickedPlayer, setClickedPlayer] = useState(getHoleStarter(data));
 
     const playerHitsArray = data.players.map(player => ({
         id: player.id,
@@ -107,17 +118,19 @@ function NowPlaying({data}) {
             })
         }
     }
-
-    function isZeroHitPlayerExist() {
+    function isZeroHitPlayerExist(data) {
         // 가장 큰 round 값 찾기
-        const {maxRound, maxRoundSheets} = findMaxRoundInfo();
-        const playerWithZeroHit = maxRoundSheets.some(e=> e.hit<=0 )
+        const {currentRound, currentSheets} = findMaxRoundInfo(data);
+        const playerWithZeroHit = currentSheets.some(e=> e.hit<=0 )
         return playerWithZeroHit;
     }
 
     function progressRound(id) {
         nextRound(id).then(_ => {
-
+            if(_.status===200){
+                const newClickPlayer = getHoleStarter(_.data);
+                setClickedPlayer(newClickPlayer);
+            }
         })
     }
     function endThisGame(id) {
@@ -127,9 +140,8 @@ function NowPlaying({data}) {
             }
         })
     }
-
     const nextRoundHandler =()=>{
-        if(isZeroHitPlayerExist()) {
+        if(isZeroHitPlayerExist(data)) {
             if (isHost) {
                 if (window.confirm("입력되지 않은 사람이 있습니다. 진행하시겠습니까")) {
                     progressRound(data.id);
@@ -145,7 +157,7 @@ function NowPlaying({data}) {
 
     const endGameHandler =()=>{
 
-        if(isZeroHitPlayerExist()) {
+        if(isZeroHitPlayerExist(data)) {
             if (isHost) {
                 if (window.confirm("입력되지 않은 사람이 있습니다. 종료하시겠습니까")) {
                     endThisGame(data.id);
