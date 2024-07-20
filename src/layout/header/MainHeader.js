@@ -2,17 +2,35 @@ import React, {useState} from 'react';
 import menu from '../../resources/icons/menu.png'
 import SlideMenu from "../menu/SlideMenu";
 import {Link} from "react-router-dom";
+import {useQuery} from "react-query";
+import {tokenValidate} from "../../api/auth/AuthService";
+
+import {logout} from "../../redux/slice/authSlice";
+import {useDispatch} from "react-redux";
 
 
 function MainHeader() {
 
     const [open, setOpen]=useState(false)
-
+    const dp = useDispatch();
     const openHandler = () =>{
         if(open) document.body.style.removeProperty('overflow');
         else document.body.style.overflow = 'hidden';
         setOpen(!open)
     }
+
+    const { isLoading, error, data } = useQuery('authentication', tokenValidate,{
+        staleTime: 10000,
+        refetchOnWindowFocus: false,
+        onError: (error) => {
+            alert("세션이 종료되어 로그아웃되었습니다.")
+            dp(logout());
+        },
+        onSuccess: (data) => {
+            if (!data) {
+            }else{}
+        },
+    });
 
     return (
         <>
