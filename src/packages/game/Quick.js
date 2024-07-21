@@ -4,7 +4,6 @@ import NumberSelector from "../../components/selectbox/NumberSelector";
 import ToggleSwitch from "../../components/toggle/ToggleSwitch";
 import {quickStart} from "../../api/game/GameService";
 import toast from "react-hot-toast";
-import {useHeaderContext} from "../../layout/context/HeaderContext";
 
 function Quick() {
     const [number, setNumber] =useState(1)
@@ -24,7 +23,7 @@ function Quick() {
             );
             if (response.status === 200) {
                 toast.success('등록되었습니다.')
-                navigate("/game")
+                navigate(`/game/${response.data.id}`)
             } else if (response.status === 202) {
 
             }
@@ -64,12 +63,12 @@ function Quick() {
             <div className={'mt-[2rem] fl line-h-30 mb-5' }>
                <div className={`quick-top flex`}>
                    <div className={`quick-left`}>
-                       <span className={`inline-block mr-3 text-[16px]`}>바로시작</span>
+                       {/*<span className={`inline-block mr-3 text-[16px]`}>바로시작</span>*/}
                    </div>
 
-                    <div className={`quick-right w-[90px]`}>
-                       <ToggleSwitch on={direct} setOn={setDirect} />
-                   </div>
+                   {/* <div className={`quick-right w-[90px]`}>*/}
+                   {/*    <ToggleSwitch on={direct} setOn={setDirect} />*/}
+                   {/*</div>*/}
                </div>
             </div>
 
