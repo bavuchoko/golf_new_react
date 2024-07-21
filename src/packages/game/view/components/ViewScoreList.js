@@ -2,14 +2,14 @@ import React, {useEffect, useState} from 'react';
 import {CurrentRound, ScoreList, ScoreListContainer, TotalScore} from "../style/StyleView";
 import CourseAccordion from "../../../../components/accordion/CourseAccordion";
 import {useDispatch, useSelector} from "react-redux";
-import {opener} from "../../../../redux/slice/openerSlice";
+import {closer, opener} from "../../../../redux/slice/openerSlice";
 import Memo from "../../../../resources/icons/memo.png";
 import Question from "../../../../resources/icons/question.png";
 
 function ViewScoreList({sheets, players, isHost, showCurrentRound, setShowCurrentRound, setClickedHole}) {
     const memos =useSelector(state => state.memo.data);
     const [expand, setExpand ]=useState(false);
-    const memoOpen =useSelector(state => state.opener.MemoOnGame);
+    const open =useSelector(state => state.opener);
     const dp =useDispatch();
     const courseMap = {};
     let maxCourse = 1;
@@ -54,14 +54,14 @@ function ViewScoreList({sheets, players, isHost, showCurrentRound, setShowCurren
     return (
         <ScoreList isHost={isHost}>
             <div className={`flex h-[50px] line-h-50 justify-center w-full border`}>
-                <div className={`w-[49%] text-center ${showCurrentRound ? 'font-bold' : ''}`}  onClick={()=>setShowCurrentRound(true)}>현재 스코어</div>
+                <div className={`w-[49%] text-center ${open.CurrentRound ? 'font-bold' : ''}`}  onClick={()=>dp(opener({key:'CurrentRound'}))}>현재 스코어</div>
                 <div className={`splicer h-[30px] mt-[10px]`}/>
-                <div className={`w-[49%] text-center ${!showCurrentRound ? 'font-bold' : '' }`} onClick={()=>setShowCurrentRound(false)}>코스별 총점</div>
+                <div className={`w-[49%] text-center ${!open.CurrentRound ? 'font-bold' : '' }`} onClick={()=>dp(closer({key:'CurrentRound'}))}>코스별 총점</div>
             </div>
             <ScoreListContainer isHost={isHost}>
 
                 {/*현재라운드 컨테이너*/}
-                <CurrentRound isHost={isHost} visable={showCurrentRound} >
+                <CurrentRound isHost={isHost} visable={open.CurrentRound} >
                     {/*헤더*/}
                     <div className={`grid grid-cols-5 mb-2`}>
                         <div>홀</div>
@@ -109,7 +109,7 @@ function ViewScoreList({sheets, players, isHost, showCurrentRound, setShowCurren
                     </div>
                 </CurrentRound>
 
-                <TotalScore isHost={isHost} visable={showCurrentRound}>
+                <TotalScore isHost={isHost} visable={open.CurrentRound}>
                     <div className={`grid grid-cols-5 mb-2`}>
                         <div>코스</div>
                         {players.map(player => (
