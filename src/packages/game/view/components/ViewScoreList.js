@@ -6,7 +6,7 @@ import {closer, opener} from "../../../../redux/slice/openerSlice";
 import Memo from "../../../../resources/icons/memo.png";
 import Question from "../../../../resources/icons/question.png";
 
-function ViewScoreList({sheets, players, isHost, showCurrentRound, setShowCurrentRound, setClickedHole}) {
+function ViewScoreList({sheets, players, isHost, setClickedHole, field}) {
     const memos =useSelector(state => state.memo.data);
     const [expand, setExpand ]=useState(false);
     const open =useSelector(state => state.opener);
@@ -86,12 +86,15 @@ function ViewScoreList({sheets, players, isHost, showCurrentRound, setShowCurren
                                 dp(opener({key:'MemoOnGame'}))
                                 }}>
                                 {/* 메모 있음 아이콘*/}
-                                {memos && memos.some(memo => (memo.course == maxCourse) && (memo.hole == hole.hole)) ?
-                                    <img src={Memo} className={`absolute top-1 left-4 w-4 h-4  bg-white`}/>
-                                    :
-                                    // <div className={`absolute top-1 left-4 w-4 h-4 rounded-full bg-red-300`}/>
-                                    <img src={Question} className={`absolute top-1 left-4 w-4 h-4  bg-white rounded-full`}/>
-                                }
+                                {field ?
+                                    (memos && memos.some(memo => (memo.course == maxCourse) && (memo.hole == hole.hole)) ?
+                                        <img src={Memo} className={`absolute top-1 left-4 w-4 h-4  bg-white`}/>
+                                        :
+                                        // <div className={`absolute top-1 left-4 w-4 h-4 rounded-full bg-red-300`}/>
+                                        <img src={Question} className={`absolute top-1 left-4 w-4 h-4  bg-white rounded-full`}/>
+                                    )
+                                :null}
+
                                 <span
                                     className={`rounded-full border bg-[white] inline-block h-[35px] w-[35px] line-h-35`}>{hole.hole}</span>
                             </div>
