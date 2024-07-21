@@ -141,12 +141,14 @@ export const slideRightOut = keyframes`
         }
     `;
 
-export const MemoContainer = styled.div`
+export const MemoContainer = styled.div.withConfig({
+    shouldForwardProp: (prop) => shouldForwardProp(prop) && prop !== 'isHost'
+})`
     position: fixed;
     right: 20px;
     width: 50px;
     z-index:10;
-    bottom: 220px;
+    bottom:  ${props => props.isHost ? '220px' : '120px'};
     height: 50px;
 `;
 export const MemoController = styled.div.withConfig({

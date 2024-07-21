@@ -182,14 +182,39 @@ function NowPlaying({data}) {
 
             {/*메모관리*/}
             <MemoOnGame isHost={isHost} field={data.field ?? undefined} selected={clickedHole}/>
-            <div className={`grid grid-cols-4 gap-1`}>
-                {playerHitsArray.map(player => (
-                    <PlayerDiv key={player.name} clicked={isHost && player.id === clickedPlayer.player.id}
-                               onClick={() => playerClickHandler(player.sheet)}>
-                        <p className={`font-bold ${isHost && player.id === clickedPlayer.player.id ? 'text-[18px] h-[30px] line-h-30 ' : 'text-[14px] h-[40px] line-h-40 '} `}> {player.totalHits}</p>
-                        <p className={` ${isHost && player.id === clickedPlayer.player.id ? 'text-[18px] h-[40px]' : 'text-[14px] h-[30px]'}`}> {player.name}</p>
-                    </PlayerDiv>
+            <div className={`grid grid-cols-4 gap-1 p-[5px]`}>
+
+                {[...playerHitsArray, ...Array(4 - playerHitsArray.length).fill(null)].slice(0, 4).map((player, index) => (
+                    player ? (
+                        <PlayerDiv key={player.name} clicked={isHost && player.id === clickedPlayer.player.id}
+                                   onClick={() => playerClickHandler(player.sheet)}>
+                            {/*<p className={` ${isHost && player.id === clickedPlayer.player.id ?  'text-[18px] h-[35px] line-h-35 ' : 'text-[14px] h-[40px] line-h-40 '}`} >*/}
+                            <p className={`line-h-70  ${isHost && player.id === clickedPlayer.player.id ?  'text-[20px] h-[70px]  ' : 'text-[14px] h-[70px] '}`} >
+                                {player.name}
+                            </p>
+                            {/*<p className={`font-bold ${isHost && player.id === clickedPlayer.player.id ?  'text-[18px] h-[35px]' : 'text-[14px] h-[30px]'}`}>*/}
+                            {/*    {player.totalHits}*/}
+                            {/*</p>*/}
+                        </PlayerDiv>
+                    ) : (
+                        <div key={`empty-${index}`} className="h-[70px] border">
+                            <p className="font-bold text-[14px] h-[40px] line-h-40">&nbsp;</p>
+                            <p className="text-[14px] h-[30px]">&nbsp;</p>
+                        </div>
+                    )
                 ))}
+
+
+
+                {/*{playerHitsArray.map(player => (*/}
+                {/*    <PlayerDiv key={player.name} clicked={isHost && player.id === clickedPlayer.player.id}*/}
+                {/*               onClick={() => playerClickHandler(player.sheet)}>*/}
+                {/*        <p className={`font-bold ${isHost && player.id === clickedPlayer.player.id ? 'text-[18px] h-[30px] line-h-30 ' : 'text-[14px] h-[40px] line-h-40 '} `}> {player.totalHits}</p>*/}
+                {/*        <p className={` ${isHost && player.id === clickedPlayer.player.id ? 'text-[18px] h-[40px]' : 'text-[14px] h-[30px]'}`}> {player.name}</p>*/}
+                {/*    </PlayerDiv>*/}
+                {/*))}*/}
+
+
             </div>
             {isHost &&
                 <Counter>

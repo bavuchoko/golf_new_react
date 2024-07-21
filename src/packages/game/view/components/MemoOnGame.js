@@ -113,8 +113,8 @@ function MemoOnGame({isHost, field, selected}) {
 
     return (
 
-        <MemoContainer ref={ref}>
-            <MemoContent open={open} className={`${open ? 'animate-in' : 'animate-out'}`} >
+        <MemoContainer isHost={isHost} ref={ref}>
+            <MemoContent  open={open} className={`${open ? 'animate-in' : 'animate-out'}`} >
                 <div  className={`bg- py-2 bg-black text-[white] h-[34px]`} onClick={()=>dp(closer({key:'MemoOnGame'}))} >
                     <img src={Close} className={`w-[20px] bg-white float-right mr-[10px]`} onClick={()=>dp(closer({key:'MemoOnGame'}))} />
                 </div>
