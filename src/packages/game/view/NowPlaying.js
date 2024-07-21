@@ -56,7 +56,6 @@ function NowPlaying({data}) {
                 const prevPrevSheet = totalSheet.filter(sheet => sheet.round === (prevRound-1));
                 return getBestPlayerOfPrev(totalSheet, prevPrevSheet);
             }else{
-                console.log(minHitSheets)
                 return minHitSheets[0].player.id;
             }
         } else {
@@ -176,7 +175,7 @@ function NowPlaying({data}) {
         <>
 
             {/*점수목록*/}
-            <ViewScoreList sheets={data.sheets} players={data.players} isHost={isHost}
+            <ViewScoreList sheets={data.sheets} players={data.players} isHost={isHost} field={data.field}
                            showCurrentRound={showCurrentRound} setShowCurrentRound={setShowCurrentRound}
                            setClickedHole={setClickedHole}/>
 

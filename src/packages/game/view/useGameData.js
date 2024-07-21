@@ -43,7 +43,6 @@ const useGameData = (id) => {
             });
 
             eventSource.onerror = (error) => {
-                console.log(error);
                 eventSource.close();
                 if (eventSource.readyState === EventSource.CLOSED) {
                     console.log('SSE connection was closed. Reconnecting...');
