@@ -1,15 +1,19 @@
 import React, {useEffect, useState} from 'react';
-import WeekSelector from "../../components/datePicker/WeekSelector";
-import Nocontent from "../../components/exception/Nocontent";
-import TypeSelectBox from "../../components/selectbox/TypeSelectBox";
+import WeekSelector from "../../../components/datePicker/WeekSelector";
+import Nocontent from "../../../components/exception/Nocontent";
+import TypeSelectBox from "../../../components/selectbox/TypeSelectBox";
 import {Link, useNavigate} from "react-router-dom";
-import {getGameList} from "../../api/game/GameService";
-import {toKSTISOString} from "../../api/common/CommonMethod";
-import {useDispatch} from "react-redux";
-import {finish} from "../../redux/slice/apiSlice";
+import {deleteGame, getGameList} from "../../../api/game/GameService";
+import {toKSTISOString} from "../../../api/common/CommonMethod";
+import {useDispatch, useSelector} from "react-redux";
+import {finish} from "../../../redux/slice/apiSlice";
+import Each from "./sub/Each";
+import SlideComponent from "../../../components/slide/SlideComponent";
+import Delete_Slide_Btn from "../../../components/buttons/Delete_Slide_Btn";
 
 
 function List(props) {
+    const user = useSelector((state) => state.user.user);
     const [ select, setSelect] = useState('전체');
     const [data, setData] =useState();
     const [date, setDate] = useState(new Date());
@@ -17,6 +21,7 @@ function List(props) {
     const dp = useDispatch();
     const [search, setSearch] =useState({
         searchTxt:"",
+
         startDate:toKSTISOString(date),
         endDate:toKSTISOString(date),
     });
@@ -55,13 +60,25 @@ function List(props) {
         );
     },[pageable.page, date])
 
-    const navigate = useNavigate();
+    const handleDeleteGame=(gameId)=>{
+        if(window.confirm("삭제하시겠습니까?\n이후 되돌릴 수 없습니다.")){
+            deleteGame(gameId).then(_ =>{
+                if(_.status===200){
+
+                }
+            }).then(
+                dp(finish())
+            );
+        }
+    }
+
+
     if(data) {
         return (
             <>
                 <WeekSelector date={date} setDate={setDate}/>
-                <div className={"pt-[60px]"}></div>
-                <div className={"fixed w-full h-[30px] pt-[2px] line-h-30 bg-[#f0f0f0] text-[13px] px-[15px] flex"}>
+                <div className={"pt-[60px] z-10"}></div>
+                <div className={"fixed w-full h-[30px] pt-[2px] line-h-30 bg-[#f0f0f0] text-[13px] px-[15px] flex z-10"}>
                 <span className={``}>{data ?
                     <>총 10건</> : <>--</>
                 } </span>
@@ -69,41 +86,19 @@ function List(props) {
                         <TypeSelectBox options={status} select={select} setSelect={setSelect}/>
                     </div>
                 </div>
-                <div className={"pt-[30px]  bg-[#fff] "}>
+                <div className={"pt-[30px]  bg-[#fff] overflow-y-auto z-0 relative"}>
                     {data && data._embedded?.gameResponseDtoList.map(each => (
-                        <div className={`game-each`} key={each.id}
-                             onClick={()=>{
-                                if(each.status==='END') navigate(`score/${each.id}`)
-                                else navigate(`${each.id}`)
-                        }}>
-                            <div className={"flex"}>
-                                <div className={`h-[30px] text-[14px]`}>
-                                    {each.status === 'OPEN' &&
-                                        <span className={`game-each-status open`}>참가중</span>}
-                                    {each.status === 'PLAYING' &&
-                                        <span className={`game-each-status playing`}>경기중</span>}
-                                    {each.status === 'END' &&
-                                        <span className={`game-each-status end`}>종료됨</span>}
+                        <SlideComponent
+                            expose={70}
+                            buttons={[
+                                // <DetailBtn uri={`/asset/${each.id}`} />,
+                                <Delete_Slide_Btn listener={()=>handleDeleteGame(each.id)} auth={user.id==each.host.id}/>]}>
+                            <Each each={each}/>
 
-                                    <span>{each.field ? each.field.name : '정보 없음'}</span>
-                                    <span className={'vertical-slicer'}/>
-                                    <span className={``}>{each.field ? each.field.address : ''}</span>
-                                </div>
+                        </SlideComponent>
 
-                            </div>
-                            <div className={`w-full flex`}>
-                                <div>
-                                    <span>{each.host.name}</span>
-                                </div>
-                                <div className={`flex ml-auto game-each-users`}
-                                     style={{width: `${each.players.length * 40}px`}}>
-                                    {each.players.map(user => (
-                                        <div key={user.id}
-                                             className={`game-each-user-each`}>{user.name.substring(user.name.length - 2, user.name.length)}</div>
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
+
+
                     ))}
 
                     {!data._embedded &&

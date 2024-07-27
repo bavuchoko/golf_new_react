@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import {useParams} from "react-router-dom";
-import ParticipateGame from "./view/ParticipateGame";
-import NowPlaying from "./view/NowPlaying";
-import useGameData from "./view/useGameData";
+import ParticipateGame from "./ParticipateGame";
+import NowPlaying from "./NowPlaying";
+import useGameData from "./useGameData";
 
 function View({}) {
 
