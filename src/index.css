@@ -396,7 +396,7 @@ ul.dropLi > a >li{
   background: white;
   margin-bottom: 2px;
   height: 100px;
-  border-bottom: 1px solid var(--main-gray-line);
+  /*border-bottom: 1px solid var(--main-gray-line);*/
 }
 .game-each-users{
 

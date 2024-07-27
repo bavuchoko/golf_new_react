@@ -30,6 +30,10 @@ async function gameInfo(gameId) {
     return await noAuth.get(`/game/score/${gameId}`);
 }
 
+async function deleteGame(gameId) {
+    return await noAuth.delete(`/game/delete/${gameId}`);
+}
+
 
 async function quickStart(game) {
     return await needAuth.post('/game/quick', game);
@@ -52,4 +56,4 @@ async function endGame(gameId) {
 async function expelPlayer(gameId, targetId) {
     return await needAuth.put(`/game/expel/${gameId}`,{params: {target: {id: targetId}}});
 }
-export {gameCreate, getGameList, quickStart, enrollGame, startGame, endGame, expelPlayer, gameInfo};
+export {gameCreate, getGameList, quickStart, enrollGame, startGame, endGame, expelPlayer, gameInfo, deleteGame, };

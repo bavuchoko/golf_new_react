@@ -21,7 +21,7 @@ function WeekSelector({date, setDate}) {
 
     return (
         <>
-            <div className={"bg-[white] grid grid-cols-7 top-[45px] px-[20px] fixed w-full h-[60px] left-0 weekSelector-border"}>
+            <div className={"bg-[white] grid grid-cols-7 top-[45px] px-[20px] fixed w-full h-[60px] left-0 weekSelector-border z-10"}>
             {weekArray.map(today=>(
                 <div key={today.getDate()} className={`text-center weekSelector pt-[10px] ${today.getDate()===date.getDate() ? 'today' :''}`} onClick={()=>setDate(today)}>
                     <div className={"text-[13px] " + (today.getDay() === 0 ? "text-[#f00]" : (today.getDay() === 6 ? "text-[#4c8df7]" : ""))}>{(today.getMonth() + 1).toString().padStart(2, '0') + "/" + today.getDate().toString().padStart(2, '0')}</div>
