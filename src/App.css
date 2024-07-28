@@ -36,3 +36,9 @@
     transform: rotate(360deg);
   }
 }
+.left-50-160{
+  left: calc(50% - 80px);
+}
+.scape-2{
+  letter-spacing: 2px;
+}

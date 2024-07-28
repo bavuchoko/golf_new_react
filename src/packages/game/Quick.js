@@ -78,6 +78,10 @@ function Quick() {
                     <NumberSelector theme={'light'} limit={{upper:4, under:1}} number={number} setNumber={setNumber}/>
                 </div>
             </div>
+
+            <p className={`text-[#354db0] fixed bottom-[100px] left-50-160 w-[160px] text-center text-[22px] scape-2`}
+               onClick={()=>quickStartHandler()}
+            >시작하기</p>
         </div>
     );
 }
