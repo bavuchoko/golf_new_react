@@ -66,7 +66,7 @@ export const ScoreList = styled.div.withConfig({
     shouldForwardProp: (prop) => shouldForwardProp(prop) && prop !== 'isOpen'
 })`     
     text-align: center;
-    height: ${props => props.isHost ? 'calc(var(--vh, 1vh) * 100 - 250px)' : 'calc(var(--vh, 1vh) * 100 - 125px)'};
+    height: ${props => props.isHost ? 'calc(var(--vh, 1vh) * 100 - 250px)' : 'calc(var(--vh, 1vh) * 100 - 180px)'};
 `;
 
 export const ScoreListContainer = styled.div.withConfig({
@@ -76,7 +76,7 @@ export const ScoreListContainer = styled.div.withConfig({
     text-align: center;
     overflow-y: auto;
     overflow-x: hidden;
-    height: ${props => props.isHost ? 'calc(var(--vh, 1vh) * 100 - 310px)' : 'calc(var(--vh, 1vh) * 100 - 175px)'};
+    height: ${props => props.isHost ? 'calc(var(--vh, 1vh) * 100 - 310px)' : 'calc(var(--vh, 1vh) * 100 - 230px)'};
 `;
 export const CurrentRound = styled.button.withConfig({
     shouldForwardProp: (prop) => shouldForwardProp(prop) && prop !== 'isOpen'
