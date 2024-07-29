@@ -176,6 +176,7 @@ function NowPlaying({data}) {
 
             {/*점수목록*/}
             <ViewScoreList sheets={data.sheets} players={data.players} isHost={isHost} field={data.field}
+                           clickedPlayer={clickedPlayer}
                            showCurrentRound={showCurrentRound} setShowCurrentRound={setShowCurrentRound}
                            setClickedHole={setClickedHole}/>
 

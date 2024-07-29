@@ -6,7 +6,7 @@ import {closer, opener} from "../../../../redux/slice/openerSlice";
 import Memo from "../../../../resources/icons/memo.png";
 import Question from "../../../../resources/icons/question.png";
 
-function ViewScoreList({sheets, players, isHost, setClickedHole, field}) {
+function ViewScoreList({sheets, players, clickedPlayer, isHost, setClickedHole, field}) {
     const memos =useSelector(state => state.memo.data);
     const [expand, setExpand ]=useState(false);
     const open =useSelector(state => state.opener);
@@ -50,7 +50,7 @@ function ViewScoreList({sheets, players, isHost, setClickedHole, field}) {
         organizeSheets[courseKey] = { holes: holes };
     });
 
-
+    console.log(clickedPlayer)
     return (
         <ScoreList isHost={isHost}>
             <div className={`flex h-[50px] line-h-50 justify-center w-full border`}>
@@ -63,10 +63,10 @@ function ViewScoreList({sheets, players, isHost, setClickedHole, field}) {
                 {/*현재라운드 컨테이너*/}
                 <CurrentRound isHost={isHost} visable={open.CurrentRound} >
                     {/*헤더*/}
-                    <div className={`grid grid-cols-5 mb-2`}>
+                    <div className={`grid grid-cols-5 py-1`}>
                         <div>홀</div>
                         {players.map((player, index) => (
-                            <div key={`hole_` + index}>
+                            <div key={`hole_` + index} className={`${player.id===clickedPlayer.player.id ? 'force':''}`}>
                                 {player.name}
                             </div>
                         ))}
@@ -101,7 +101,7 @@ function ViewScoreList({sheets, players, isHost, setClickedHole, field}) {
 
 
                             {hole.sheets.map((sheet, index) => (
-                                <div key={`sheet_` + sheet.player.id} className={`py-1`} onClick={()=>setExpand(!expand)}>
+                                <div key={`sheet_` + sheet.player.id} className={`${sheet.player.id===clickedPlayer.player.id? 'force':''}   py-1`} onClick={()=>setExpand(!expand)}>
                                     <span className={`inline-block h-[35px] w-[35px] line-h-35`}>{sheet.hit}</span>
                                 </div>
                             ))}
