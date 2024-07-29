@@ -111,9 +111,22 @@ function NowPlaying({data}) {
     }
 
     const putScoreHandler =()=>{
-        if(isHost){
-            putScore(data.id, clickedPlayer).then(_=>{
-
+        const {currentRound, currentSheets} = findMaxRoundInfo(data);
+        if(isHost) {
+            currentSheets.forEach(sheet => {
+                    console.log(sheet)
+                console.log(clickedPlayer)
+                if (sheet.player.id === clickedPlayer.player.id) {
+                    if (sheet.hit > 0) {
+                        if (window.confirm("이미 점수 입력한 사람입니다.\n수정하시겠습니까?")) {
+                            putScore(data.id, clickedPlayer).then(_ => {
+                            })
+                        }
+                    } else {
+                        putScore(data.id, clickedPlayer).then(_ => {
+                        })
+                    }
+                }
             })
         }
     }
@@ -204,17 +217,6 @@ function NowPlaying({data}) {
                         </div>
                     )
                 ))}
-
-
-
-                {/*{playerHitsArray.map(player => (*/}
-                {/*    <PlayerDiv key={player.name} clicked={isHost && player.id === clickedPlayer.player.id}*/}
-                {/*               onClick={() => playerClickHandler(player.sheet)}>*/}
-                {/*        <p className={`font-bold ${isHost && player.id === clickedPlayer.player.id ? 'text-[18px] h-[30px] line-h-30 ' : 'text-[14px] h-[40px] line-h-40 '} `}> {player.totalHits}</p>*/}
-                {/*        <p className={` ${isHost && player.id === clickedPlayer.player.id ? 'text-[18px] h-[40px]' : 'text-[14px] h-[30px]'}`}> {player.name}</p>*/}
-                {/*    </PlayerDiv>*/}
-                {/*))}*/}
-
 
             </div>
             {isHost &&

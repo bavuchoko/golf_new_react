@@ -49,8 +49,6 @@ function ViewScoreList({sheets, players, clickedPlayer, isHost, setClickedHole, 
         }));
         organizeSheets[courseKey] = { holes: holes };
     });
-
-    console.log(clickedPlayer)
     return (
         <ScoreList isHost={isHost}>
             <div className={`flex h-[50px] line-h-50 justify-center w-full border`}>
