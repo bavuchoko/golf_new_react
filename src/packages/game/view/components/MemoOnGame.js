@@ -108,7 +108,7 @@ function MemoOnGame({isHost, field, selected}) {
 
 
     if(!field){
-        return <div className={'w-full h-[40px]'}></div>;
+        return <div className={'w-full h-[0px]'}></div>;
     }
 
     return (

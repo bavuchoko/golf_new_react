@@ -114,8 +114,6 @@ function NowPlaying({data}) {
         const {currentRound, currentSheets} = findMaxRoundInfo(data);
         if(isHost) {
             currentSheets.forEach(sheet => {
-                    console.log(sheet)
-                console.log(clickedPlayer)
                 if (sheet.player.id === clickedPlayer.player.id) {
                     if (sheet.hit > 0) {
                         if (window.confirm("이미 점수 입력한 사람입니다.\n수정하시겠습니까?")) {
