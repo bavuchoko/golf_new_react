@@ -31,7 +31,7 @@ async function gameInfo(gameId) {
 }
 
 async function deleteGame(gameId) {
-    return await noAuth.delete(`/game/delete/${gameId}`);
+    return await needAuth.delete(`/game/${gameId}`);
 }
 
 

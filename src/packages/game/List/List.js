@@ -61,10 +61,21 @@ function List(props) {
     },[pageable.page, date])
 
     const handleDeleteGame=(gameId)=>{
+        console.log(gameId)
         if(window.confirm("삭제하시겠습니까?\n이후 되돌릴 수 없습니다.")){
             deleteGame(gameId).then(_ =>{
                 if(_.status===200){
-
+                    setData(prevData => {
+                        const updatedList = prevData._embedded.gameResponseDtoList.filter(game => game.id !== gameId);
+                        return {
+                            ...prevData,
+                            _embedded: {
+                                ...prevData._embedded,
+                                gameResponseDtoList: updatedList
+                            },
+                            totalElements: prevData.totalElements - 1
+                        };
+                    });
                 }
             }).then(
                 dp(finish())
