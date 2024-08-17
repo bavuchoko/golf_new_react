@@ -106,7 +106,7 @@ function ViewScoreList({sheets, players, clickedPlayer, isHost, setClickedHole, 
                         </div>
                     ))}
                     <div className={`mt-5 mb-1 text-[15px] `}>
-                    {!expand ? <p  onClick={()=>setExpand(true)}>추가정보 보기</p> : <p onClick={()=>setExpand(false)}>닫기</p>}
+                    {!expand ? <p  onClick={()=>setExpand(true)}>전체 보기</p> : <p onClick={()=>setExpand(false)}>닫기</p>}
                     </div>
                 </CurrentRound>
 
