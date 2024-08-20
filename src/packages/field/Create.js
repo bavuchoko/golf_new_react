@@ -28,7 +28,7 @@ function Create(props) {
     const [address, setAddress] = useState("세종특별자치시 미리내로 104");
     const [city, setCity] = useState("세종특별자치시");
     const [addressDetail, setAddressDetail] = useState("");
-    const [courses, setCourses] = useState(1);
+    const [holes, setHoles] = useState(9);
     const [message, setMessage] = useState('');
     const navigate = useNavigate();
     const isNumber =  /^\d+$/;
@@ -180,11 +180,11 @@ function Create(props) {
     },[longitude, latitude])
 
 
-    const coursesHandler =(value)=>{
+    const holesHandler =(value)=>{
         if (isNumber.test(value) || value==='') {
-            setCourses(value)
+            setHoles(value)
         }else{
-            setMessage('코스 수는 숫자로만 입력하세요')
+            setMessage('홀 은 숫자로만 입력하세요')
         }
     }
 
@@ -196,10 +196,11 @@ function Create(props) {
             "latitude": latitude,
             "longitude": longitude,
             "addressDetail": addressDetail,
-            "courses": courses,
+            "holes": holes,
+            "courses": holes/9,
         }
 
-        if(field.name.trim()===''|| field.address.trim()==='' || field.courses.toString().trim()==='' || !isNumber.test(courses)){
+        if(field.name.trim()===''|| field.address.trim()==='' || field.courses.toString().trim()==='' || !isNumber.test(holes)){
             toast.error('입력데이터를 확인하세요.')
             return
         }
@@ -208,7 +209,7 @@ function Create(props) {
 
             if (response.status==200) {
                 toast.success('등록되었습니다.')
-                navigate(-1)
+                navigate("/field/list")
             }
         } catch (error) {
             console.error(error);
@@ -259,11 +260,11 @@ function Create(props) {
                                 />
                             </div>
                             <div className={`w-[55px] ml-auto justify-between pt-[4px]`}>
-                                <p className={`text-[13px] text-center`}>코스 수</p>
+                                <p className={`text-[13px] text-center`}>홀</p>
                                 <div>
                                     <input
-                                        value={courses}
-                                        onChange={(e)=>coursesHandler(e.target.value)}
+                                        value={holes}
+                                        onChange={(e)=>holesHandler(e.target.value)}
                                         className={`text-center text-[24px] font-bold w-[50px] h-[40px] border no-outline`}/>
                                 </div>
                             </div>
