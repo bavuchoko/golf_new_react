@@ -61,8 +61,10 @@ function ViewScoreList({sheets, players, clickedPlayer, isHost, setClickedHole, 
                 {/*현재라운드 컨테이너*/}
                 <CurrentRound isHost={isHost} visable={open.CurrentRound} >
                     {/*헤더*/}
-                    <div className={`grid grid-cols-5 py-1`}>
-                        <div>홀</div>
+                    <div className={`grid grid-cols-5 py-1 `}>
+                        <div>
+                            <span className={` w-[30px]`}>홀</span>
+                        </div>
                         {players.map((player, index) => (
                             <div key={`hole_` + index} className={`${player.id===clickedPlayer.player.id ? 'force':''}`}>
                                 {player.name}
@@ -73,14 +75,14 @@ function ViewScoreList({sheets, players, clickedPlayer, isHost, setClickedHole, 
                     {/*점수*/}
                     {organizeSheets[maxCourse].holes.reverse().map((hole, index) => (
                         <div key={`hole22_` + index}
-                             className={`grid grid-cols-5 ${index % 2 === 0 ? 'bg-odd' : 'bg-even'} ${expand || index===0 ? '':'hidden'}`}
+                             className={` grid grid-cols-5 ${index % 2 === 0 ? 'bg-odd' : 'bg-even'} ${expand || index===0 ? '':'hidden'}`}
                              onClick={() => setClickedHole({
                                  hole: hole.hole,
                                  course: hole.course
                              })}>
 
                             {/*라운드 순번*/}
-                            <div className={`py-1 relative`} onClick={()=> {
+                            <div className={`py-1 relative ` } onClick={()=> {
                                 dp(opener({key:'MemoOnGame'}))
                                 }}>
                                 {/* 메모 있음 아이콘*/}
@@ -94,7 +96,7 @@ function ViewScoreList({sheets, players, clickedPlayer, isHost, setClickedHole, 
                                 :null}
 
                                 <span
-                                    className={`rounded-full border bg-[white] inline-block h-[35px] w-[35px] line-h-35`}>{hole.hole}</span>
+                                    className={`rounded-full border bg-[white] inline-block h-[35px] hole w-[35px] line-h-35 `}>{hole.hole}</span>
                             </div>
 
 

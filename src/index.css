@@ -621,6 +621,13 @@ ul.dropLi > a >li{
   animation: scaleUp 0.4s forwards;
 }
 
+.hole{
+  display: inline-block;
+  border-radius: 50%;
+  background-color: #464646;
+  color: yellow;
+}
+
 /* Animation for disappearing */
 .animate-out {
   animation: scaleDown 0.5s forwards;
