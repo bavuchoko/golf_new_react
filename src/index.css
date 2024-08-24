@@ -82,6 +82,14 @@ body {
   opacity: 0;
   animation: showup 1s forwards;
 }
+.z-70{
+  z-index: 70;
+}
+.close-search{
+  width: 20px;
+  position: fixed;
+  right: 70px;
+}
 .api-loading-container> img{
   border-radius: 5px;
   z-index: 999;
@@ -676,3 +684,38 @@ ul.dropLi > a >li{
   }
 }
 
+.address-modal{
+  z-index: 50;
+  width: calc(100% - 30px);
+  position: fixed;
+  background: white;
+  top: 70px;
+  left: 15px;
+}
+
+.addr_type{
+  height: 17px;
+  text-align: center;
+  line-height: 16px;
+  display: inline-block;
+  color: #127fc2;
+  font-weight: bold;
+  border: 1px solid #d2e6f3;
+  width: 32px;
+  margin-right: 10px;
+  margin-left: 10px;
+  font-size: 11px;
+}
+.addr-ul{
+  background: #d9dbde;
+}
+.addr-search{
+  border-bottom: 1px solid black;
+}
+.addr-container{
+  border-bottom: 1px solid #bebdbd;
+  font-size: 13px;
+  font-weight: bold;
+  padding: 10px;
+  background: white;
+}

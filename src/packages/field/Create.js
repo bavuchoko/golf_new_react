@@ -1,14 +1,10 @@
-import React, {useEffect, useRef, useState} from 'react';
-import {Map, MapMarker, MapTypeId,} from "react-kakao-maps-sdk";
-import DaumPostcode from 'react-daum-postcode';
+import React, {useEffect, useState} from 'react';
 import {createField} from "../../api/field/FieldService";
 import {useNavigate} from "react-router-dom";
 import Pin from '../../resources/icons/pin.png'
-import {addressToCode} from "../../api/kakao/kakaoService";
-import {CategorySection, GrowupSecion, SerachAddress} from "./style/style";
+import {GrowupSecion, SerachAddress} from "./style/style";
 import toast from "react-hot-toast";
-
-
+import Close from '../../resources/icons/close.png'
 
 const postCodeStyle = {
     width: 'calc(100% - 30px)',
@@ -21,11 +17,13 @@ const postCodeStyle = {
 
 const {kakao} = window;
 function Create(props) {
+    const kakaoRestKey = process.env.REACT_APP_KAKAO_REST_KEY;
     const [name, setName] = useState("");
     const height =125;
-    const [openPostcode, setOpenPostcode] = useState(false);
+    const [openAddressModal, setOpenAddressModal] = useState(false);
     const [drawup, setDrawup] = useState(false);
-    const [address, setAddress] = useState("세종특별자치시 미리내로 104");
+    const [address, setAddress] = useState("");
+    const [roadAddress, setRoadAddress] = useState("");
     const [city, setCity] = useState("세종특별자치시");
     const [addressDetail, setAddressDetail] = useState("");
     const [holes, setHoles] = useState(9);
@@ -36,6 +34,9 @@ function Create(props) {
     const [longitude, setLongitude] =useState(127.25976801328223)
     // 주소-좌표 변환 객체를 생성합니다
     var geocoder = new kakao.maps.services.Geocoder();
+    const [query, setQuery] = useState('');
+    const [queryResult, setQueryResults] = useState([]);
+
     var positions = [
         {
             title: '카카오',
@@ -55,27 +56,6 @@ function Create(props) {
         }
     ];
 
-    const handle = {
-        // 버튼 클릭 이벤트
-        clickButton: () => {
-            setOpenPostcode(current => !current);
-        },
-
-        // 주소 선택했을 경우
-        selectAddress: (data) => {
-            setOpenPostcode(false);// 모달을 닫고
-            setAddress(data.address)              // 해당 주소를 주소값에 저장하고
-            addressToCode(data.address).then(     // 카카오API 로 위경도값 가져옴
-                response=>{
-                    const lelo = response.data.documents[0].road_address
-                    console.log(lelo.region_1depth_name)
-                    setCity(lelo.region_1depth_name)
-                    setLatitude(lelo.y)
-                    setLongitude(lelo.x)
-                }
-            )
-        },
-    }
 
     useEffect(()=>{
         const mapContainer = document.getElementById('map');
@@ -97,7 +77,7 @@ function Create(props) {
             geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
         }
 
-// 지도 좌측상단에 지도 중심좌표에 대한 주소정보를 표출하는 함수입니다
+// 지도 좌측상단에 지도 중심좌표에 대한 주소정보를 표출하는 함수.
         function displayCenterInfo(result, status) {
             if (status === kakao.maps.services.Status.OK) {
                 var infoDiv = document.getElementById('centerAddr');
@@ -121,6 +101,7 @@ function Create(props) {
                     //지번주소
                     var detailAddr =result[0].address.address_name;
                     setAddress(roadAddress !==''? roadAddress: detailAddr)
+                    setQuery(roadAddress !==''? roadAddress: detailAddr)
                     console.log(roadAddress)
                     console.log(detailAddr)
 
@@ -214,29 +195,112 @@ function Create(props) {
         } catch (error) {
             console.error(error);
             toast.error('등록 실패하였습니다.')
-
         }
+    }
+
+    const setSearch =(e)=>{
+        if (e.key === 'Enter') {
+            doQuery(query)
+        }
+    }
+
+    const doQuery = async () => {
+        const encodedQuery = encodeURIComponent(query);
+        try {
+            const response = await fetch(
+                `https://dapi.kakao.com/v2/local/search/address.json?analyze_type=similar&query=`+encodedQuery,
+                {
+                    method: 'GET',
+                    headers: {
+                        Authorization: `KakaoAK ${kakaoRestKey}`,
+                    },
+                    withCredentials: true,
+                }
+            );
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const data = await response.json();
+            console.log(data)
+            setQueryResults(data.documents);
+
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+
+    const setAddressHandler =(result)=>{
+        const addr = result.address
+        const roadAddr=result.road_address;
+        setOpenAddressModal(false);
+        setAddress(addr.address_name)
+        setRoadAddress(roadAddr?.address_name)
+        setCity(addr.region_1depth_name)
+        setLatitude(addr.y)
+        setLongitude(addr.x)
     }
 
     return (
         <>
-            <SerachAddress onClick={handle.clickButton} >{address}</SerachAddress>
-            {openPostcode &&
-                <>
-                    <DaumPostcode
-                        style={postCodeStyle}
-                        onComplete={handle.selectAddress}
-                        autoClose={false}
-                        defaultQuery='세종특별자치시'
-                    />
-                    <div className={`postal-background`} onClick={()=> setOpenPostcode(false)}></div>
-                </>
+            {/*<SerachAddress onClick={handle.clickButton}>{address}</SerachAddress>*/}
+            <SerachAddress
+                onClick={()=>setOpenAddressModal(true)}
+                // onChange={(e) => setQuery(e.target.value)}
+                // onKeyDown={setSearch}
+            >{query}</SerachAddress>
+            {/*<button onClick={doQuery}>검색</button>*/}
+            {openAddressModal &&
+                <div className={`address-modal`}>
+                    <input
+                        className={`h-[50px] w-full outline-0 indent-1 addr-search`}
+                        type="text"
+                        value={query}
+                        onClick={() => setOpenAddressModal(true)}
+                        onChange={(e) => setQuery(e.target.value)}
+                        onKeyDown={setSearch}
+                        placeholder="주소를 입력하세요"/>
+                    {/*<img src={Close} className={`close-search`}/>*/}
+                    <svg onClick={() => {
+                        setQuery('');
+                        setAddress('');
+                        setQueryResults([]);
+                    }} xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50" height="50" viewBox="0 0 50 50"
+                         className={`z-70 fixed right-[55px] top-[70px] w-[20px]`}>
+                        <path
+                            d="M 7.71875 6.28125 L 6.28125 7.71875 L 23.5625 25 L 6.28125 42.28125 L 7.71875 43.71875 L 25 26.4375 L 42.28125 43.71875 L 43.71875 42.28125 L 26.4375 25 L 43.71875 7.71875 L 42.28125 6.28125 L 25 23.5625 Z"></path>
+                    </svg>
+
+                    <svg
+                        onClick={() => {
+                            doQuery();
+                        }}
+                        xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50" height="50" viewBox="0 0 50 50"
+                         className={`z-70 fixed right-[25px] top-[70px] w-[20px]`}>
+                        <path
+                            d="M 21 3 C 11.621094 3 4 10.621094 4 20 C 4 29.378906 11.621094 37 21 37 C 24.710938 37 28.140625 35.804688 30.9375 33.78125 L 44.09375 46.90625 L 46.90625 44.09375 L 33.90625 31.0625 C 36.460938 28.085938 38 24.222656 38 20 C 38 10.621094 30.378906 3 21 3 Z M 21 5 C 29.296875 5 36 11.703125 36 20 C 36 28.296875 29.296875 35 21 35 C 12.703125 35 6 28.296875 6 20 C 6 11.703125 12.703125 5 21 5 Z"></path>
+                    </svg>
+                    <ul className={`addr-ul ${queryResult.length > 0 ? 'p-[10px]' : ''}`}>
+                        {queryResult.map((result, index) => (
+                            <li key={`address_` + index} className={`hover:cursor-pointer addr-container`}
+                                onClick={() => setAddressHandler(result)}>
+                                <div className={``}>
+                                    <div className={`h-[30px] line-h-30 `}><span
+                                        className={`addr_type `}>도로명</span> {result.road_address?.address_name}</div>
+                                    <div className={`h-[30px] line-h-30 `}><span
+                                        className={`addr_type `}>지 번</span>{result.address_name}</div>
+                                </div>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
             }
 
-            <div id='map' style={{width: "100%", height: "calc(100vh - (50px + 8rem))"}} ></div>
+            <div id='map' style={{width: "100%", height: "calc(100vh - (50px + 8rem))"}}></div>
 
             <GrowupSecion className={``} drawup={drawup ? drawup : undefined} height={height}>
-                <div className={'draw-up-handler'} onClick={()=>setDrawup(!drawup)}><div className={`draw-up-handler-pointer`}></div> </div>
+                <div className={'draw-up-handler'} onClick={() => setDrawup(!drawup)}>
+                    <div className={`draw-up-handler-pointer`}></div>
+                </div>
                 <div className={'text-[15px] h-[30px]w-[210px] mb-[5px] text-[#9b9696]'}>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
                          stroke="currentColor" className={`w-5 h-5 inline-block mr-1`}>
@@ -246,17 +310,19 @@ function Create(props) {
                     <span className={`align-middle mt-1`}>각 코스는 9홀을 기본으로 합니다. </span>
                 </div>
                 <div className={`create-field shadow-wix`}>
-                    <div className={`create-filed-body`}   style={{ height: drawup ? height +'px' : '0px', padding :drawup? '10px':''  }}>
+                    <div className={`create-filed-body`}
+                         style={{height: drawup ? height + 'px' : '0px', padding: drawup ? '10px' : ''}}>
                         <div className={`flex`}>
                             <div className={''}>
                                 <img src={Pin} className={`w-[23px] h-[23px] inline-block`}/>
-                                <span className={`text-[16px] text-[#166AEAFF]`}>경기장</span><span className={`text-[16px]`}>이름을 입력하세요</span>
+                                <span className={`text-[16px] text-[#166AEAFF]`}>경기장</span><span
+                                className={`text-[16px]`}>이름을 입력하세요</span>
                                 <input
                                     type="text"
                                     placeholder="경기장 명"
                                     value={name}
                                     className={"radius-no indent-2 border-b mt-2 no-outline text-[14px] mt-[15px]"}
-                                    onChange={(e)=>setName(e.target.value)}
+                                    onChange={(e) => setName(e.target.value)}
                                 />
                             </div>
                             <div className={`w-[55px] ml-auto justify-between pt-[4px]`}>
@@ -264,7 +330,7 @@ function Create(props) {
                                 <div>
                                     <input
                                         value={holes}
-                                        onChange={(e)=>holesHandler(e.target.value)}
+                                        onChange={(e) => holesHandler(e.target.value)}
                                         className={`text-center text-[24px] font-bold w-[50px] h-[40px] border no-outline`}/>
                                 </div>
                             </div>
@@ -276,24 +342,26 @@ function Create(props) {
                                 placeholder="상세주소"
                                 value={addressDetail}
                                 className={"radius-no indent-2 border-b w-full no-outline text-[14px]"}
-                                onChange={(e)=>setAddressDetail(e.target.value)}
+                                onChange={(e) => setAddressDetail(e.target.value)}
                             />
                         </div>
                     </div>
 
 
-
-                    <div className={`create-filed-foot`} style={{background:drawup? '#166AEAFF':'', color:drawup? 'white':'#166AEAFF' }}>
+                    <div className={`create-filed-foot`}
+                         style={{background: drawup ? '#166AEAFF' : '', color: drawup ? 'white' : '#166AEAFF'}}>
                         {/*<div className={``} onClick={saveField}>*/}
-                        <div className={``}  onClick={()=>{
-                            if(drawup) saveField()
+                        <div className={``} onClick={() => {
+                            if (drawup) saveField()
                             else setDrawup(!drawup)
                         }}>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
-                                 stroke="currentColor" className={`inline-block align-middle w-4 h-4 rounded-lg ${drawup ?'bg-[white] text-[#166AEAFF]':'bg-[#166AEAFF] text-[white]' }  items-center`}>
+                                 stroke="currentColor"
+                                 className={`inline-block align-middle w-4 h-4 rounded-lg ${drawup ? 'bg-[white] text-[#166AEAFF]' : 'bg-[#166AEAFF] text-[white]'}  items-center`}>
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15"/>
                             </svg>
-                            <span className={`inline-block ml-1 text-[16px] align-middle `}>{drawup ? '저장하기' : '경기장 등록하기'} </span>
+                            <span
+                                className={`inline-block ml-1 text-[16px] align-middle `}>{drawup ? '저장하기' : '경기장 등록하기'} </span>
                         </div>
                     </div>
                 </div>
