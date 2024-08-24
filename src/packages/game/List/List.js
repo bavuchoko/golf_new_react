@@ -98,8 +98,9 @@ function List(props) {
                     </div>
                 </div>
                 <div className={"pt-[30px]  bg-[#fff] overflow-y-auto z-0 relative"}>
-                    {data && data._embedded?.gameResponseDtoList.map(each => (
+                    {data && data._embedded?.gameResponseDtoList.map((each, index) => (
                         <SlideComponent
+                            key={index}
                             expose={70}
                             buttons={[
                                 // <DetailBtn uri={`/asset/${each.id}`} />,

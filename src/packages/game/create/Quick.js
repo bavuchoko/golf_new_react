@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import {Link, useNavigate} from "react-router-dom";
-import NumberSelector from "../../components/selectbox/NumberSelector";
-import ToggleSwitch from "../../components/toggle/ToggleSwitch";
-import {quickStart} from "../../api/game/GameService";
+import NumberSelector from "../../../components/selectbox/NumberSelector";
+import ToggleSwitch from "../../../components/toggle/ToggleSwitch";
+import {quickStart} from "../../../api/game/GameService";
 import toast from "react-hot-toast";
 
 function Quick() {

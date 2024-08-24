@@ -1,10 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {useNavigate} from "react-router-dom";
-import Near from "../../field/list/Near";
-import {getFieldList} from "../../../api/field/FieldService";
-import {EachType, TypeSelector} from "../../field/style/style";
-import {gameCreate} from "../../../api/game/GameService";
-import {useHeaderContext} from "../../../layout/context/HeaderContext";
+import Near from "../../../field/list/Near";
+import {getFieldList} from "../../../../api/field/FieldService";
+import {EachType, TypeSelector} from "../../../field/style/style";
+import {gameCreate} from "../../../../api/game/GameService";
 
 function StepField({setStep, data}) {
     const [clicked, setClicked] =useState({id:0})

@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import StepPlayers from "./create/StepPlayers";
-import StepField from "./create/StepField";
+import StepPlayers from "./sub/StepPlayers";
+import StepField from "./sub/StepField";
 import {useSelector} from "react-redux";
 
 function Create(props) {

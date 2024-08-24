@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {useNavigate} from "react-router-dom";
-import ToggleSwitch from "../../../components/toggle/ToggleSwitch";
+import ToggleSwitch from "../../../../components/toggle/ToggleSwitch";
 
 function StepPlayers({setStep, data, fnc, user}) {
     const [tempName, setTempName] =useState('');

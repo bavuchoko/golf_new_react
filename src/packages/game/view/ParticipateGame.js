@@ -3,7 +3,7 @@ import {useSelector} from "react-redux";
 import CloseRY from '../../../resources/icons/close-ry.png'
 import Empty from '../../../resources/icons/emptyuser.png'
 import SliderShowButton from "../../../components/slide/SliderShowButton";
-import {enrollGame, expelPlayer} from "../../../api/game/GameService";
+import {enrollGame, expelPlayer, startGame} from "../../../api/game/GameService";
 
 
 function ParticipateGame({data, width}) {
@@ -19,6 +19,12 @@ function ParticipateGame({data, width}) {
         paddingTop: '5rem',
     };
 
+    const startHandler =()=>{
+        if(window.confirm("경기를 시작합니다.")){
+            startGame(data.id, 1).then(_ =>{
+            })
+        }
+    }
 
     const additionalTagsCount = Math.max(0, maxPlayers - data.players.length);
     return (
@@ -61,13 +67,14 @@ function ParticipateGame({data, width}) {
             </div>
 
             {user && parseInt(user.id) === data.host.id && data.status==="OPEN" &&
-            <div className={`absolute bottom-0 w-full p-5 border`}
+            <div className={` text-center text-[20px] absolute bottom-0 w-full p-5 border`}
                  style={{
                      // background: 'linear-gradient(#e66465, #9198e5)',
                      lineHeight: '60px',
                      boxShadow: '2px 2px 10px #f4f4f4'
                  }}>
-                <SliderShowButton data={data} expose={0}/>
+                {/*<SliderShowButton data={data} expose={0}/>*/}
+                <span className={" text-[#354db0]"} onClick={startHandler}>시작하기</span>
             </div>
             }
 

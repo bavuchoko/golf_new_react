@@ -43,8 +43,8 @@ async function enrollGame(gameId) {
     return await needAuth.put(`/game/enroll/${gameId}`);
 }
 
-async function startGame(gameId) {
-    return await needAuth.put(`/game/play/${gameId}?hole=1`);
+async function startGame(gameId, hole) {
+    return await needAuth.put(`/game/play/${gameId}?hole=${hole}`);
 }
 
 
