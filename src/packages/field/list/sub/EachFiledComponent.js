@@ -43,8 +43,10 @@ function EachFiledComponent({data, modify, list, history, clicked, setClicked })
                 }
 
             </EachFieldFlag>
-            <div className={``}>
-                <p className={`text-[13px] shrink-word`}>{data.name ? data.name : '경기장 명'}</p>
+            <div className={`w-full`}>
+                <div className={`flex w-full`}>
+                    <p className={`text-[13px] shrink-word`}>[{data.city}] {data.name ? data.name : '경기장 명'}</p><p className={`ml-auto rounded-full bg-amber-600 w-[28px] text-center text-[white]`}>{data.holes}</p>
+                </div>
                 <p className={`font-bold text-[14px] shrink-word`}>{data.address ? data.address : '경기장 주소'}</p>
                 <p className={`text-[13px] shrink-word`}>{data.addressDetail ? data.addressDetail : '상세주소'}</p>
             </div>
