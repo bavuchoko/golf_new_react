@@ -2,18 +2,19 @@ import styled from "styled-components";
 
 
 export const SerachAddress = styled.div`
-  margin: 0 auto;
-  z-index: 40;
-  width: calc(100% - 30px);
-  position: fixed;
-  background: white;
-  top: 70px;
-  left: 15px;
-  outline: none;
-  height: 50px;
-  font-size: 18px;
-  padding: 10px;
-  box-shadow: 0 -2px 9px 1px hsla(210, 4%, 21%, 0.4);
+    margin: 0 auto;
+    z-index: 40;
+    font-size: 11px;
+    width: calc(100% - 30px);
+    position: fixed;
+    background: white;
+    top: 70px;
+    left: 15px;
+    outline: none;
+    height: 50px;
+    font-size: 18px;
+    padding: 10px;
+    box-shadow: 0 -2px 9px 1px hsla(210, 4%, 21%, 0.4);
 `;
 
 export const GrowupSecion = styled.div`

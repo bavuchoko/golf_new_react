@@ -4,7 +4,6 @@ import {useNavigate} from "react-router-dom";
 import Pin from '../../resources/icons/pin.png'
 import {GrowupSecion, SerachAddress} from "./style/style";
 import toast from "react-hot-toast";
-import Close from '../../resources/icons/close.png'
 
 const postCodeStyle = {
     width: 'calc(100% - 30px)',
@@ -20,7 +19,6 @@ function Create(props) {
     const kakaoRestKey = process.env.REACT_APP_KAKAO_REST_KEY;
     const [name, setName] = useState("");
     const height =125;
-    const [openAddressModal, setOpenAddressModal] = useState(false);
     const [drawup, setDrawup] = useState(false);
     const [address, setAddress] = useState("");
     const [roadAddress, setRoadAddress] = useState("");
@@ -200,7 +198,11 @@ function Create(props) {
 
     const setSearch =(e)=>{
         if (e.key === 'Enter') {
-            doQuery(query)
+            if(query===''){
+
+            }else{
+                doQuery(query)
+            }
         }
     }
 
@@ -232,68 +234,57 @@ function Create(props) {
     const setAddressHandler =(result)=>{
         const addr = result.address
         const roadAddr=result.road_address;
-        setOpenAddressModal(false);
+
         setAddress(addr.address_name)
         setRoadAddress(roadAddr?.address_name)
         setCity(addr.region_1depth_name)
         setLatitude(addr.y)
         setLongitude(addr.x)
     }
-
     return (
         <>
-            {/*<SerachAddress onClick={handle.clickButton}>{address}</SerachAddress>*/}
-            <SerachAddress
-                onClick={()=>setOpenAddressModal(true)}
-                // onChange={(e) => setQuery(e.target.value)}
-                // onKeyDown={setSearch}
-            >{query}</SerachAddress>
-            {/*<button onClick={doQuery}>검색</button>*/}
-            {openAddressModal &&
-                <div className={`address-modal`}>
-                    <input
-                        className={`h-[50px] w-full outline-0 indent-1 addr-search`}
-                        type="text"
-                        value={query}
-                        onClick={() => setOpenAddressModal(true)}
-                        onChange={(e) => setQuery(e.target.value)}
-                        onKeyDown={setSearch}
-                        placeholder="주소를 입력하세요"/>
-                    {/*<img src={Close} className={`close-search`}/>*/}
-                    <svg onClick={() => {
-                        setQuery('');
-                        setAddress('');
-                        setQueryResults([]);
-                    }} xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50" height="50" viewBox="0 0 50 50"
-                         className={`z-70 fixed right-[55px] top-[70px] w-[20px]`}>
-                        <path
-                            d="M 7.71875 6.28125 L 6.28125 7.71875 L 23.5625 25 L 6.28125 42.28125 L 7.71875 43.71875 L 25 26.4375 L 42.28125 43.71875 L 43.71875 42.28125 L 26.4375 25 L 43.71875 7.71875 L 42.28125 6.28125 L 25 23.5625 Z"></path>
-                    </svg>
+            <div className={`address-modal`}>
+                <input
+                    className={`h-[50px] w-full outline-0 indent-1 addr-search`}
+                    type="text"
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    onKeyDown={setSearch}
+                    placeholder="주소를 입력하세요"/>
+                {/*<img src={Close} className={`close-search`}/>*/}
+                <svg onClick={() => {
+                    setQuery('');
+                    setAddress('');
+                    setQueryResults([]);
+                }} xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50" height="50" viewBox="0 0 50 50"
+                     className={`z-70 fixed right-[55px] top-[70px] w-[20px]`}>
+                    <path
+                        d="M 7.71875 6.28125 L 6.28125 7.71875 L 23.5625 25 L 6.28125 42.28125 L 7.71875 43.71875 L 25 26.4375 L 42.28125 43.71875 L 43.71875 42.28125 L 26.4375 25 L 43.71875 7.71875 L 42.28125 6.28125 L 25 23.5625 Z"></path>
+                </svg>
 
-                    <svg
-                        onClick={() => {
-                            doQuery();
-                        }}
-                        xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50" height="50" viewBox="0 0 50 50"
-                         className={`z-70 fixed right-[25px] top-[70px] w-[20px]`}>
-                        <path
-                            d="M 21 3 C 11.621094 3 4 10.621094 4 20 C 4 29.378906 11.621094 37 21 37 C 24.710938 37 28.140625 35.804688 30.9375 33.78125 L 44.09375 46.90625 L 46.90625 44.09375 L 33.90625 31.0625 C 36.460938 28.085938 38 24.222656 38 20 C 38 10.621094 30.378906 3 21 3 Z M 21 5 C 29.296875 5 36 11.703125 36 20 C 36 28.296875 29.296875 35 21 35 C 12.703125 35 6 28.296875 6 20 C 6 11.703125 12.703125 5 21 5 Z"></path>
-                    </svg>
-                    <ul className={`addr-ul ${queryResult.length > 0 ? 'p-[10px]' : ''}`}>
-                        {queryResult.map((result, index) => (
-                            <li key={`address_` + index} className={`hover:cursor-pointer addr-container`}
-                                onClick={() => setAddressHandler(result)}>
-                                <div className={``}>
-                                    <div className={`h-[30px] line-h-30 `}><span
-                                        className={`addr_type `}>도로명</span> {result.road_address?.address_name}</div>
-                                    <div className={`h-[30px] line-h-30 `}><span
-                                        className={`addr_type `}>지 번</span>{result.address_name}</div>
-                                </div>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-            }
+                <svg
+                    onClick={() => {
+                        doQuery();
+                    }}
+                    xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50" height="50" viewBox="0 0 50 50"
+                     className={`z-70 fixed right-[25px] top-[70px] w-[20px]`}>
+                    <path
+                        d="M 21 3 C 11.621094 3 4 10.621094 4 20 C 4 29.378906 11.621094 37 21 37 C 24.710938 37 28.140625 35.804688 30.9375 33.78125 L 44.09375 46.90625 L 46.90625 44.09375 L 33.90625 31.0625 C 36.460938 28.085938 38 24.222656 38 20 C 38 10.621094 30.378906 3 21 3 Z M 21 5 C 29.296875 5 36 11.703125 36 20 C 36 28.296875 29.296875 35 21 35 C 12.703125 35 6 28.296875 6 20 C 6 11.703125 12.703125 5 21 5 Z"></path>
+                </svg>
+                <ul className={`addr-ul ${queryResult.length > 0 ? 'p-[10px]' : ''}`}>
+                    {queryResult.map((result, index) => (
+                        <li key={`address_` + index} className={`hover:cursor-pointer addr-container`}
+                            onClick={() => setAddressHandler(result)}>
+                            <div className={``}>
+                                <div className={`h-[30px] line-h-30 `}><span
+                                    className={`addr_type `}>도로명</span> {result.road_address?.address_name}</div>
+                                <div className={`h-[30px] line-h-30 `}><span
+                                    className={`addr_type `}>지 번</span>{result.address_name}</div>
+                            </div>
+                        </li>
+                    ))}
+                </ul>
+            </div>
 
             <div id='map' style={{width: "100%", height: "calc(100vh - (50px + 8rem))"}}></div>
 

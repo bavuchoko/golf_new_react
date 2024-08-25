@@ -18,7 +18,7 @@ function FinalScore() {
     }, [])
     const courseMap = {};
     let maxCourse = 1;
-    game.sheets.forEach(sheet => {
+    game?.sheets.forEach(sheet => {
         const { course, hole } = sheet;
         if (course > maxCourse) {
             maxCourse = course;

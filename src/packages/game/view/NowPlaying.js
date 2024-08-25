@@ -224,7 +224,7 @@ function NowPlaying({data}) {
                                     setNumber={scoreChangeHandler}/>
                     <div className={`w-5-6`}>
                         <RighterBtn onClick={nextRoundHandler}
-                                    endable={data.round % 9 === 0 ? 'true' : undefined}>다음</RighterBtn>
+                                    endable={data.round % 9 === 0 ? 'true' : undefined}>다음 홀</RighterBtn>
                         <EndBtn onClick={endGameHandler} endable={data.round % 9 === 0 ? 'true' : undefined}>종료</EndBtn>
                     </div>
                 </Counter>

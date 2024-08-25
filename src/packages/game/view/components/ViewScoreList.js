@@ -52,9 +52,9 @@ function ViewScoreList({sheets, players, clickedPlayer, isHost, setClickedHole, 
     return (
         <ScoreList isHost={isHost}>
             <div className={`flex h-[50px] line-h-50 justify-center w-full border`}>
-                <div className={`w-[49%] text-center ${open.CurrentRound ? 'font-bold' : ''}`}  onClick={()=>dp(opener({key:'CurrentRound'}))}>현재 스코어</div>
+                <div className={`w-[49%] text-center ${open.CurrentRound ? 'font-bold' : ''}`}  onClick={()=>dp(opener({key:'CurrentRound'}))}>홀 스코어</div>
                 <div className={`splicer h-[30px] mt-[10px]`}/>
-                <div className={`w-[49%] text-center ${!open.CurrentRound ? 'font-bold' : '' }`} onClick={()=>dp(closer({key:'CurrentRound'}))}>코스별 총점</div>
+                <div className={`w-[49%] text-center ${!open.CurrentRound ? 'font-bold' : '' }`} onClick={()=>dp(closer({key:'CurrentRound'}))}>코스 스코어</div>
             </div>
             <ScoreListContainer isHost={isHost}>
 
