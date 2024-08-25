@@ -51,12 +51,12 @@ function Quick() {
             </div>
 
             <div className={"px-[30px] pt-10 mb-4 text-[gray]"}>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
-                     stroke="currentColor" className={`w-5 h-5 inline-block mr-1 `}>
-                    <path strokeLinecap="round" strokeLinejoin="round"
-                          d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z"/>
-                </svg>
-                <span className={`align-middle text-[14px] `}>본인 포함 동반자 수를 선택하면 </span><p className={` text-[14px] `}> 나머지는 자동 입력되어 빠르게 시작할 수 있습니다.</p>
+                {/*<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"*/}
+                {/*     stroke="currentColor" className={`w-5 h-5 inline-block mr-1 `}>*/}
+                {/*    <path strokeLinecap="round" strokeLinejoin="round"*/}
+                {/*          d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z"/>*/}
+                {/*</svg>*/}
+                {/*<span className={`align-middle text-[14px] `}>본인 포함 동반자 수를 선택하면 </span><p className={` text-[14px] `}> 나머지는 자동 입력되어 빠르게 시작할 수 있습니다.</p>*/}
             </div>
 
 

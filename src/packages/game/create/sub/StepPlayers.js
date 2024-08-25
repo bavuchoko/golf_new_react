@@ -31,7 +31,7 @@ function StepPlayers({setStep, data, fnc, user}) {
             <div className="w-full line-h-40 py-[5px] line-h-50 h-[55px] ">
                 <div className="inline-block w-[100%] flex h-[50px]" >
                     <p onClick={()=>navigate(-1)}>뒤로</p>
-                    <div className={"ml-auto w-[36px]"}>
+                    <div className={"ml-auto w-[85px]"}>
                         <span className={" text-[#354db0]"} onClick={() => {
                             setStep('경기장')
                         }}>경기장 선택</span>
@@ -43,7 +43,7 @@ function StepPlayers({setStep, data, fnc, user}) {
             <div className={``}></div>
             <div className={`w-full`}>
                 <input type={``} id={'names'} value={tempName} onChange={
-                    (e)=>setTempName(e.target.value)} className={"border-bottom-black indent-3 w-full h-[55px] no-outline "} placeholder={'동반자이름 입력'} autoFocus={true}/>
+                    (e)=>setTempName(e.target.value)} className={"border-bottom-black indent-3 w-full h-[55px] no-outline "} placeholder={'동반자 이름'} autoFocus={true}/>
                 <button  className={"mt-5 nextBtn" }  onClick={()=>{
 
                     setPlayerNames();
