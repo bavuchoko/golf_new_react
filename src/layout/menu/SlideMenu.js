@@ -23,9 +23,9 @@ function SlideMenu({open, setOpen }) {
             {id:8, title:'경기장 기록관리', link : '/field/private' },
             ]},
         { id:4, title: '연습매치', link : undefined, children: [
-            {id:9, title:'연습매치 목록', link : '/game'},
-            {id:10, title:'빠른시작', link : '/game/quick'},
-            {id:12, title:'연습매치 생성', link : '/game/create'}
+            {id:9, title:'연습경기 목록', link : '/game'},
+            {id:10, title:'간편시작', link : '/game/quick'},
+            {id:12, title:'연습경기', link : '/game/create'}
             ] },
         { id:5, title: '문의하기', link : undefined, children: [{id:7, title:'자주하는 질문', link : '/contact'}] },
     ];
