@@ -16,7 +16,11 @@ function StepPlayers({setStep, data, fnc, user}) {
 
 
     function setPlayerNames() {
-        if(idx < 2) setIdx(()=>idx+1)
+        if(tempName.trim() ==='' || tempName == null) {
+            alert('이름을 입력하세요')
+            return;
+        }
+        if(tempName!=='' && idx < 2) setIdx(()=>idx+1)
         if (!data.names) {
             fnc({...data, names: [tempName]});
         }else if (data.names.length < 3 && tempName.trim() !== '') {
@@ -34,7 +38,7 @@ function StepPlayers({setStep, data, fnc, user}) {
                     <div className={"ml-auto w-[85px]"}>
                         <span className={" text-[#354db0]"} onClick={() => {
                             setStep('경기장')
-                        }}>경기장 선택</span>
+                        }}>경기장 선택</span>´
                     </div>
                 </div>
             </div>
