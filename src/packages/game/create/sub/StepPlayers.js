@@ -38,14 +38,14 @@ function StepPlayers({setStep, data, fnc, user}) {
                     <div className={"ml-auto w-[85px]"}>
                         <span className={" text-[#354db0]"} onClick={() => {
                             setStep('경기장')
-                        }}>경기장 선택</span>´
+                        }}>경기장 선택</span>
                     </div>
                 </div>
             </div>
 
 
             <div className={``}></div>
-            <div className={`w-full`}>
+            <div className={`w-full mt-[30px]`}>
                 <input type={``} id={'names'} value={tempName} onChange={
                     (e)=>setTempName(e.target.value)} className={"border-bottom-black indent-3 w-full h-[55px] no-outline "} placeholder={'동반자 이름'} autoFocus={true}/>
                 <button  className={"mt-5 nextBtn" }  onClick={()=>{
@@ -53,7 +53,7 @@ function StepPlayers({setStep, data, fnc, user}) {
                     setPlayerNames();
                     setTempName('')
                     document.getElementById('names').focus();
-                }}>동반자 추가</button>
+                }}>추가</button>
             </div>
 
             <div>

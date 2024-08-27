@@ -375,9 +375,11 @@ code {
 }
 
 .nextBtn{
+  position: absolute;
+  top :70px;
+  right: 32px;
   display: block;
-  width: 100%;
-
+  width: 50px;
   border-radius: 4px;
   color: white;
   background: var(--main-btn-color);

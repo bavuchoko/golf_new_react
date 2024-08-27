@@ -54,6 +54,7 @@ async function endGame(gameId) {
 
 
 async function expelPlayer(gameId, targetId) {
-    return await needAuth.put(`/game/expel/${gameId}`,{params: {target: {id: targetId}}});
+    console.log(targetId)
+    return await needAuth.put(`/game/expel/${gameId}`, {id: targetId});
 }
 export {gameCreate, getGameList, quickStart, enrollGame, startGame, endGame, expelPlayer, gameInfo, deleteGame, };

@@ -26,6 +26,16 @@ function ParticipateGame({data, width}) {
         }
     }
 
+    const expelPlayerHandler =(gameId, playerId, playerName)=>{
+        let message =playerId===user.id?  '퇴장하시겠습니까 ?' : `${playerName} 을 퇴장시키겠습니까?`
+        if(window.confirm(` ${message}`))
+            expelPlayer(gameId,playerId).then(_=>{
+                if(_.status ===200){
+
+                }
+            })
+    }
+
     const additionalTagsCount = Math.max(0, maxPlayers - data.players.length);
     return (
         <>
@@ -35,14 +45,14 @@ function ParticipateGame({data, width}) {
                          key={player.id}>
                         {user && parseInt(user.id) === data.host.id ?
                             player.id !== data.host.id &&
-                            <img className="expel-player bg-gray-each" onClick={() => expelPlayer(data.id, player.id)} src={CloseRY}/>
+                            <img className="expel-player bg-gray-each" onClick={() => expelPlayerHandler(data.id, player.id, player.name)} src={CloseRY}/>
                             :
                             user && parseInt(user.id, 10) === player.id &&
-                            <img className="expel-player" onClick={() => expelPlayer(data.id, player.id)} src={CloseRY}/>
+                            <img className="expel-player" onClick={() => expelPlayerHandler(data.id, player.id, player.name)} src={CloseRY}/>
                         }
                         <div style={{width: width + 'px', height: width + 'px', lineHeight: width + 'px'}}
                              className='box-shadow each-player'>
-                            {player.name.substring(1, 3)}
+                            {player.name.length >2 ? player.name.substring(1, 3) : player.name}
                         </div>
                     </div>
                 ))}
