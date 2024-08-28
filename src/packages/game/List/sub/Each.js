@@ -23,9 +23,9 @@ function Each({each}) {
                     {each.status === 'END' &&
                         <span className={`game-each-status end`}>종료됨</span>}
 
-                    <span>{each.field ? each.field.name : '정보 없음'}</span>
-                    <span className={'vertical-slicer'}/>
-                    <span className={``}>{each.field ? each.field.address : ''}</span>
+                    <span className={`inline-block min-w-[40px] text-center`}>{each.field ? each.field.name : ' - '}</span>
+                    <span className={'vertical-slicer px-[3px]'}/>
+                    <span className={``}>{each.field ? each.field.address.length > 14 ? each.field.address.substring(0,11) + '...': each.field.address : ' - '}</span>
                 </div>
 
             </div>
@@ -37,7 +37,7 @@ function Each({each}) {
                      style={{width: `${each.players.length * 40}px`}}>
                     {each.players.map(user => (
                         <div key={user.id}
-                             className={`game-each-user-each`}>{user.name.substring(user.name.length - 2, user.name.length)}</div>
+                             className={`game-each-user-each`}>{user.name.length >2 ? user.name.substring(user.name.length - 2, user.name.length) : user.name}</div>
                     ))}
                 </div>
             </div>
