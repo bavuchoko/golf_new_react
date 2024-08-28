@@ -4,7 +4,7 @@ import {EachType, TypeSelector} from "./style/style";
 import Near from "./list/Near";
 import City from "./list/City";
 import All from "./list/All";
-import {getFieldList} from "../../api/field/FieldService";
+import {getFieldList, getNearFieldList} from "../../api/field/FieldService";
 
 function List(props) {
     const geolocation = useGeolocation();
@@ -12,9 +12,12 @@ function List(props) {
     const longitude = geolocation.longitude
     const [data, setData] = useState();
     const [clicked, setClicked] =useState({id:0})
+    const [option , setOption] = useState('near' );
+
     const [search, setSearch] =useState({
         searchTxt:"",
-        city:"전체"
+        city:"전체",
+        option:option
     });
     const [pageable, setPageable] =useState({
         sort:"name",
@@ -28,7 +31,21 @@ function List(props) {
     async function getList() {
 
         try {
-            const response = await getFieldList(search, pageable);
+            let response = null;
+            if (option === 'near' && navigator.geolocation) {
+                const position = await new Promise((resolve, reject) => {
+                    navigator.geolocation.getCurrentPosition(resolve, reject);
+                });
+
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
+
+                // 위치 기반 검색 함수 호출
+                response = await getNearFieldList(search, pageable, latitude, longitude);
+            } else {
+                // 일반 검색 함수 호출
+                response = await getFieldList(search, pageable);
+            }
             if(response.status===200){
                 response.data.option = option;
                 setData(response.data);
@@ -43,9 +60,9 @@ function List(props) {
         }
     }
     useEffect(() => {
-        getList();
+        getList(option);
     }, [pageable.page]);
-    const [option , setOption] = useState('near' );
+
 
     return (
         <div className={``}>
