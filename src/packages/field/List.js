@@ -32,22 +32,33 @@ function List(props) {
 
         try {
             let response = null;
+                console.log(option)
             if (option === 'near' && navigator.geolocation) {
+                console.log("aaaaaa")
                 const position = await new Promise((resolve, reject) => {
-                    navigator.geolocation.getCurrentPosition(resolve, reject);
+                    navigator.geolocation.getCurrentPosition(resolve, reject, {
+                        enableHighAccuracy: true,
+                        timeout: 10000, // 10초 대기
+                        maximumAge: 300000 // 최근 5분 이내의 위치 정보 사용
+                    });
+                }).catch(error => {
+                    console.error("Geolocation error: ", error);
                 });
+                console.log(position)
 
                 const latitude = position.coords.latitude;
                 const longitude = position.coords.longitude;
 
-                // 위치 기반 검색 함수 호출
                 response = await getNearFieldList(search, pageable, latitude, longitude);
             } else {
+                console.log("ccc")
                 // 일반 검색 함수 호출
                 response = await getFieldList(search, pageable);
             }
+            console.log(response)
             if(response.status===200){
                 response.data.option = option;
+                console.log(response)
                 setData(response.data);
                 setPageable((prevState) => ({
                     ...prevState,
@@ -56,12 +67,13 @@ function List(props) {
                 }));
             }
         } catch (error) {
+            console.log(error)
         }finally {
         }
     }
     useEffect(() => {
-        getList(option);
-    }, [pageable.page]);
+        getList();
+    }, [pageable.page, option]);
 
 
     return (

@@ -7,10 +7,10 @@ function All({data, clicked, setClicked}) {
     return (
         <>
             <FieldListContainer >
-                {data && data._embedded.fieldsResponseDtoList.map(each=>(
+                {data && data._embedded && data._embedded.fieldsResponseDtoList.map(each=>(
                     <EachFiledComponent key={'near_'+each.id} modify={true} data={each}  clicked={clicked} setClicked={setClicked}/>
                 ))}
-                {!data &&
+                {(!data || !data._embedded) &&
                     <Nocontent />
                 }
             </FieldListContainer>

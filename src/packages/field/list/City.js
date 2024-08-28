@@ -32,10 +32,10 @@ function City({data, clicked, setClicked, select, setSelect}) {
             <TypeSelectBox  height={400} options={city} select={select} setSelect={setSelect}/>
             </div>
             <FieldListContainer >
-                {data && data._embedded.fieldsResponseDtoList.map(each=>(
+                {data && data._embedded && data._embedded.fieldsResponseDtoList.map(each=>(
                     <EachFiledComponent key={'city_'+each.id} modify={true} data={each}  clicked={clicked} setClicked={setClicked}/>
                 ))}
-                {!data &&
+                {(!data || !data._embedded) &&
                     <Nocontent />
                 }
             </FieldListContainer>
