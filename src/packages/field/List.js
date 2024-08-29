@@ -7,18 +7,16 @@ import All from "./list/All";
 import {getFieldList, getNearFieldList} from "../../api/field/FieldService";
 
 function List(props) {
-    const geolocation = useGeolocation();
-    const latitude = geolocation.latitude
-    const longitude = geolocation.longitude
     const [data, setData] = useState();
     const [clicked, setClicked] =useState({id:0})
     const [option , setOption] = useState('near' );
-
-    const [search, setSearch] =useState({
-        searchTxt:"",
-        city:"전체",
-        option:option
+    const [select, setSelect] = useState({
+        value:null,
+        label:'전체'
     });
+
+    const initSearch={searchTxt:""}
+    const [search, setSearch] =useState(initSearch);
     const [pageable, setPageable] =useState({
         sort:"name",
         desc:true,
@@ -32,9 +30,7 @@ function List(props) {
 
         try {
             let response = null;
-                console.log(option)
             if (option === 'near' && navigator.geolocation) {
-                console.log("aaaaaa")
                 const position = await new Promise((resolve, reject) => {
                     navigator.geolocation.getCurrentPosition(resolve, reject, {
                         enableHighAccuracy: true,
@@ -43,22 +39,20 @@ function List(props) {
                     });
                 }).catch(error => {
                     console.error("Geolocation error: ", error);
+                    alert('위치서비스 권한설정이 필요합니다.')
                 });
-                console.log(position)
 
                 const latitude = position.coords.latitude;
                 const longitude = position.coords.longitude;
 
                 response = await getNearFieldList(search, pageable, latitude, longitude);
             } else {
-                console.log("ccc")
+                console.log(`search : ${search.city}`)
                 // 일반 검색 함수 호출
                 response = await getFieldList(search, pageable);
             }
-            console.log(response)
             if(response.status===200){
                 response.data.option = option;
-                console.log(response)
                 setData(response.data);
                 setPageable((prevState) => ({
                     ...prevState,
@@ -71,9 +65,29 @@ function List(props) {
         }finally {
         }
     }
+
     useEffect(() => {
         getList();
-    }, [pageable.page, option]);
+    }, [pageable.page, search]);
+
+    useEffect(() => {
+        setSearch((prev) => {
+            if (select.value === null) {
+                const {city, ...rest} = prev;
+                return rest;
+            } else {
+                return {
+                    ...prev,
+                    city: select.value
+                };
+            }
+            getList();
+        })
+    }, [select]);
+
+    useEffect(() => {
+        setSearch(initSearch)
+    }, [option]);
 
 
     return (
@@ -86,7 +100,7 @@ function List(props) {
             <>
                 { option  === "all" && <All data={data} clicked={clicked} setClicked={setClicked}/>}
                 { option  === "near" && <Near data={data} clicked={clicked} setClicked={setClicked} />}
-                { option  === "city" && <City data={data} clicked={clicked} setClicked={setClicked} select={search.city} setSelect={setSearch}/>}
+                { option  === "city" && <City data={data} clicked={clicked} setClicked={setClicked} select={select} setSelect={setSelect}/>}
             </>
         </div>
     );

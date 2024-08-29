@@ -47,19 +47,15 @@ function TypeSelectBox({options, select, setSelect, height}) {
     const optionRef = useRef(null);
     const [showOptions, setShowOptions] = useState(false);
 
-    const handleOnChangeSelectValue = (e) => {
-        setSelect((prev) => {
-            return {
-                ...prev,
-                city: e.target.getAttribute("value")
-            }
-        })
+    const handleOnChangeSelectValue = (each) => {
+        setSelect(each)
     };
 
     useEffect(() => {
         function handleClickOutside(event) {
             if (optionRef.current && !optionRef.current.contains(event.target)) {
                 setShowOptions(false);
+
             }
         }
         document.addEventListener("mousedown", handleClickOutside);
@@ -71,13 +67,13 @@ function TypeSelectBox({options, select, setSelect, height}) {
 
     return (
         <SelectBox onClick={() => setShowOptions((prev) => !prev)} ref={optionRef}>
-            <Label>{select}</Label>
+            <Label>{select.label}</Label>
             <SelectOptions height={height} show={showOptions ? "true" :undefined }>
                 {options  && options.map((each) => (
                     <Option
                         key={each.id}
                         value={each.value}
-                        onClick={handleOnChangeSelectValue}
+                        onClick={()=>handleOnChangeSelectValue(each)}
                     >
                         {each.label}
                     </Option>
