@@ -4,6 +4,7 @@ import ParticipateGame from "./ParticipateGame";
 import NowPlaying from "./NowPlaying";
 import useGameData from "./useGameData";
 import {useSelector} from "react-redux";
+import MainHeader from "../../../layout/header/MainHeader";
 
 function View({}) {
 

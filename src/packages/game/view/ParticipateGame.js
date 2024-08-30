@@ -1,11 +1,14 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useSelector} from "react-redux";
 import CloseRY from '../../../resources/icons/close-ry.png'
 import Empty from '../../../resources/icons/emptyuser.png'
 import SliderShowButton from "../../../components/slide/SliderShowButton";
 import {enrollGame, expelPlayer, startGame} from "../../../api/game/GameService";
 import {BackPressButton} from "./style/StyleView";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import MainHeader from "../../../layout/header/MainHeader";
+import menu from "../../../resources/icons/menu.png";
+import SlideMenu from "../../../layout/menu/SlideMenu";
 
 
 function ParticipateGame({data, width, user}) {
@@ -37,17 +40,51 @@ function ParticipateGame({data, width, user}) {
                 }
             })
     }
-
+    const [open, setOpen]=useState(false)
+    const openHandler = () =>{
+        if(open) document.body.style.removeProperty('overflow');
+        else document.body.style.overflow = 'hidden';
+        setOpen(!open)
+    }
     const additionalTagsCount = Math.max(0, maxPlayers - data.players.length);
     return (
         <>
+            {isHost && data.status==="OPEN" ?
+                <div className="px-[30px] w-full line-h-40 py-[5px] line-h-50 h-[55px] z-999 fixed top-0 bg-white">
+                    <div className="inline-block w-[100%] flex h-[50px]">
+                        <p onClick={() => {
+                            navigate(-1)
+                        }}>뒤로</p>
+                        <div className={"ml-auto w-[72px]"}>
+                            <span className={" text-[#354db0]"} onClick={startHandler}>시작하기</span>
+                        </div>
+                    </div>
+                </div>
+            :
+                <>
+                    <div className="w-full  px-[30px] py-[5px] line-h-50 nav-bar h-[45px]">
+
+                        <div className="inline-block  line-h-35 w-[100%] flex h-[35px]">
+                            <p onClick={() => {
+                                navigate(-1)
+                            }}>뒤로</p>
+                            <button onClick={openHandler} className={"ml-auto"}>
+                                <img className="w-7 h-7 " alt="menu" src={menu}/>
+                            </button>
+                        </div>
+                    </div>
+                    <SlideMenu open={open} setOpen={setOpen}/>
+                    {open  && <div className={"fixed top-0 left-0 w-full h-full bg-[rgba(31,48,60,.9)] z-999"} onClick={()=>setOpen(false)}></div>  }
+                </>
+            }
             <div className=" m-auto h-[200px] " style={gridStyle}>
                 {data.players.map((player, index) => (
                     <div className={`m-auto`} style={{width: width + 'px', height: width + 'px'}}
                          key={player.id}>
                         {user && parseInt(user.id) === data.host.id ?
                             player.id !== data.host.id &&
-                            <img className="expel-player bg-gray-each" onClick={() => expelPlayerHandler(data.id, player.id, player.name)} src={CloseRY}/>
+                            <img className="expel-player bg-gray-each"
+                                 onClick={() => expelPlayerHandler(data.id, player.id, player.name)} src={CloseRY}/>
                             :
                             user && parseInt(user.id, 10) === player.id &&
                             <img className="expel-player" onClick={() => expelPlayerHandler(data.id, player.id, player.name)} src={CloseRY}/>
@@ -77,21 +114,6 @@ function ParticipateGame({data, width, user}) {
                     })
                 }
             </div>
-
-            {user && parseInt(user.id) === data.host.id && data.status==="OPEN" &&
-            <div className={` text-center text-[20px] absolute bottom-0 w-full p-5 border`}
-                 style={{
-                     // background: 'linear-gradient(#e66465, #9198e5)',
-                     lineHeight: '60px',
-                     boxShadow: '2px 2px 10px #f4f4f4'
-                 }}>
-                {/*<SliderShowButton data={data} expose={0}/>*/}
-                <span className={" text-[#354db0]"} onClick={startHandler}>시작하기</span>
-            </div>
-            }
-            <BackPressButton isHost={isHost} onClick={()=>{
-                navigate(-1)
-            }}/>
         </>
     );
 }

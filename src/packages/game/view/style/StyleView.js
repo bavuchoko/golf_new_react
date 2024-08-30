@@ -66,7 +66,7 @@ export const ScoreList = styled.div.withConfig({
     shouldForwardProp: (prop) => shouldForwardProp(prop) && prop !== 'isOpen'
 })`     
     text-align: center;
-    height: ${props => props.isHost ? 'calc(var(--vh, 1vh) * 100 - 250px)' : 'calc(var(--vh, 1vh) * 100 - 180px)'};
+    height: ${props => props.isHost ? 'calc(var(--vh, 1vh) * 100 - 250px)' : 'calc(var(--vh, 1vh) * 100 - 130px)'};
 `;
 
 export const ScoreListContainer = styled.div.withConfig({
@@ -219,6 +219,8 @@ export const BackPressButton = styled.button`
     bottom:  ${props => props.isHost ? '220px' : '120px'};
     background: url(${BackBtn}) no-repeat center center;
     background-size: cover;
-    background-size: 70%
+    background-size: 70%;
+    background-color: white;
+    
     
 `;

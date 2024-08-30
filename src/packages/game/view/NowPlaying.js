@@ -7,6 +7,7 @@ import {nextRound, putScore} from "../../../api/score/ScoreService";
 import MemoOnGame from "./components/MemoOnGame";
 import {endGame} from "../../../api/game/GameService";
 import {useNavigate} from "react-router-dom";
+import MainHeader from "../../../layout/header/MainHeader";
 
 
 function NowPlaying({data, user}) {
@@ -183,7 +184,7 @@ function NowPlaying({data, user}) {
 
     return (
         <>
-
+            <MainHeader />
             {/*점수목록*/}
             <ViewScoreList sheets={data.sheets} players={data.players} isHost={isHost} field={data.field}
                            clickedPlayer={clickedPlayer}

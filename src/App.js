@@ -53,8 +53,8 @@ function App() {
                         <Route path="/" element={isLoggedIn ? <Layout />: <Info />} >
                             <Route index element={ <Home />} />
                             <Route path="/game"  element={ <List />} />
-                            <Route path="/game/:id"  element={ <View />} />
                             <Route path="/game/score/:id"  element={ <FinalScore />} />
+                            <Route path="/game/:id"  element={ <View />} />
 
                             <Route path="/field/:action"  element={ <FieldContainer />} />
                         </Route>
