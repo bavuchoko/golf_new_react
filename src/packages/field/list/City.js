@@ -4,7 +4,7 @@ import EachFiledComponent from "./sub/EachFiledComponent";
 import Nocontent from "../../../components/exception/Nocontent";
 import TypeSelectBox from "../../../components/selectbox/TypeSelectBox";
 
-function City({data, clicked, setClicked, select, setSelect}) {
+function City({data, checker, clicked, setClicked, select, setSelect}) {
 
     const city=[
         {id:0, value:null, label:'전체'},
@@ -32,7 +32,7 @@ function City({data, clicked, setClicked, select, setSelect}) {
             </div>
             <FieldListContainer >
                 {data && data._embedded && data._embedded.fieldsResponseDtoList.map(each=>(
-                    <EachFiledComponent key={'city_'+each.id} modify={true} data={each}  clicked={clicked} setClicked={setClicked}/>
+                    <EachFiledComponent key={'city_'+each.id} checker={checker} data={each}  clicked={clicked} setClicked={setClicked}/>
                 ))}
                 {(!data || !data._embedded) &&
                     <Nocontent />

@@ -4,6 +4,7 @@ import Near from "../../../field/list/Near";
 import {getFieldList} from "../../../../api/field/FieldService";
 import {EachType, TypeSelector} from "../../../field/style/style";
 import {gameCreate} from "../../../../api/game/GameService";
+import All from "../../../field/list/All";
 
 function StepField({setStep, data}) {
     const [clicked, setClicked] =useState({id:0})
@@ -24,10 +25,8 @@ function StepField({setStep, data}) {
 
     }
 
-    const [search, setSearch] =useState({
-        searchTxt:"",
-        city:"전체"
-    });
+    const initSearch={searchTxt:""}
+    const [search, setSearch] =useState(initSearch);
 
     const [pageable, setPageable] =useState({
         sort:"name",
@@ -65,7 +64,7 @@ function StepField({setStep, data}) {
                     <EachType  option={option==='near' ? "true":undefined} onClick={()=>setOption('near')}>가까운 곳</EachType>
                     <EachType  option={option==='city' ? "true":undefined} onClick={()=>setOption('city')}>지역별</EachType>
                 </TypeSelector>
-                <Near data={field} list={true} clicked={clicked} setClicked={setClicked} />
+                <All data={field} checker clicked={clicked} setClicked={setClicked} />
             </>
         </div>
     );
