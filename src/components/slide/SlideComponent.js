@@ -9,9 +9,8 @@ function SlideComponent({id, expose, children, buttons }) {
     }));
 
     useEffect(() => {
-        console.log(id)
             set({ pos: [0, 0], immediate: true});
-    }, [id, set]);
+    }, [id]);
 
     const bind = useDrag(({ down, movement: [mx, my] }) => {
         if (Math.abs(mx) < Math.abs(my)) {
