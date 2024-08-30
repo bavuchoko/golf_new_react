@@ -10,6 +10,7 @@ import {finish} from "../../../redux/slice/apiSlice";
 import Each from "./sub/Each";
 import SlideComponent from "../../../components/slide/SlideComponent";
 import Delete_Slide_Btn from "../../../components/buttons/Delete_Slide_Btn";
+import toast from "react-hot-toast";
 
 
 function List(props) {
@@ -76,6 +77,7 @@ function List(props) {
                             totalElements: prevData.totalElements - 1
                         };
                     });
+                    toast.success('삭제되었습니다..')
                 }
             }).then(
                 dp(finish())
@@ -101,6 +103,7 @@ function List(props) {
                     {data && data._embedded?.gameResponseDtoList.map((each, index) => (
                         <SlideComponent
                             key={index}
+                            id={each.id}
                             expose={70}
                             buttons={[
                                 // <DetailBtn uri={`/asset/${each.id}`} />,
