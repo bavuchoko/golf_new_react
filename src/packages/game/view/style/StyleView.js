@@ -155,8 +155,9 @@ export const MemoController = styled.div.withConfig({
     shouldForwardProp: (prop) => shouldForwardProp(prop) && prop !== 'isOpen'
 })`
     width: 50px;
+    height: 50px;
     border-radius: 50%;
-    padding: 7px;
+    padding: 0px;
     position: absolute;
     background:  white; 
     z-index: 10;
@@ -212,8 +213,8 @@ export const MemoPushButton = styled.button.withConfig({
 export const BackPressButton = styled.button`
     position: absolute;
     border-radius: 50%;
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     box-shadow:0 4px 9px 2px hsla(0, 1%, 17%, 0.5);
     left: 20px;
     bottom:  ${props => props.isHost ? '220px' : '120px'};

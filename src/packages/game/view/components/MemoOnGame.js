@@ -157,7 +157,7 @@ function MemoOnGame({isHost, field, selected}) {
 
             <MemoController
                 onClick={() => dp(toggleModal({key:'MemoOnGame'}))}>
-                <img src={Pencil} className={`w-[40px]`}/>
+                <img src={Pencil} className={`w-[50px]  h-[50px] p-[10px]`}/>
             </MemoController>
         </MemoContainer>
 
