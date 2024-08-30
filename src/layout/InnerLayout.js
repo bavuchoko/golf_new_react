@@ -1,16 +1,17 @@
 import React from 'react';
 import {Outlet} from "react-router-dom";
-import MainHeader from "./header/MainHeader";
+import HomeHeader from "./header/HomeHeader";
 import {useSelector} from "react-redux";
 import LoadingModal from "../components/modal/LoadingModal";
+import InnerHeader from "./header/InnerHeader";
 
-function Layout() {
+function InnerLayout() {
 
 
 
     return (
         <>
-            <MainHeader />
+            <InnerHeader/>
             <div className="containers">
                 <Outlet/>
             </div>
@@ -18,4 +19,4 @@ function Layout() {
     );
 }
 
-export default Layout;
+export default InnerLayout;

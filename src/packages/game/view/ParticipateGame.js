@@ -6,7 +6,7 @@ import SliderShowButton from "../../../components/slide/SliderShowButton";
 import {enrollGame, expelPlayer, startGame} from "../../../api/game/GameService";
 import {BackPressButton} from "./style/StyleView";
 import {Link, useNavigate} from "react-router-dom";
-import MainHeader from "../../../layout/header/MainHeader";
+import HomeHeader from "../../../layout/header/HomeHeader";
 import menu from "../../../resources/icons/menu.png";
 import SlideMenu from "../../../layout/menu/SlideMenu";
 
@@ -40,16 +40,11 @@ function ParticipateGame({data, width, user}) {
                 }
             })
     }
-    const [open, setOpen]=useState(false)
-    const openHandler = () =>{
-        if(open) document.body.style.removeProperty('overflow');
-        else document.body.style.overflow = 'hidden';
-        setOpen(!open)
-    }
+
     const additionalTagsCount = Math.max(0, maxPlayers - data.players.length);
     return (
         <>
-            {isHost && data.status==="OPEN" ?
+            {isHost &&
                 <div className="px-[30px] w-full line-h-40 py-[5px] line-h-50 h-[55px] z-999 fixed top-0 bg-white">
                     <div className="inline-block w-[100%] flex h-[50px]">
                         <p onClick={() => {
@@ -60,22 +55,6 @@ function ParticipateGame({data, width, user}) {
                         </div>
                     </div>
                 </div>
-            :
-                <>
-                    <div className="w-full  px-[30px] py-[5px] line-h-50 nav-bar h-[45px]">
-
-                        <div className="inline-block  line-h-35 w-[100%] flex h-[35px]">
-                            <p onClick={() => {
-                                navigate(-1)
-                            }}>뒤로</p>
-                            <button onClick={openHandler} className={"ml-auto"}>
-                                <img className="w-7 h-7 " alt="menu" src={menu}/>
-                            </button>
-                        </div>
-                    </div>
-                    <SlideMenu open={open} setOpen={setOpen}/>
-                    {open  && <div className={"fixed top-0 left-0 w-full h-full bg-[rgba(31,48,60,.9)] z-999"} onClick={()=>setOpen(false)}></div>  }
-                </>
             }
             <div className=" m-auto h-[200px] " style={gridStyle}>
                 {data.players.map((player, index) => (

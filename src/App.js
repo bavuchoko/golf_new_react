@@ -1,6 +1,6 @@
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import './App.css';
-import Layout from "./layout/Layout";
+import HomeLayout from "./layout/HomeLayout";
 import {HeaderContextProvider} from "./layout/context/HeaderContext";
 import Login from "./packages/user/Login";
 import Info from "./layout/container/Info";
@@ -20,6 +20,7 @@ import FinalScore from "./packages/game/view/FinalScore";
 import Test from "./packages/Test";
 import LoadingModal from "./components/modal/LoadingModal";
 import ErrorModal from "./components/modal/ErrorModal";
+import InnerLayout from "./layout/InnerLayout";
 
 function App() {
     const dispatch = useDispatch();
@@ -50,14 +51,19 @@ function App() {
                 <Toaster />
                 <Router>
                     <Routes>
-                        <Route path="/" element={isLoggedIn ? <Layout />: <Info />} >
+                        <Route path="/" element={isLoggedIn ? <HomeLayout />: <Info />} >
                             <Route index element={ <Home />} />
                             <Route path="/game"  element={ <List />} />
-                            <Route path="/game/score/:id"  element={ <FinalScore />} />
-                            <Route path="/game/:id"  element={ <View />} />
+
 
                             <Route path="/field/:action"  element={ <FieldContainer />} />
                         </Route>
+                        <Route path="/" element={isLoggedIn ? <InnerLayout />: <Info />} >
+                            <Route index element={ <Home />} />
+                            <Route path="/game/score/:id"  element={ <FinalScore />} />
+                            <Route path="/game/:id"  element={ <View />} />
+                        </Route>
+
                         <Route path="/login"  element={ <Login />} />
                         <Route path="/join"  element={ <Join />} />
                         <Route path="/game/quick"  element={isLoggedIn? <Quick /> : <Login />} />
