@@ -4,12 +4,14 @@ import CloseRY from '../../../resources/icons/close-ry.png'
 import Empty from '../../../resources/icons/emptyuser.png'
 import SliderShowButton from "../../../components/slide/SliderShowButton";
 import {enrollGame, expelPlayer, startGame} from "../../../api/game/GameService";
+import {BackPressButton} from "./style/StyleView";
+import {useNavigate} from "react-router-dom";
 
 
-function ParticipateGame({data, width}) {
-
-    const user = useSelector((state) => state.user.user);
+function ParticipateGame({data, width, user}) {
+    const isHost = user.id===data.host.id
     const maxPlayers = 4;
+    const navigate =useNavigate();
     const gridStyle = {
         display: 'grid',
         gridTemplateColumns: `repeat(${maxPlayers}, minmax(0, 1fr))`,
@@ -87,7 +89,9 @@ function ParticipateGame({data, width}) {
                 <span className={" text-[#354db0]"} onClick={startHandler}>시작하기</span>
             </div>
             }
-
+            <BackPressButton isHost={isHost} onClick={()=>{
+                navigate(-1)
+            }}/>
         </>
     );
 }

@@ -2,16 +2,15 @@ import React, {useState} from 'react';
 import NumberSelector from "../../../components/selectbox/NumberSelector";
 import {useSelector} from "react-redux";
 import ViewScoreList from "./components/ViewScoreList";
-import {Counter, EndBtn, LefterBtn, PlayerDiv, RighterBtn} from "./style/StyleView";
+import {BackPressButton, Counter, EndBtn, LefterBtn, PlayerDiv, RighterBtn} from "./style/StyleView";
 import {nextRound, putScore} from "../../../api/score/ScoreService";
 import MemoOnGame from "./components/MemoOnGame";
 import {endGame} from "../../../api/game/GameService";
 import {useNavigate} from "react-router-dom";
 
 
-function NowPlaying({data}) {
+function NowPlaying({data, user}) {
 
-    const user = useSelector((state) => state.user.user);
     const navigate =useNavigate();
     const isHost = user.id===data.host.id
     const [showCurrentRound, setShowCurrentRound] = useState(true);
@@ -230,7 +229,9 @@ function NowPlaying({data}) {
                 </Counter>
             }
 
-
+            <BackPressButton isHost={isHost} onClick={()=>{
+                navigate(-1)
+            }}/>
         </>
     );
 }

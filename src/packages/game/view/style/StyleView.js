@@ -1,6 +1,6 @@
 import styled, {keyframes} from "styled-components";
 import shouldForwardProp, {props} from "@styled-system/should-forward-prop";
-
+import BackBtn from '../../../../resources/icons/backpress.png';
 
 export const Counter = styled.div`
         display: flex;
@@ -206,4 +206,19 @@ export const MemoPushButton = styled.button.withConfig({
     float: right;
     color: white;
     background: var(--main-btn-color);
+`;
+
+
+export const BackPressButton = styled.button`
+    position: absolute;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    box-shadow:0 4px 9px 2px hsla(0, 1%, 17%, 0.5);
+    left: 20px;
+    bottom:  ${props => props.isHost ? '220px' : '120px'};
+    background: url(${BackBtn}) no-repeat center center;
+    background-size: cover;
+    background-size: 70%
+    
 `;
