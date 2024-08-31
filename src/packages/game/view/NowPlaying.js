@@ -153,9 +153,11 @@ function NowPlaying({data, user}) {
     const nextRoundHandler =()=>{
         if(isZeroHitPlayerExist(data)) {
             if (isHost) {
-                if (window.confirm("입력되지 않은 사람이 있습니다. 진행하시겠습니까")) {
-                    progressRound(data.id);
-                }
+                alert('아직 입력되지 않은 사람이 있습니다.')
+                return;
+                // if (window.confirm("입력되지 않은 사람이 있습니다. 진행하시겠습니까")) {
+                //     progressRound(data.id);
+                // }
             }
         }else{
             if (window.confirm("다음 홀 진행하시겠습니까")) {
