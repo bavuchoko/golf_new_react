@@ -1,0 +1,9 @@
+.big-text{
+    margin: 0;
+    font-size: 40px;
+    font-weight: bold;
+    line-height: 1.35;
+    letter-spacing: -1.5px;
+    word-spacing: 1.5px;
+    text-align: center;
+}

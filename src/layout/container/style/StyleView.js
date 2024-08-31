@@ -6,32 +6,37 @@ export const IntroContainer = styled.div.withConfig({
     shouldForwardProp: (prop) => shouldForwardProp(prop) && prop !== 'isLoggedIn'
 })`
     background: #fafafa;
-    height: ${props => props.isLoggedIn ? 'calc(var(--vh, 1vh) * 100 - 45px)' : 'calc(var(--vh, 1vh) * 100 - 65px)'}; 
 `;
-export const IntroSection = styled.div.withConfig({
-    shouldForwardProp: (prop) => shouldForwardProp(prop) && prop !== 'isLoggedIn'
-})`
-    position: relative;
-`;
-
 export const IntroContents = styled.div.withConfig({
     shouldForwardProp: (prop) => shouldForwardProp(prop) && prop !== 'isLoggedIn'
 })`
     background: #fafafa;
-    height: ${props => props.isLoggedIn ? 'calc(var(--vh, 1vh) * 100 - 45px)' : 'calc(var(--vh, 1vh) * 100 - 65px)'};
 `;
 
-export const IntroActions = styled.div.withConfig({
-    shouldForwardProp: (prop) => shouldForwardProp(prop) && prop !== 'isLoggedIn'
-})`
-    z-index: 20;
-    left: 0;
+
+export const IntroMessageContainer = styled.div`
     position: absolute;
-    bottom: 80px;
-    width: 100%;
-    height: 40px;
+    left: calc(50% - 140px);
+    @media screen and (min-height: 845px) {
+        top: 300px;
+    }
+    @media screen and (max-height: 844px) {
+        top:200px;
+    }
 `;
 
+export const IntroButtonContainer = styled.div`
+    position: absolute;
+    // top: ${props => props.isLoggedIn ? 'calc(var(--vh, 1vh) * 100 - 45px)' : 'calc(var(--vh, 1vh) * 100 - 65px)'};
+    @media screen and (min-height: 845px) {
+        top: calc(var(--vh, 1vh) * 100 - 300px); /* 700 이상일 때 */
+    }
+
+    @media screen and (max-height: 844px) {
+        top: calc(var(--vh, 1vh) * 100 - 200px); /* 700 미만일 때 */
+    }
+    left: calc(50% - 140px);
+`;
 
 export const IntroBlueRoundButton = styled.a`
     display: inline-block;

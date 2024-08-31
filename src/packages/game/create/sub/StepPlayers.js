@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {useNavigate} from "react-router-dom";
-import ToggleSwitch from "../../../../components/toggle/ToggleSwitch";
+import Trash from '../../../../resources/icons/trashCan.png'
 
 function StepPlayers({setStep, data, fnc, user}) {
     const [tempName, setTempName] =useState('');
@@ -16,6 +16,10 @@ function StepPlayers({setStep, data, fnc, user}) {
 
 
     function setPlayerNames() {
+        if(data.names?.length > 2){
+            alert('최대 4명까지 입력할 수 있습니다.');
+            return;
+        }
         if(tempName.trim() ==='' || tempName == null) {
             alert('이름을 입력하세요')
             return;
@@ -57,27 +61,22 @@ function StepPlayers({setStep, data, fnc, user}) {
             </div>
 
             <div>
-                <div className={`each-player flex h-[30px] mt-[20px] mb-[5px]` } >
+                <div className={`text-2xl flex h-[30px] mt-[20px] mb-[5px]` } >
 
                     {/*<span className={`mr-3 inline-block`}>1번</span>*/}
                     <p className={``} placeholder={ ``}>{user.name}</p>
                 </div>
             {data?.names?.map((_, index) =>(
-                <div className={`each-player flex h-[30px] mb-[5px]`} key={index}>
+                <div className={`text-2xl flex h-[30px] mb-[5px]`} key={index}>
 
                     {/*<span className={`mr-3 inline-block`}>{index + 2}번</span>*/}
                     <p className={`text-left w-[100px]`} placeholder={``}>{data.names[index]}</p>
 
-                    <svg width="800px" height="800px" viewBox="0 0 1024 1024" onClick={()=> {
+
+                    <img src={Trash} className={`ml-[20px] w-[25px] h-[25px]`} onClick={()=> {
                         removePlayer(index);
                         document.getElementById('names').focus();
-                    }}
-                         className="ml-3  h-[24px] w-[24px] mt-[3px]" version="1.1"
-                         xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M512 128C300.8 128 128 300.8 128 512s172.8 384 384 384 384-172.8 384-384S723.2 128 512 128z m0 85.333333c66.133333 0 128 23.466667 179.2 59.733334L273.066667 691.2C236.8 640 213.333333 578.133333 213.333333 512c0-164.266667 134.4-298.666667 298.666667-298.666667z m0 597.333334c-66.133333 0-128-23.466667-179.2-59.733334l418.133333-418.133333C787.2 384 810.666667 445.866667 810.666667 512c0 164.266667-134.4 298.666667-298.666667 298.666667z"
-                            fill="#D50000"/>
-                    </svg>
+                    }}/>
                 </div>
             ))}
             </div>
