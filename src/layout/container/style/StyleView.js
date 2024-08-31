@@ -26,7 +26,9 @@ export const IntroMessageContainer = styled.div`
 `;
 
 export const IntroButtonContainer = styled.div`
+    width: 320px;
     position: absolute;
+    display: flex;
     // top: ${props => props.isLoggedIn ? 'calc(var(--vh, 1vh) * 100 - 45px)' : 'calc(var(--vh, 1vh) * 100 - 65px)'};
     @media screen and (min-height: 845px) {
         top: calc(var(--vh, 1vh) * 100 - 300px); /* 700 이상일 때 */
@@ -35,12 +37,13 @@ export const IntroButtonContainer = styled.div`
     @media screen and (max-height: 844px) {
         top: calc(var(--vh, 1vh) * 100 - 200px); /* 700 미만일 때 */
     }
-    left: calc(50% - 140px);
+    left: calc(50% - 160px);
 `;
 
 export const IntroBlueRoundButton = styled.a`
-    display: inline-block;
+    display: block;
     font-size: 15px;
+    margin: auto;
     border-radius: 30px;
     background-color: var(--main-btn-color);
     padding: 8px 6px;
