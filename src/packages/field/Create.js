@@ -34,6 +34,7 @@ function Create(props) {
     var geocoder = new kakao.maps.services.Geocoder();
     const [query, setQuery] = useState('');
     const [queryResult, setQueryResults] = useState([]);
+    const [totalCount, setTotalCount] = useState(0);
 
     var positions = [
         {
@@ -201,16 +202,17 @@ function Create(props) {
             if(query===''){
 
             }else{
-                doQuery(query)
+                doQuery(query,1)
             }
         }
     }
 
-    const doQuery = async () => {
-        const encodedQuery = encodeURIComponent(query);
+    const doQuery = async (value, page) => {
+        console.log("a")
+        const encodedQuery = encodeURIComponent(value);
         try {
             const response = await fetch(
-                `https://dapi.kakao.com/v2/local/search/address.json?analyze_type=similar&query=`+encodedQuery,
+                `https://dapi.kakao.com/v2/local/search/address.json?page=${page}&size=5&query=`+encodedQuery,
                 {
                     method: 'GET',
                     headers: {
@@ -223,8 +225,8 @@ function Create(props) {
                 throw new Error('Network response was not ok');
             }
             const data = await response.json();
-            console.log(data)
             setQueryResults(data.documents);
+            setTotalCount(data.meta.total_count)
 
         } catch (error) {
             console.error('Error fetching data:', error);
@@ -234,12 +236,20 @@ function Create(props) {
     const setAddressHandler =(result)=>{
         const addr = result.address
         const roadAddr=result.road_address;
-
-        setAddress(addr.address_name)
+        console.log(result)
+        setAddress(result.address_name)
         setRoadAddress(roadAddr?.address_name)
-        setCity(addr.region_1depth_name)
-        setLatitude(addr.y)
-        setLongitude(addr.x)
+        setCity(result.region_1depth_name)
+        setLatitude(result.y)
+        setLongitude(result.x)
+    }
+
+    const onChangeHandler =(value)=>{
+        setQuery(value)
+        // if(value.length >4){
+        //     doQuery(value)
+        // }
+
     }
     return (
         <>
@@ -248,13 +258,14 @@ function Create(props) {
                     className={`h-[50px] w-full outline-0 indent-1 addr-search`}
                     type="text"
                     value={query}
-                    onChange={(e) => setQuery(e.target.value)}
+                    onChange={(e) => onChangeHandler(e.target.value)}
                     onKeyDown={setSearch}
                     placeholder="주소를 입력하세요"/>
                 {/*<img src={Close} className={`close-search`}/>*/}
                 <svg onClick={() => {
                     setQuery('');
                     setAddress('');
+                    setTotalCount(0);
                     setQueryResults([]);
                 }} xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50" height="50" viewBox="0 0 50 50"
                      className={`z-70 fixed right-[55px] top-[70px] w-[20px]`}>
@@ -264,7 +275,7 @@ function Create(props) {
 
                 <svg
                     onClick={() => {
-                        doQuery();
+                        doQuery(query, 1);
                     }}
                     xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50" height="50" viewBox="0 0 50 50"
                      className={`z-70 fixed right-[25px] top-[70px] w-[20px]`}>
@@ -284,6 +295,15 @@ function Create(props) {
                         </li>
                     ))}
                 </ul>
+                {totalCount > 5 &&
+                    <ul className={`w-full flex justify-center h-[34px] pt-[4px]`}>
+                        {Array.from({ length: parseInt(totalCount/5) }, (_, index) => (
+                            <li key={index} className={`w-[26px] h-[26px] bg-gray-200 text-center line-h-26 mx-[3px] text-[13px] rounded-full`} onClick={()=>{
+                                doQuery(query,index+1)
+                            }}>{index + 1}</li>
+                        ))}
+                    </ul>
+                }
             </div>
 
             <div id='map' style={{width: "100%", height: "calc(100vh - (50px + 8rem))"}}></div>
