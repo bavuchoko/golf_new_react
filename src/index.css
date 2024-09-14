@@ -379,16 +379,16 @@ code {
 
 .nextBtn{
   position: absolute;
-  top :70px;
-  right: 32px;
+  top :-15px;
+  right: 0px;
   display: block;
   width: 50px;
   border-radius: 4px;
   color: white;
   background: var(--main-btn-color);
-  height: 45px;
-  line-height: 45px;
-  font-size: 18px;
+  height: 35px;
+  line-height: 35px;
+  font-size: 16px;
   text-align: center;
 }
 

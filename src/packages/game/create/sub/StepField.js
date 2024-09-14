@@ -1,33 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {useNavigate} from "react-router-dom";
-import Near from "../../../field/list/Near";
 import {getFieldList} from "../../../../api/field/FieldService";
-import {EachType, TypeSelector} from "../../../field/style/style";
-import {gameCreate} from "../../../../api/game/GameService";
-import All from "../../../field/list/All";
+import {SimpleEachField, SimpleFieldListContainer} from "../../../field/style/style";
+import Nocontent from "../../../../components/exception/Nocontent";
 
-function StepField({setStep, data}) {
-    const [clicked, setClicked] =useState({id:0})
-    const navigate = useNavigate();
-
-    function startGameHandler (){
-        let newData;
-        if(clicked.id==0){
-            newData = { ...data, field: null };
-        }else{
-            newData = { ...data, field: {id:clicked.id} };
-        }
-
-        gameCreate(newData).then(_=> {
-            navigate('/game/' + _.data.id)
-        }).finally(()=> {
-        });
-
-    }
-
+function StepField({field, setField, setStep}) {
     const initSearch={searchTxt:""}
     const [search, setSearch] =useState(initSearch);
-
+    const [fieldHidden, setFieldHidden] =useState(false)
     const [pageable, setPageable] =useState({
         sort:"name",
         desc:true,
@@ -37,35 +16,55 @@ function StepField({setStep, data}) {
         page:0
     });
     const [option , setOption] = useState('near' );
-    const [field, setField] = useState();
+
+    const [fields, setFields] = useState();
     useEffect(() => {
         getFieldList(search, pageable).then(_ => {
-            setField(_.data);
+            setFields(_.data);
         })
     }, []);
 
+    const clickHandler =(id)=>{
+        if (id===field?.id) {
+            setField(null)
+        }
+        else {
+            setField({id:id})
+            setStep(2)
+        }
+    }
+
+
+    const fieldHiddenHandler =(value)=>{
+        setField(null)
+        setFieldHidden(value)
+        setStep(2)
+    }
+
     return (
         <div className={""}>
-            <div className="px-[30px] w-full line-h-40 py-[5px] line-h-50 h-[55px] ">
-                <div className="inline-block w-[100%] flex h-[50px]" >
-                    <p onClick={() => {
-                        setStep('이름')
-                    }}>뒤로</p>
-                    <div className={"ml-auto w-[72px]"}>
-                        <span className={" text-[#354db0]"} onClick={startGameHandler}>시작하기</span>
-                    </div>
-
-                </div>
+            <div className={'flex px-[30px] '}>
+                <p className={`w-[100px] my-[10px]`}>경기장 선택</p>
+                <p className={`text-right w-[70px] my-[10px] ml-auto`} onClick={()=>fieldHiddenHandler(!fieldHidden)}>{fieldHidden ? '보기':'선택안함'}</p>
             </div>
+            <SimpleFieldListContainer >
+                {fields && fields._embedded && fields._embedded.fieldsResponseDtoList.map(each=>(
+                    <SimpleEachField
+                        selected={(!fieldHidden  && (field == null || (field !==null && field.id ==each.id))) ? true : undefined}  onClick={()=>clickHandler(each.id)}>
+                        <div className={`w-full`}>
+                            <div className={`flex w-full`}>
+                                <p className={`text-[16px] shrink-word`}>[{each.city}] {each.name ? each.name : '경기장 명'}</p>
+                                <p className={`ml-auto text-center `}>{each.holes} 홀</p>
+                            </div>
+                        </div>
+                    </SimpleEachField>
+                ))}
 
-            <>
-                <TypeSelector className={`type-selector`}>
-                    <EachType  option={option==='all' ? "true":undefined} onClick={()=>setOption('all')}>전체보기</EachType>
-                    <EachType  option={option==='near' ? "true":undefined} onClick={()=>setOption('near')}>가까운 곳</EachType>
-                    <EachType  option={option==='city' ? "true":undefined} onClick={()=>setOption('city')}>지역별</EachType>
-                </TypeSelector>
-                <All data={field} checker clicked={clicked} setClicked={setClicked} />
-            </>
+
+                {(!fields || !fields._embedded) &&
+                    <Nocontent />
+                }
+            </SimpleFieldListContainer>
         </div>
     );
 }

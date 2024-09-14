@@ -79,6 +79,14 @@ export const FieldListContainer = styled.div`
   height: calc(100vh - 294px);
   overflow-y: scroll;
 `;
+export const SimpleFieldListContainer = styled.div`
+    width: 100%;
+    max-height: calc(100vh - 294px);
+    background-color: #618ed0;
+    padding: 1px 0;
+    overflow-y: scroll;
+`;
+
 export const EachField = styled.div`
   display: flex;
   width: 100%;
@@ -87,6 +95,18 @@ export const EachField = styled.div`
   background: ${({ selected }) => (selected ? '#f0fdf0' : 'white')};
   border-bottom: 1px solid var(--main-inner-color);
 `;
+
+export const SimpleEachField = styled.div`
+  display: ${({ selected }) => (selected ? 'flex' : 'none')};
+  padding: 0 30px;  
+  width: 100%;
+  background-color: white;
+  height: 40px;
+  line-height: 40px;
+  border-bottom: 1px solid var(--main-inner-color);
+`;
+
+
 export const EachFieldFlag = styled.div`
   margin-top: 15px;
   background: white;
