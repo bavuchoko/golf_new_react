@@ -17,15 +17,15 @@ function SlideMenu({open, setOpen }) {
 
     const MENU_LIST = [
         { id:2, title: '홈으로', link : '/', children: [] },
-        { id:3, title: '경기장', link : undefined, children: [
-            {id:6, title:'경기장 조회하기', link : '/field/list' },
-            {id:7, title:'경기장 등록하기', link : '/field/create' },
-            {id:8, title:'경기장 기록관리', link : '/field/private' },
+        { id:3, title: '구장관리', link : undefined, children: [
+            {id:6, title:'구장 조회하기', link : '/field/list' },
+            {id:7, title:'구장 등록하기', link : '/field/create' },
+            {id:8, title:'구장 기록관리', link : '/field/private' },
             ]},
         { id:4, title: '연습매치', link : undefined, children: [
-            {id:9, title:'연습경기 목록', link : '/game'},
+            {id:9, title:'연습매치 목록', link : '/game'},
             {id:10, title:'간편시작', link : '/game/quick'},
-            {id:12, title:'연습경기', link : '/game/create'}
+            {id:12, title:'연습매치 시작하기', link : '/game/create'}
             ] },
         { id:5, title: '문의하기', link : undefined, children: [{id:7, title:'자주하는 질문', link : '/contact'}] },
     ];

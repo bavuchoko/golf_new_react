@@ -6,7 +6,7 @@ function DropMenu({open}) {
         <div className={`dropMenu ${open ? 'drop-in' : ''}`}>
             <ul>
                 <li>홈으로</li>
-                <li>경기장 등록하기</li>
+                <li>구장 등록하기</li>
                 <li>연습매치 등록하기</li>
                 <li>문의하기</li>
             </ul>

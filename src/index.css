@@ -593,6 +593,9 @@ ul.dropLi > a >li{
 .box-shadow{
   filter: drop-shadow(3px 3px 3px rgba(168, 167, 167, 0.6));
 }
+.shadow{
+  box-shadow: 2px 2px 7px #dfdfe3;
+}
 .each-player{
   font-size: 1.4rem;
   font-weight: bold;

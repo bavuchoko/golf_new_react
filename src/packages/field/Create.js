@@ -326,7 +326,7 @@ function Create(props) {
                         <div className={`flex`}>
                             <div className={''}>
                                 <img src={Pin} className={`w-[23px] h-[23px] inline-block`}/>
-                                <span className={`text-[16px] text-[#166AEAFF]`}>경기장</span><span
+                                <span className={`text-[16px] text-[#166AEAFF]`}>구장</span><span
                                 className={`text-[16px]`}>이름을 입력하세요</span>
                                 <input
                                     type="text"

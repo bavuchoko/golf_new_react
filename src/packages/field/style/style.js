@@ -82,7 +82,7 @@ export const FieldListContainer = styled.div`
 export const SimpleFieldListContainer = styled.div`
     width: 100%;
     max-height: 200px;
-    background-color: #618ed0;
+    background-color: #d9e0ec;
     padding: 1px 0;
     overflow-y: scroll;
 `;

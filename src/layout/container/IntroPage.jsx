@@ -28,12 +28,12 @@ const MyComponent = () => {
 
                 <IntroContainer isLoggedIn={isLoggedIn}>
                     <IntroMessage>
-                        <p className={`text-center`}>경기장을 등록하고</p>
+                        <p className={`text-center`}>구장을 등록하고</p>
                         <p className={`text-center`}>메모를 관리하세요</p>
                     </IntroMessage>
                     <IntroButtonDouble>
-                        <a href={"/field/list"} >경기장 조회</a>
-                        <a href={"/field/create"} >경기장 조회</a>
+                        <a href={"/field/list"} >구장 조회</a>
+                        <a href={"/field/create"} >구장 등록</a>
                     </IntroButtonDouble>
                 </IntroContainer>
 
