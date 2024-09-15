@@ -187,6 +187,9 @@ code {
 .no-outline{
   outline: none;
 }
+.slick-slider{
+  /*margin-left: 25px !important;*/
+}
 .z-999{
   z-index: 998;
 }
