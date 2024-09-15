@@ -190,6 +190,9 @@ code {
 .z-999{
   z-index: 998;
 }
+.line-h-20{
+  line-height: 20px;
+}
 .line-h-26{
   line-height: 26px;
 }

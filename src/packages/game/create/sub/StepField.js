@@ -43,7 +43,7 @@ function StepField({field, setField, setStep}) {
 
     return (
         <div className={""}>
-            <div className={'flex px-[30px] '}>
+            <div className={`flex px-[30px] ${field && field.id ? 'hidden' :''}`}>
                 <p className={`w-[100px] my-[10px]`}>경기장 선택</p>
                 <p className={`text-right w-[70px] my-[10px] ml-auto`} onClick={()=>fieldHiddenHandler(!fieldHidden)}>{fieldHidden ? '보기':'선택안함'}</p>
             </div>

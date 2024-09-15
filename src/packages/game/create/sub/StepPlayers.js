@@ -36,13 +36,9 @@ function StepPlayers({names, setNames}) {
 
     return (
         <div className={"px-[30px] mt-[30px]"}>
-            <p>동반자 입력</p>
             <div>
-                <div className={`text-[18px] flex h-[30px] mt-[20px] mb-[5px]`}>
-
-                    {/*<span className={`mr-3 inline-block`}>1번</span>*/}
-                    <p className={``} placeholder={``}>{user.name}</p>
-                </div>
+                <p className={``} placeholder={``}>{user.name}</p>
+                <p className={`my-[10px]`}>동반자 입력</p>
                 {names.map((_, index) => (
                     <div className={`text-[18px] flex h-[30px] mb-[5px]`} key={index}>
 
@@ -58,7 +54,7 @@ function StepPlayers({names, setNames}) {
                 ))}
             </div>
 
-            <div className={`w-[160px] mt-[20px] relative`}>
+            <div className={`w-[160px] relative`}>
                 <input type={``} id={'names'} value={inputText} onChange={
                     (e) => setInputText(e.target.value)}
                        className={"border-bottom-black w-full h-[45px] no-outline "} placeholder={'동반자 이름'}

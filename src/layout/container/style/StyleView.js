@@ -52,3 +52,16 @@ export const IntroBlueRoundButton = styled.a`
     text-align: center;
     box-shadow:0 4px 9px 2px hsla(210, 2%, 50%, 0.4);
 `;
+
+
+export const IndicatorDot = styled.div.withConfig({
+    shouldForwardProp: (prop) => shouldForwardProp(prop) && prop !== 'isLoggedIn'
+})`
+    border-radius: 50%;
+    background-color: gray;
+    text-align: center;
+    width: 10px;
+    height: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+`;
