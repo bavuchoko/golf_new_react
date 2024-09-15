@@ -8,6 +8,7 @@ import {tokenValidate} from "../../api/auth/AuthService";
 import {logout} from "../../redux/slice/authSlice";
 import {useDispatch} from "react-redux";
 import {finish} from "../../redux/slice/apiSlice";
+import BrandName from "../BrandName";
 
 
 function HomeHeader() {
@@ -40,7 +41,7 @@ function HomeHeader() {
 
             <div className="inline-block  line-h-35 w-[100%] flex h-[35px]" >
                 <Link to={"/"}>
-                    <span className={"Headland font-bold text-[20px]"}>P</span>arkGolf
+                    <BrandName />
                 </Link>
                 <button onClick={openHandler} className={"ml-auto"}>
                     <img className="w-7 h-7 " alt="menu" src={menu}/>

@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import {useLogin} from "../../api/auth/AuthService";
 import {useHeaderContext} from "../../layout/context/HeaderContext";
+import BrandName from "../../layout/BrandName";
 
 function Login() {
     const location = useLocation();
@@ -55,7 +56,7 @@ function Login() {
             <div className="w-full  px-[30px] line-h-40 py-[5px] line-h-50 h-[55px] ">
                 <div className="inline-block w-[100%] flex h-[50px]" >
                     <Link to={"/"}>
-                        <span className={"Headland font-bold text-[20px]"}>P</span>arkGolf
+                       <BrandName />
                     </Link>
                     <p className={`ml-auto text-[15px] text-[blue] hover:cursor-pointer`} onClick={()=>navigate(-1)}>뒤로가기</p>
                 </div>

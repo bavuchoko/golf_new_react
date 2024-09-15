@@ -1,14 +1,11 @@
 import React, {useState} from 'react';
 import StepPlayers from "./sub/StepPlayers";
 import StepField from "./sub/StepField";
-import {useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {gameCreate} from "../../../api/game/GameService";
 
-function Create(props) {
+function Create() {
 
-
-    const [game, setGame] = useState({});
     const [field, setField] =useState(null);
     const [names, setNames]=useState([]);
     const [step, setStep] = useState(1);
@@ -34,7 +31,7 @@ function Create(props) {
                     <p onClick={() => {
                         navigate(-1)
                     }}>뒤로</p>
-                    <div className={"ml-auto w-[32px]"}>
+                    <div className={"ml-auto w-[40px] text-right"}>
                         <span className={" text-[#354db0]"}
                               onClick={startGameHandler}
                         >다음</span>
