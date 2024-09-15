@@ -38,7 +38,6 @@ function StepPlayers({names, setNames}) {
         <div className={"px-[30px] mt-[30px]"}>
             <div>
                 <p className={``} placeholder={``}>{user.name}</p>
-                <p className={`my-[10px]`}>동반자 입력</p>
                 {names.map((_, index) => (
                     <div className={`text-[18px] flex h-[30px] mb-[5px]`} key={index}>
 

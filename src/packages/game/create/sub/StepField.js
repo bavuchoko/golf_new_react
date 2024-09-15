@@ -6,7 +6,7 @@ import Nocontent from "../../../../components/exception/Nocontent";
 function StepField({field, setField, setStep}) {
     const initSearch={searchTxt:""}
     const [search, setSearch] =useState(initSearch);
-    const [fieldHidden, setFieldHidden] =useState(false)
+    const [fieldHidden, setFieldHidden] =useState(true)
     const [pageable, setPageable] =useState({
         sort:"name",
         desc:true,
@@ -30,7 +30,6 @@ function StepField({field, setField, setStep}) {
         }
         else {
             setField({id:id})
-            setStep(2)
         }
     }
 
@@ -38,14 +37,14 @@ function StepField({field, setField, setStep}) {
     const fieldHiddenHandler =(value)=>{
         setField(null)
         setFieldHidden(value)
-        setStep(2)
     }
 
     return (
         <div className={""}>
             <div className={`flex px-[30px] ${field && field.id ? 'hidden' :''}`}>
-                <p className={`w-[100px] my-[10px]`}>경기장 선택</p>
-                <p className={`text-right w-[70px] my-[10px] ml-auto`} onClick={()=>fieldHiddenHandler(!fieldHidden)}>{fieldHidden ? '보기':'선택안함'}</p>
+                <p className={`text-left my-[10px] w-[80px] active:bg-amber-300`} onClick={()=>fieldHiddenHandler(false)}>경기장선택</p>
+                <p className={`text-right my-[10px] w-[80px] ml-auto active:bg-amber-300`} onClick={()=>fieldHiddenHandler(true)}>선택안함</p>
+                {/*<p>선택암함</p>*/}
             </div>
             <SimpleFieldListContainer >
                 {fields && fields._embedded && fields._embedded.fieldsResponseDtoList.map(each=>(

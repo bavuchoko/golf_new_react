@@ -33,7 +33,7 @@ const MyComponent = () => {
                     </IntroMessage>
                     <IntroButtonDouble>
                         <a href={"/field/list"} >경기장 조회</a>
-                        <a href={"/field/create"} >경기장 등록</a>
+                        <a href={"/field/create"} >경기장 조회</a>
                     </IntroButtonDouble>
                 </IntroContainer>
 

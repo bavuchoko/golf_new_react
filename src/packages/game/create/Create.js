@@ -8,7 +8,6 @@ function Create() {
 
     const [field, setField] =useState(null);
     const [names, setNames]=useState([]);
-    const [step, setStep] = useState(1);
     const navigate = useNavigate();
 
     const startGameHandler =()=> {
@@ -39,10 +38,8 @@ function Create() {
 
                 </div>
             </div>
-            <StepField field={field} setField={setField} setStep={setStep}/>
-            {step >1 &&
+            <StepField field={field} setField={setField}/>
             <StepPlayers names={names} setNames={setNames}/>
-            }
         </div>
     );
 }
