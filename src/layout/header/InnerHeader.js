@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import menu from '../../resources/icons/menu.png'
 import SlideMenu from "../menu/SlideMenu";
-import {Link, useNavigate} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import {useQuery} from "react-query";
 import {tokenValidate} from "../../api/auth/AuthService";
 
@@ -33,15 +33,18 @@ function InnerHeader() {
             }else{}
         },
     });
-
+    const location = useLocation();
+    const firstSlashIndex = location.pathname.indexOf('/');
+    const lastSlashIndex = location.pathname.lastIndexOf('/');
+    const result = location.pathname.substring(firstSlashIndex ,lastSlashIndex+ 1);
     return (
         <>
             <div className="w-full  px-[30px] py-[5px] line-h-50 nav-bar h-[45px]">
 
                 <div className="inline-block  line-h-35 w-[100%] flex h-[35px]">
-                    {/*<p onClick={() => {*/}
-                    {/*    navigate(-1)*/}
-                    {/*}}>뒤로</p>*/}
+                    <p onClick={() => {
+                        navigate(result)
+                    }}>뒤로</p>
                     <button onClick={openHandler} className={"ml-auto"}>
                         <img className="w-7 h-7 " alt="menu" src={menu}/>
                     </button>
