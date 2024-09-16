@@ -17,8 +17,8 @@ function FieldContainer(props) {
 
     return (
         <div>
-            { menu  === "create" && <CreateNaver />}
-            {/*{ menu  === "create" && <Create />}*/}
+            {/*{ menu  === "create" && <CreateNaver />}*/}
+            { menu  === "create" && <Create />}
             { menu  === "list" && <List  />}
             { menu  === "private" && <Private  />}
             { menu  === "exp" && <Exp  />}
