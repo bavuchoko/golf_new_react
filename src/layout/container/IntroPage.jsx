@@ -3,8 +3,10 @@ import '../../intro.css';
 import Slider from "react-slick";
 import 'slick-carousel/slick/slick-theme.css';
 import 'slick-carousel/slick/slick.css'
-import {IntroButton, IntroButtonDouble, IntroContainer, IntroMessage} from "./style/StyleView";
+import {IntroButton, IntroButtonDouble, IntroContainer, IntroMessage, SideArrow} from "./style/StyleView";
 import {isLoggedIn} from "../../api/common/CommonMethod";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faChevronLeft, faChevronRight} from "@fortawesome/free-solid-svg-icons";
 
 const MyComponent = () => {
 
@@ -17,6 +19,10 @@ const MyComponent = () => {
     };
     return (
         <div>
+            <SideArrow>
+                <FontAwesomeIcon icon={faChevronLeft} className={`text-[#a9adb5] text-[20px] absolute left-[15px]`}/>
+                <FontAwesomeIcon icon={faChevronRight} className={`text-[#a9adb5] text-[20px] absolute right-[15px]`}/>
+            </SideArrow>
             <Slider {...settings}>
                 <IntroContainer isLoggedIn={isLoggedIn}>
                     <IntroMessage>

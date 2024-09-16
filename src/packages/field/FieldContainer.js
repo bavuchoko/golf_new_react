@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import {ActionButton, CategorySection} from "./style/style";
-import Create from "./Create";
 import List from "./List";
 import {useParams} from "react-router-dom";
 import Private from "./Private";
 import Exp from "./Exp";
+import CreateNaver from "./CreateNaver";
+import Create from "./Create";
 
 function FieldContainer(props) {
     const { action } = useParams();
@@ -16,7 +17,8 @@ function FieldContainer(props) {
 
     return (
         <div>
-            { menu  === "create" && <Create  />}
+            { menu  === "create" && <CreateNaver />}
+            {/*{ menu  === "create" && <Create />}*/}
             { menu  === "list" && <List  />}
             { menu  === "private" && <Private  />}
             { menu  === "exp" && <Exp  />}

@@ -106,3 +106,13 @@ export const IndicatorDot = styled.div.withConfig({
     margin-left: 5px;
     margin-right: 5px;
 `;
+export const SideArrow = styled.div`
+    position: absolute;
+    width: 100%;
+    @media screen and (min-height: 845px) {
+        top: 420px; /* 700 이상일 때 */
+    }
+    @media screen and (max-height: 844px) {
+        top: 330px;
+    }
+`;
