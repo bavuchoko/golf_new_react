@@ -202,7 +202,7 @@ function NowPlaying({data, user}) {
                         <PlayerDiv key={player.name} clicked={isHost && player.id === clickedPlayer.player.id}
                                    onClick={() => playerClickHandler(player.sheet)}>
                             {/*<p className={` ${isHost && player.id === clickedPlayer.player.id ?  'text-[18px] h-[35px] line-h-35 ' : 'text-[14px] h-[40px] line-h-40 '}`} >*/}
-                            <p className={`line-h-70  ${isHost && player.id === clickedPlayer.player.id ?  'text-[20px] h-[70px]  ' : 'text-[14px] h-[70px] '}`} >
+                            <p className={`line-h-70 font-bold  ${isHost && player.id === clickedPlayer.player.id ?  'text-[20px] h-[70px]  ' : 'text-[14px] h-[70px] '}`} >
                                 {player.name}
                             </p>
                             {/*<p className={`font-bold ${isHost && player.id === clickedPlayer.player.id ?  'text-[18px] h-[35px]' : 'text-[14px] h-[30px]'}`}>*/}

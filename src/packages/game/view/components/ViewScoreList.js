@@ -8,7 +8,7 @@ import Question from "../../../../resources/icons/question.png";
 
 function ViewScoreList({sheets, players, clickedPlayer, isHost, setClickedHole, field}) {
     const memos =useSelector(state => state.memo.data);
-    const [expand, setExpand ]=useState(false);
+    const [expand, setExpand ]=useState(true);
     const open =useSelector(state => state.opener);
     const dp =useDispatch();
     const courseMap = {};
@@ -75,7 +75,7 @@ function ViewScoreList({sheets, players, clickedPlayer, isHost, setClickedHole, 
                     {/*점수*/}
                     {organizeSheets[maxCourse].holes.reverse().map((hole, index) => (
                         <div key={`hole22_` + index}
-                             className={` grid grid-cols-5 ${index % 2 === 0 ? 'bg-odd' : 'bg-even'} ${expand || index===0 ? '':'hidden'}`}
+                             className={` grid grid-cols-5 ${index % 2 === 0 ? index===0? 'bg-blue-200': 'bg-odd' : 'bg-even'} ${expand || index===0 ? '':'hidden'}`}
                              onClick={() => setClickedHole({
                                  hole: hole.hole,
                                  course: hole.course
@@ -108,7 +108,9 @@ function ViewScoreList({sheets, players, clickedPlayer, isHost, setClickedHole, 
                         </div>
                     ))}
                     <div className={`mt-5 mb-1 text-[15px] `}>
-                    {!expand ? <p  onClick={()=>setExpand(true)}>전체 보기</p> : <p onClick={()=>setExpand(false)}>닫기</p>}
+                    {!expand ?
+                        <p  onClick={()=>setExpand(true)}>펼치기</p> :
+                        <p onClick={()=>setExpand(false)}>접기</p>}
                     </div>
                 </CurrentRound>
 
