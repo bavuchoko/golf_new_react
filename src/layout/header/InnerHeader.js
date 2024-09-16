@@ -39,9 +39,9 @@ function InnerHeader() {
             <div className="w-full  px-[30px] py-[5px] line-h-50 nav-bar h-[45px]">
 
                 <div className="inline-block  line-h-35 w-[100%] flex h-[35px]">
-                    <p onClick={() => {
-                        navigate(-1)
-                    }}>뒤로</p>
+                    {/*<p onClick={() => {*/}
+                    {/*    navigate(-1)*/}
+                    {/*}}>뒤로</p>*/}
                     <button onClick={openHandler} className={"ml-auto"}>
                         <img className="w-7 h-7 " alt="menu" src={menu}/>
                     </button>
