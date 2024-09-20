@@ -38,7 +38,7 @@ const MyComponent = () => {
                         <p className={`text-center`}>메모를 관리하세요</p>
                     </IntroMessage>
                     <IntroButtonDouble>
-                        <a href={"/field"} >구장 조회</a>
+                        <a href={"/field/list"} >구장 조회</a>
                         <a href={"/field/create"} >구장 등록</a>
                     </IntroButtonDouble>
                 </IntroContainer>
